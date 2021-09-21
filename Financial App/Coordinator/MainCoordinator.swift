@@ -18,6 +18,19 @@ class MainCoordinator: Coordinator {
     func start() {
         let vc = ViewController.instantiate()
         vc.coordinator = self
+        navigationController.pushViewController(vc, animated: false)
+    }
+    
+    func finhubDetail(ticker : String) {
+        let vc = TickDetail.instantiate()
+        vc.ticker = ticker
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func userAccount() {
+        let vc = UserAccount.instantiate()
+        vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
     
