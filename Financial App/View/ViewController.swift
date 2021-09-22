@@ -65,6 +65,7 @@ class ViewController: UITableViewController,Storyboarded {
         }
         
         cell.textLabel?.text = tickerSearch.symbol
+        cell.detailTextLabel?.text = tickerSearch.description
         
         return cell
         
@@ -107,9 +108,8 @@ class ViewController: UITableViewController,Storyboarded {
     
     @objc func searchController(_ sender: UIButton?) {
 
-            searchBar.isActive.toggle()
             searchBar.obscuresBackgroundDuringPresentation = false
-            searchBar.searchBar.placeholder = "Tickers"
+            searchBar.searchBar.placeholder = "Tickers,names"
             navigationItem.searchController = searchBar
             navigationItem.hidesSearchBarWhenScrolling = false
             definesPresentationContext = true
@@ -118,7 +118,7 @@ class ViewController: UITableViewController,Storyboarded {
     
     func filterContentForSearchText(_ searchText: String) {
         searchTicker = ticker.filter { (searchTick: SymbolCompany) -> Bool in
-        return searchTick.symbol.uppercased().contains(searchText.uppercased())
+            return searchTick.symbol.uppercased().contains(searchText.uppercased()) || searchTick.description.uppercased().contains(searchText.uppercased())
             
       }
       tableView.reloadData()
