@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BDA1F3F16171CFB100D6811D /* Pods_Financial_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43127A7A466B09382E177A66 /* Pods_Financial_App.framework */; };
+		C367B9A826FC72F60005CDD8 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367B9A726FC72F60005CDD8 /* GraphView.swift */; };
 		C36A7D4126F9D34400AF91C5 /* FinhubManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */; };
 		C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4226FA05C400AF91C5 /* TickDetail.swift */; };
 		C36A7D4526FA0F8800AF91C5 /* SpinerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4426FA0F8800AF91C5 /* SpinerViewController.swift */; };
@@ -56,6 +57,7 @@
 		8D9CBE3B0F6C9B1CAB745A37 /* Pods-Financial App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App.debug.xcconfig"; path = "Target Support Files/Pods-Financial App/Pods-Financial App.debug.xcconfig"; sourceTree = "<group>"; };
 		B75395B5E92058AC86BB9D8F /* Pods-Financial App-Financial AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BD62A926D830FF1ADACB6616 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C367B9A726FC72F60005CDD8 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubManager.swift; sourceTree = "<group>"; };
 		C36A7D4226FA05C400AF91C5 /* TickDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickDetail.swift; sourceTree = "<group>"; };
 		C36A7D4426FA0F8800AF91C5 /* SpinerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinerViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				C36A7D4226FA05C400AF91C5 /* TickDetail.swift */,
 				C36A7D4426FA0F8800AF91C5 /* SpinerViewController.swift */,
 				C36A7D4826FA24F000AF91C5 /* UserAccount.swift */,
+				C367B9A726FC72F60005CDD8 /* GraphView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */,
 				C39A410326F8D3D1007BD630 /* MainCoordinator.swift in Sources */,
 				C36A7D4126F9D34400AF91C5 /* FinhubManager.swift in Sources */,
+				C367B9A826FC72F60005CDD8 /* GraphView.swift in Sources */,
 				C36A7D4926FA24F000AF91C5 /* UserAccount.swift in Sources */,
 				C39A40CE26F8CE40007BD630 /* SceneDelegate.swift in Sources */,
 				C39A410526F8DAFB007BD630 /* Storyboarded.swift in Sources */,

@@ -11,7 +11,11 @@ class TickDetail: UIViewController, Storyboarded {
     
     var coordinator : MainCoordinator?
     var fm = FinhubManager()
-    var ticker : String?
+    
+    var graphPoints = [Double]()
+    
+    var ticker : String = ""
+        
     
     @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var highPrice: UILabel!
@@ -22,18 +26,24 @@ class TickDetail: UIViewController, Storyboarded {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var marketCap: UILabel!
     
+    @IBOutlet weak var graph: GraphView!
+    
+    @IBOutlet weak var graphHighPrice: UILabel!
+    @IBOutlet weak var graphLowPrice: UILabel!
+    @IBOutlet weak var graphMiddlePrice: UILabel!
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         configNavigator()
-
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-
-        fm.loadDataCompany(ticker: ticker ?? "") { [self] company in
+        
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        fm.loadDataCompany(ticker: self.ticker) { [self] company in
             DispatchQueue.main.async {
                 name.text = company.name
                 marketCap.text = String(company.marketCapitalization ?? 0.0)
@@ -42,28 +52,39 @@ class TickDetail: UIViewController, Storyboarded {
                 downloadImage(from: (url) ?? (noImage!))
             }
         }
-
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(graphUpdate), userInfo: nil, repeats: true)
+        
+        
         
     }
     
-    @objc func update() {
-        self.fm.loadQuote(ticker: self.ticker ?? "") { [self] quote in
-         DispatchQueue.main.async {
-             currentPrice.text = String(quote.c)
-             lowPrice.text = String(quote.l)
-             openPrice.text = String(quote.o)
-             highPrice.text = String(quote.h)
-            print("updated")
-         }
-     }
+    @objc func graphUpdate() {
+        graph.setNeedsDisplay()
     }
-
+    
+    @objc func update() {
+        self.fm.loadQuote(ticker: self.ticker) { [self] quote in
+            DispatchQueue.main.async {
+                currentPrice.text = String(quote.c)
+                lowPrice.text = String(quote.l)
+                openPrice.text = String(quote.o)
+                highPrice.text = String(quote.h)
+                graph.graphPoints.append(quote.c)
+                
+                graphHighPrice.text = highPrice.text
+                graphMiddlePrice.text = openPrice.text
+                graphLowPrice.text = lowPrice.text
+                print("updated")
+            }
+        }
+    }
+    
     
     func downloadImage(from url: URL) {
-
+        
         fm.getDataImage(from: url) { data, response, error in
             guard let data = data, error == nil else { return }
-
+            
             DispatchQueue.main.async() { [weak self] in
                 self?.logo.image = UIImage(data: data)
             }
@@ -85,5 +106,6 @@ class TickDetail: UIViewController, Storyboarded {
         
     }
 
-
+    
+    
 }

@@ -118,7 +118,7 @@ class ViewController: UITableViewController,Storyboarded {
     
     func filterContentForSearchText(_ searchText: String) {
         searchTicker = ticker.filter { (searchTick: SymbolCompany) -> Bool in
-            return searchTick.symbol.uppercased().contains(searchText.uppercased()) || searchTick.description.uppercased().contains(searchText.uppercased())
+            return searchTick.symbol.uppercased().contains(searchText.uppercased()) //|| searchTick.description.uppercased().contains(searchText.uppercased())
             
       }
       tableView.reloadData()
