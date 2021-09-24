@@ -7,27 +7,29 @@
 
 import UIKit
 
-private enum Constants {
-    static let margin: CGFloat = 20.0
-    static let topBorder: CGFloat = 60
-    static let bottomBorder: CGFloat = 50
-    static let colorAlpha: CGFloat = 0.3
-    static let circleDiameter: CGFloat = 5.0
-}
-
 
 @IBDesignable
 class GraphView: UIView {
     
-    var fm = FinhubManager()
-    
-    var startColor : UIColor = .white
-    var endColor : UIColor = .white
-    
-    var graphStartColor : UIColor = .green
-    var graphEndColor : UIColor = .white
-    
     var graphPoints = [Double]()
+    
+    private enum Constants {
+        static let margin: CGFloat = 150
+        static let topBorder: CGFloat = 146
+        static let bottomBorder: CGFloat = 146
+        static let colorAlpha: CGFloat = 0.3
+        static let circleDiameter: CGFloat = 5.0
+    }
+        
+    @IBInspectable var startColor : UIColor = .white
+    @IBInspectable var endColor : UIColor = .white
+    
+    @IBInspectable var graphStartColor : UIColor = .green
+    @IBInspectable var graphEndColor : UIColor = .white
+    
+//    var graphPoints = [145.1,145.3,145.6,145.1,145.2]
+    var topBorder : CGFloat = 0.0
+    var bottomBorder : CGFloat = 0.0
     
     var td = TickDetail()
 
@@ -69,16 +71,16 @@ class GraphView: UIView {
         
         //x point
         let margin = Constants.margin
-        let graphWidth = width - margin * 2.0 - 4.0
+        let graphWidth = width / 10 - (margin * 2.0 - 4.0)
         let columnXPoint = { (column: Double) -> CGFloat in
             // Calculate the gap between points
             let spacing = graphWidth / CGFloat(self.graphPoints.count - 1)
-            return CGFloat(column) * spacing + margin
+            return CGFloat(column) * spacing + margin + 2
         }
         //y point
-        let topBorder = Constants.topBorder
-        let bottomBorder = Constants.bottomBorder
-        let graphHeight = height - topBorder - bottomBorder
+        let topBorder = topBorder
+        let bottomBorder = bottomBorder
+        let graphHeight = height * 1000 - topBorder + bottomBorder
         guard let maxValue = graphPoints.max() else {
             return
         }
@@ -155,7 +157,7 @@ class GraphView: UIView {
         
         let linePath = UIBezierPath()
         linePath.lineWidth = 0.5
-        
+
         UIColor.lightGray.setStroke()
         for x in 0...splitCount {
             for y in 0...splitCount {
@@ -170,7 +172,7 @@ class GraphView: UIView {
                 }
             }
         }
-        
+
         func getPoint(_ rect: CGRect, x: CGFloat, y: CGFloat) -> CGPoint {
             let width = rect.width / CGFloat(splitCount)
             let height = rect.height / CGFloat(splitCount)

@@ -15,7 +15,9 @@ class TickDetail: UIViewController, Storyboarded {
     var graphPoints = [Double]()
     
     var ticker : String = ""
-        
+    
+    public static var tick = ""
+    
     
     @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var highPrice: UILabel!
@@ -35,12 +37,24 @@ class TickDetail: UIViewController, Storyboarded {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        configNavigator()
         
+        configNavigator()
+        webSocketTask.resume()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+//        let reason = "Closing connection".data(using: .utf8)
+//        webSocketTask.cancel(with: .goingAway, reason: reason)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        TickDetail.tick = ticker
+        
         
         Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         fm.loadDataCompany(ticker: self.ticker) { [self] company in
@@ -65,20 +79,28 @@ class TickDetail: UIViewController, Storyboarded {
     @objc func update() {
         self.fm.loadQuote(ticker: self.ticker) { [self] quote in
             DispatchQueue.main.async {
-                currentPrice.text = String(quote.c)
+//                currentPrice.text = String(quote.c)
                 lowPrice.text = String(quote.l)
                 openPrice.text = String(quote.o)
                 highPrice.text = String(quote.h)
-                graph.graphPoints.append(quote.c)
+                
+                graph.topBorder = CGFloat(quote.h)
+                graph.bottomBorder = CGFloat(quote.l)
+                
                 
                 graphHighPrice.text = highPrice.text
                 graphMiddlePrice.text = openPrice.text
                 graphLowPrice.text = lowPrice.text
-                print("updated")
             }
         }
+        WebSocket.shared.receiveData { (data) in
+            DispatchQueue.main.async {
+                self.graph.graphPoints.append(data?.data[0].p ?? 0.0)
+                self.currentPrice.text = String(data?.data[0].p ?? 0.0)
+            }
+            print(data?.data[0].p)
+        }
     }
-    
     
     func downloadImage(from url: URL) {
         
@@ -105,7 +127,5 @@ class TickDetail: UIViewController, Storyboarded {
         nav?.tintColor = .darkGray
         
     }
-
-    
     
 }

@@ -26,6 +26,7 @@ class ViewController: UITableViewController,Storyboarded {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         configNavigator()
         fm.loadSybmbolCompany { symbol in
             self.ticker = symbol
@@ -33,11 +34,11 @@ class ViewController: UITableViewController,Storyboarded {
                     self.tableView.reloadData()
                 }
         }
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
 
         tableView.delegate = self
         tableView.dataSource = self
@@ -123,7 +124,7 @@ class ViewController: UITableViewController,Storyboarded {
       }
       tableView.reloadData()
     }
-    
+        
 }
 
 
