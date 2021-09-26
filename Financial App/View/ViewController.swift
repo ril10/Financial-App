@@ -9,32 +9,38 @@ import UIKit
 
 class ViewController: UITableViewController,Storyboarded {
 
+    private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
     var fm = FinhubManager()
     
-    var ticker = [SymbolCompany]()
-    var searchTicker = [SymbolCompany]()
     
-    let searchBar = UISearchController(searchResultsController: nil)
     
-    var isSearchBarEmpty: Bool {
-      return searchBar.searchBar.text?.isEmpty ?? true
+   var favoriteSymbol = [Result]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
-    var isFiltering: Bool {
-      return searchBar.isActive && !isSearchBarEmpty
+    
+    var searchResult = [Result]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    private func registerTableViewCells() {
+        let textFieldCell = UINib(nibName: "CustomTableViewCell",
+                                  bundle: nil)
+        self.tableView.register(textFieldCell,
+                                forCellReuseIdentifier: "CustomTableViewCell")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         configNavigator()
-        fm.loadSybmbolCompany { symbol in
-            self.ticker = symbol
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-        }
-
     }
     
     override func viewDidLoad() {
@@ -42,47 +48,69 @@ class ViewController: UITableViewController,Storyboarded {
 
         tableView.delegate = self
         tableView.dataSource = self
+        self.registerTableViewCells()
+        setupSearchBar()
+        favoriteSymbol.append(Result(description: "Apple INC", displaySymbol: "AAPL", symbol: "AAPL", type: ""))
 
-        searchBar.searchResultsUpdater = self
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
         
+    }
+    
+    private func setupSearchBar() {
+        searchController.searchBar.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "Tick and name"
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering {
-            return searchTicker.count
+        if searchController.isActive {
+            return searchResult.count
+        } else {
+            return favoriteSymbol.count
         }
-        return ticker.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-
-        let tickerSearch : SymbolCompany
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
         
-        if isFiltering {
-            tickerSearch = searchTicker[indexPath.row]
+                
+        let favTick : Result
+        
+        if searchController.isActive {
+            favTick = searchResult[indexPath.row]
         } else {
-            tickerSearch = ticker[indexPath.row]
+            favTick = favoriteSymbol[indexPath.row]
         }
         
-        cell.textLabel?.text = tickerSearch.symbol
-        cell.detailTextLabel?.text = tickerSearch.description
+        fm.loadQuote(ticker: favTick.symbol) { quote in
+            DispatchQueue.main.async {
+                cell.currentPrice.text = String(quote.c)
+                
+            }
+        }
+                
+        cell.symbol.text = favTick.symbol
+        cell.companyName.text = favTick.description
         
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let favTick : Result
         
-        let tickerSearch : SymbolCompany
-        
-        if isFiltering {
-            tickerSearch = searchTicker[indexPath.row]
+        if searchController.isActive {
+            favTick = searchResult[indexPath.row]
         } else {
-            tickerSearch = ticker[indexPath.row]
+            favTick = favoriteSymbol[indexPath.row]
         }
         
-        coordinator?.finhubDetail(ticker: tickerSearch.symbol)
+        coordinator?.finhubDetail(ticker: favTick.symbol)
     }
     
     func configNavigator() {
@@ -98,7 +126,6 @@ class ViewController: UITableViewController,Storyboarded {
         nav?.topItem?.title = "Main"
         nav?.tintColor = .darkGray
         
-        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(ViewController.searchController(_:)) ), animated: true)
         self.navigationItem.setLeftBarButton(UIBarButtonItem(image: UIImage(systemName: "person.fill"), style: .plain, target: self, action: #selector(ViewController.userAccount(_:))), animated: true)
         
     }
@@ -106,25 +133,32 @@ class ViewController: UITableViewController,Storyboarded {
     @objc func userAccount(_ sender: UIButton?) {
         coordinator?.userAccount()
     }
-    
-    @objc func searchController(_ sender: UIButton?) {
-
-            searchBar.obscuresBackgroundDuringPresentation = false
-            searchBar.searchBar.placeholder = "Tickers,names"
-            navigationItem.searchController = searchBar
-            navigationItem.hidesSearchBarWhenScrolling = false
-            definesPresentationContext = true
-        
-    }
-    
-    func filterContentForSearchText(_ searchText: String) {
-        searchTicker = ticker.filter { (searchTick: SymbolCompany) -> Bool in
-            return searchTick.symbol.uppercased().contains(searchText.uppercased()) //|| searchTick.description.uppercased().contains(searchText.uppercased())
             
-      }
-      tableView.reloadData()
-    }
+}
+
+extension ViewController : UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchResult.removeAll()
         
+        guard let textToSearch = searchBar.text, !textToSearch.isEmpty else {
+            return
+        }
+        searchResults(text: textToSearch)
+    }
+    
+    func searchResults(text: String) {
+        DispatchQueue.main.async {
+            self.fm.searchFinhub(search: text) { result in
+                self.searchResult = result.result
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchResult.removeAll()
+    }
+    
 }
 
 

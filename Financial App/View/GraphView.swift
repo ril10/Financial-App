@@ -80,7 +80,7 @@ class GraphView: UIView {
         //y point
         let topBorder = topBorder
         let bottomBorder = bottomBorder
-        let graphHeight = height * 1000 - topBorder + bottomBorder
+        let graphHeight = height * 100// - topBorder + bottomBorder
         guard let maxValue = graphPoints.max() else {
             return
         }
