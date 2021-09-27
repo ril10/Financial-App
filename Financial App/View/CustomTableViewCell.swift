@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class CustomTableViewCell: UITableViewCell {
     
@@ -15,9 +16,13 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var changePrice: UILabel!
     @IBOutlet weak var starButton: UIButton!
     
-    private var isFavorite : Bool!
+    var isFavorite : Bool?
     
-    var favoriteList = [Result]()
+    var favoriteList = [Favorite]()
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
     
     @IBAction func addToFavorite(_ sender: UIButton) {
         
@@ -29,13 +34,18 @@ class CustomTableViewCell: UITableViewCell {
             self.isFavorite = false
         }
         
-        if isFavorite {
-            
-            print("Is fav")
+        if isFavorite! {
+            let favorite = Favorite(context: self.context)
+            favorite.name = companyName.text
+            favorite.symbol = symbol.text
+            favorite.isFavorite = true
+            favorite.currentPrice = currentPrice.text
+            favoriteList.append(favorite)
+            self.saveList()
         } else {
-            
-            print("it's not")
+            self.deleteFromFavorite()
         }
+        
         
     }
     
@@ -44,12 +54,46 @@ class CustomTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         
         // Configure the view for the selected state
     }
-
+    
+    //MARK: - Model Manupulation Methods
+    func saveList() {
+        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        request.predicate = NSPredicate(format: "symbol== %@", symbol.text!)
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                print("Error saving context \(error)")
+            }
+        }
+    }
+    
+    func deleteFromFavorite() {
+        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        request.predicate = NSPredicate(format: "symbol== %@", symbol.text!)
+        if let result = try? context.fetch(request) {
+            for object in result {
+                if object.symbol == symbol.text {
+                    context.delete(object)
+                }
+            }
+        }
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+    
 }
+
+

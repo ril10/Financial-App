@@ -6,30 +6,19 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UITableViewController,Storyboarded {
+    
 
     private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
     var fm = FinhubManager()
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    var favoriteList = [Favorite]()
     
-   var favoriteSymbol = [Result]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    var searchResult = [Result]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
     
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "CustomTableViewCell",
@@ -40,8 +29,10 @@ class ViewController: UITableViewController,Storyboarded {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        loadList()
         configNavigator()
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +41,6 @@ class ViewController: UITableViewController,Storyboarded {
         tableView.dataSource = self
         self.registerTableViewCells()
         setupSearchBar()
-        favoriteSymbol.append(Result(description: "Apple INC", displaySymbol: "AAPL", symbol: "AAPL", type: ""))
-
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
@@ -67,50 +56,38 @@ class ViewController: UITableViewController,Storyboarded {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive {
-            return searchResult.count
-        } else {
-            return favoriteSymbol.count
-        }
+
+            return favoriteList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
         
-                
-        let favTick : Result
         
-        if searchController.isActive {
-            favTick = searchResult[indexPath.row]
-        } else {
-            favTick = favoriteSymbol[indexPath.row]
-        }
-        
-        fm.loadQuote(ticker: favTick.symbol) { quote in
+        fm.loadQuote(ticker: favoriteList[indexPath.row].symbol!) { quote in
             DispatchQueue.main.async {
                 cell.currentPrice.text = String(quote.c)
                 
             }
         }
-                
-        cell.symbol.text = favTick.symbol
-        cell.companyName.text = favTick.description
+
+        cell.symbol.text = favoriteList[indexPath.row].symbol
+        cell.companyName.text = favoriteList[indexPath.row].name
+        
+        if favoriteList[indexPath.row].isFavorite {
+            cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        } else {
+            cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
+            
+        }
         
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let favTick : Result
         
-        if searchController.isActive {
-            favTick = searchResult[indexPath.row]
-        } else {
-            favTick = favoriteSymbol[indexPath.row]
-        }
-        
-        coordinator?.finhubDetail(ticker: favTick.symbol)
+        coordinator?.finhubDetail(ticker: favoriteList[indexPath.row].symbol!)
     }
     
     func configNavigator() {
@@ -133,30 +110,43 @@ class ViewController: UITableViewController,Storyboarded {
     @objc func userAccount(_ sender: UIButton?) {
         coordinator?.userAccount()
     }
+    
+    //MARK: - Data Manipulation Methods
+    
+    func saveList() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving category \(error)")
+        }
+        
+        tableView.reloadData()
+        
+    }
+    
+    func loadList() {
+        
+        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        
+        do{
+            favoriteList = try context.fetch(request)
+        } catch {
+            print("Error loading categories \(error)")
+        }
+       
+        tableView.reloadData()
+        
+    }
+    
             
 }
 
 extension ViewController : UISearchBarDelegate {
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchResult.removeAll()
-        
-        guard let textToSearch = searchBar.text, !textToSearch.isEmpty else {
-            return
-        }
-        searchResults(text: textToSearch)
-    }
-    
-    func searchResults(text: String) {
-        DispatchQueue.main.async {
-            self.fm.searchFinhub(search: text) { result in
-                self.searchResult = result.result
-            }
-        }
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchResult.removeAll()
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        coordinator?.searchController()
+        searchBar.setShowsCancelButton(false, animated: true)
+        return false
     }
     
 }

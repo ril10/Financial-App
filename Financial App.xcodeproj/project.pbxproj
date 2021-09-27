@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		BDA1F3F16171CFB100D6811D /* Pods_Financial_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43127A7A466B09382E177A66 /* Pods_Financial_App.framework */; };
+		C345C5822701BEAC008616CF /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C5812701BEAC008616CF /* SearchController.swift */; };
 		C367B9A826FC72F60005CDD8 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367B9A726FC72F60005CDD8 /* GraphView.swift */; };
 		C36A7D4126F9D34400AF91C5 /* FinhubManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */; };
 		C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4226FA05C400AF91C5 /* TickDetail.swift */; };
-		C36A7D4526FA0F8800AF91C5 /* SpinerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4426FA0F8800AF91C5 /* SpinerViewController.swift */; };
-		C36A7D4726FA112A00AF91C5 /* SpinnerLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4626FA112A00AF91C5 /* SpinnerLoading.swift */; };
 		C36A7D4926FA24F000AF91C5 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4826FA24F000AF91C5 /* UserAccount.swift */; };
 		C39A40CC26F8CE40007BD630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CB26F8CE40007BD630 /* AppDelegate.swift */; };
 		C39A40CE26F8CE40007BD630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CD26F8CE40007BD630 /* SceneDelegate.swift */; };
@@ -62,11 +61,10 @@
 		8D9CBE3B0F6C9B1CAB745A37 /* Pods-Financial App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App.debug.xcconfig"; path = "Target Support Files/Pods-Financial App/Pods-Financial App.debug.xcconfig"; sourceTree = "<group>"; };
 		B75395B5E92058AC86BB9D8F /* Pods-Financial App-Financial AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BD62A926D830FF1ADACB6616 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		C345C5812701BEAC008616CF /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		C367B9A726FC72F60005CDD8 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubManager.swift; sourceTree = "<group>"; };
 		C36A7D4226FA05C400AF91C5 /* TickDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickDetail.swift; sourceTree = "<group>"; };
-		C36A7D4426FA0F8800AF91C5 /* SpinerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinerViewController.swift; sourceTree = "<group>"; };
-		C36A7D4626FA112A00AF91C5 /* SpinnerLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerLoading.swift; sourceTree = "<group>"; };
 		C36A7D4826FA24F000AF91C5 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		C39A40C826F8CE40007BD630 /* Financial App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Financial App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39A40CB26F8CE40007BD630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -213,7 +211,6 @@
 			isa = PBXGroup;
 			children = (
 				C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */,
-				C36A7D4626FA112A00AF91C5 /* SpinnerLoading.swift */,
 				C3E53E6126FDBBC9009EF2B5 /* WebsocketManager.swift */,
 			);
 			path = ModelView;
@@ -224,10 +221,10 @@
 			children = (
 				C39A40CF26F8CE40007BD630 /* ViewController.swift */,
 				C36A7D4226FA05C400AF91C5 /* TickDetail.swift */,
-				C36A7D4426FA0F8800AF91C5 /* SpinerViewController.swift */,
 				C36A7D4826FA24F000AF91C5 /* UserAccount.swift */,
 				C367B9A726FC72F60005CDD8 /* GraphView.swift */,
 				CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */,
+				C345C5812701BEAC008616CF /* SearchController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -503,8 +500,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C36A7D4726FA112A00AF91C5 /* SpinnerLoading.swift in Sources */,
 				C39A410126F8D370007BD630 /* Coordinator.swift in Sources */,
+				C345C5822701BEAC008616CF /* SearchController.swift in Sources */,
 				C39A410726F8DE96007BD630 /* FinhubData.swift in Sources */,
 				C3E53E6426FDFA64009EF2B5 /* WebstockTrades.swift in Sources */,
 				C39A40D026F8CE40007BD630 /* ViewController.swift in Sources */,
@@ -520,7 +517,6 @@
 				C36A7D4926FA24F000AF91C5 /* UserAccount.swift in Sources */,
 				C39A40CE26F8CE40007BD630 /* SceneDelegate.swift in Sources */,
 				C39A410526F8DAFB007BD630 /* Storyboarded.swift in Sources */,
-				C36A7D4526FA0F8800AF91C5 /* SpinerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
