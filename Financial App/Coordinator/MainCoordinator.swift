@@ -21,6 +21,10 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
+    func dismiss() {
+        navigationController.dismiss(animated: true, completion: nil)
+    }
+    
     func finhubDetail(ticker : String) {
         let vc = TickDetail.instantiate()
         vc.ticker = ticker
@@ -37,7 +41,7 @@ class MainCoordinator: Coordinator {
     func searchController() {
         let vc = SearchController.instantiate()
         vc.coordinator = self
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.present(vc, animated: true, completion: nil)
     }
     
 }

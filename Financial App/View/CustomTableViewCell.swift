@@ -8,6 +8,10 @@
 import UIKit
 import CoreData
 
+protocol CustomCellUpdate : AnyObject {
+    func updateTableView()
+}
+
 class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var symbol: UILabel!
@@ -15,6 +19,8 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var changePrice: UILabel!
     @IBOutlet weak var starButton: UIButton!
+    
+    weak var delegate : CustomCellUpdate?
     
     var isFavorite : Bool?
     
@@ -32,6 +38,7 @@ class CustomTableViewCell: UITableViewCell {
         } else {
             starButton.setImage(UIImage(systemName: "star"), for: .normal)
             self.isFavorite = false
+            
         }
         
         if isFavorite! {
@@ -42,13 +49,18 @@ class CustomTableViewCell: UITableViewCell {
             favorite.currentPrice = currentPrice.text
             favoriteList.append(favorite)
             self.saveList()
+            self.updateTableView()
         } else {
             self.deleteFromFavorite()
+            self.updateTableView()
         }
         
         
     }
     
+    func updateTableView() {
+        delegate?.updateTableView()
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,8 +69,7 @@ class CustomTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        
+    
         // Configure the view for the selected state
     }
     

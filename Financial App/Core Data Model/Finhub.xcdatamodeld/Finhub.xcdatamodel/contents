@@ -11,7 +11,15 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
+    <entity name="Lots" representedClassName="Lots" syncable="YES" codeGenerationType="class">
+        <attribute name="costLots" optional="YES" attributeType="String"/>
+        <attribute name="count" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="symbol" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
-        <element name="Favorite" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="Favorite" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="Lots" positionX="-54" positionY="18" width="128" height="104"/>
     </elements>
 </model>

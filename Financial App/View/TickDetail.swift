@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import CoreData
 
 class TickDetail: UIViewController, Storyboarded {
     
     var coordinator : MainCoordinator?
     var fm = FinhubManager()
+    
+    var favoriteList = [Favorite]()
+    
+    var listLots = [Lots]()
     
     var graphPoints = [Double]()
     
@@ -18,6 +23,7 @@ class TickDetail: UIViewController, Storyboarded {
     
     public static var tick = ""
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var highPrice: UILabel!
@@ -126,6 +132,59 @@ class TickDetail: UIViewController, Storyboarded {
         nav?.topItem?.title = ticker
         nav?.tintColor = .darkGray
         
+        self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(favoite)), animated: true)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buyLots)), animated: true)
+    }
+    
+    @objc func favoite() {
+
+    }
+    
+    @objc func buyLots() {
+        
+        let currentTime = Date()
+        
+        var countTextField = UITextField()
+        var priceLoat = UITextField()
+        
+        let alert = UIAlertController(title: "Save lot", message: "Here you can save lots that you bought", preferredStyle: .alert)
+        
+        let uuid = UUID().uuidString
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            let newLot = Lots(context: self.context)
+            newLot.symbol = self.name.text
+            newLot.costLots = self.currentPrice.text
+            newLot.count = countTextField.text!
+            newLot.date = currentTime
+            newLot.id = uuid
+            self.listLots.append(newLot)
+            self.saveLoats()
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Price of loat"
+            priceLoat = alertTextField
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Count of lots"
+            countTextField = alertTextField
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    //MARK: - Model Manupulation Methods
+    func saveLoats() {
+
+        do {
+          try context.save()
+        } catch {
+           print("Error saving context \(error)")
+        }
+
     }
     
 }

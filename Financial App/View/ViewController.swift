@@ -8,9 +8,8 @@
 import UIKit
 import CoreData
 
-class ViewController: UITableViewController,Storyboarded {
+class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
     
-
     private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
     var fm = FinhubManager()
@@ -29,7 +28,11 @@ class ViewController: UITableViewController,Storyboarded {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         loadList()
+        
+        tableView.reloadData()
+        
         configNavigator()
     }
     
@@ -40,7 +43,9 @@ class ViewController: UITableViewController,Storyboarded {
         tableView.delegate = self
         tableView.dataSource = self
         self.registerTableViewCells()
+        
         setupSearchBar()
+        
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
@@ -54,17 +59,26 @@ class ViewController: UITableViewController,Storyboarded {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
+    
+    func updateTableView() {
+        tableView.reloadData()
+        saveList()
+    }
 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
             return favoriteList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
         
         
-        fm.loadQuote(ticker: favoriteList[indexPath.row].symbol!) { quote in
+        fm.loadQuote(ticker: favoriteList[indexPath.row].symbol ?? "No Symbol") { quote in
             DispatchQueue.main.async {
                 cell.currentPrice.text = String(quote.c)
                 
@@ -73,14 +87,13 @@ class ViewController: UITableViewController,Storyboarded {
 
         cell.symbol.text = favoriteList[indexPath.row].symbol
         cell.companyName.text = favoriteList[indexPath.row].name
-        
         if favoriteList[indexPath.row].isFavorite {
             cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
         } else {
             cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
-            
         }
         
+        cell.delegate = self
         return cell
         
     }

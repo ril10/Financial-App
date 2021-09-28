@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class SearchController: UITableViewController,Storyboarded {
+class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -77,15 +77,21 @@ class SearchController: UITableViewController,Storyboarded {
         
         cell.symbol.text = searchResult[indexPath.row].symbol
         cell.companyName.text = searchResult[indexPath.row].description
-
+        cell.delegate = self
     
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         coordinator?.finhubDetail(ticker: searchResult[indexPath.row].symbol)
+        coordinator?.dismiss()
     }
     
+    func updateTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
     //MARK: - Model Manupulation Methods
     func saveItems() {
         
@@ -121,6 +127,8 @@ extension SearchController : UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchResult.removeAll()
+        coordinator?.dismiss()
+        saveItems()
     }
     
     

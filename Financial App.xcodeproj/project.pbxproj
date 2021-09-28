@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		BDA1F3F16171CFB100D6811D /* Pods_Financial_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43127A7A466B09382E177A66 /* Pods_Financial_App.framework */; };
 		C345C5822701BEAC008616CF /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C5812701BEAC008616CF /* SearchController.swift */; };
+		C36645D72703319600B8410E /* LotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36645D62703319600B8410E /* LotsCell.xib */; };
+		C36645D9270333AB00B8410E /* LotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36645D8270333AB00B8410E /* LotsCell.swift */; };
 		C367B9A826FC72F60005CDD8 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367B9A726FC72F60005CDD8 /* GraphView.swift */; };
 		C36A7D4126F9D34400AF91C5 /* FinhubManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */; };
 		C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4226FA05C400AF91C5 /* TickDetail.swift */; };
@@ -62,6 +64,8 @@
 		B75395B5E92058AC86BB9D8F /* Pods-Financial App-Financial AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BD62A926D830FF1ADACB6616 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C345C5812701BEAC008616CF /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		C36645D62703319600B8410E /* LotsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LotsCell.xib; sourceTree = "<group>"; };
+		C36645D8270333AB00B8410E /* LotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotsCell.swift; sourceTree = "<group>"; };
 		C367B9A726FC72F60005CDD8 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubManager.swift; sourceTree = "<group>"; };
 		C36A7D4226FA05C400AF91C5 /* TickDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickDetail.swift; sourceTree = "<group>"; };
@@ -225,6 +229,7 @@
 				C367B9A726FC72F60005CDD8 /* GraphView.swift */,
 				CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */,
 				C345C5812701BEAC008616CF /* SearchController.swift */,
+				C36645D8270333AB00B8410E /* LotsCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 				C39A40CD26F8CE40007BD630 /* SceneDelegate.swift */,
 				C39A40D126F8CE40007BD630 /* Main.storyboard */,
 				CD38B2CF26FF46D700307CB6 /* CustomTableViewCell.xib */,
+				C36645D62703319600B8410E /* LotsCell.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -372,6 +378,7 @@
 				C39A40D826F8CE42007BD630 /* LaunchScreen.storyboard in Resources */,
 				C39A40D526F8CE42007BD630 /* Assets.xcassets in Resources */,
 				CD38B2D026FF46D700307CB6 /* CustomTableViewCell.xib in Resources */,
+				C36645D72703319600B8410E /* LotsCell.xib in Resources */,
 				C39A40D326F8CE40007BD630 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -503,6 +510,7 @@
 				C39A410126F8D370007BD630 /* Coordinator.swift in Sources */,
 				C345C5822701BEAC008616CF /* SearchController.swift in Sources */,
 				C39A410726F8DE96007BD630 /* FinhubData.swift in Sources */,
+				C36645D9270333AB00B8410E /* LotsCell.swift in Sources */,
 				C3E53E6426FDFA64009EF2B5 /* WebstockTrades.swift in Sources */,
 				C39A40D026F8CE40007BD630 /* ViewController.swift in Sources */,
 				C3E53E6226FDBBC9009EF2B5 /* WebsocketManager.swift in Sources */,
