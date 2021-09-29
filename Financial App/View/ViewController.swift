@@ -117,7 +117,28 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         nav?.tintColor = .darkGray
         
         self.navigationItem.setLeftBarButton(UIBarButtonItem(image: UIImage(systemName: "person.fill"), style: .plain, target: self, action: #selector(ViewController.userAccount(_:))), animated: true)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createList(_:))), animated: true)
         
+    }
+    
+    @objc func createList(_ sender: UIButton?) {
+        
+        var listTextField = UITextField()
+        
+        let alert = UIAlertController(title: "Create List", message: "Create new list for your tickers", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add list", style: .default) { (action) in
+            
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Type name of your list"
+            listTextField = alertTextField
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func userAccount(_ sender: UIButton?) {

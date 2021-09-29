@@ -5,11 +5,16 @@
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
+        <relationship name="parentList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="list" inverseEntity="List"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="symbol"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
+    </entity>
+    <entity name="List" representedClassName="List" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Favorite" inverseName="parentList" inverseEntity="Favorite"/>
     </entity>
     <entity name="Lots" representedClassName="Lots" syncable="YES" codeGenerationType="class">
         <attribute name="costLots" optional="YES" attributeType="String"/>
@@ -19,7 +24,8 @@
         <attribute name="symbol" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Favorite" positionX="-63" positionY="-18" width="128" height="89"/>
+        <element name="Favorite" positionX="-63" positionY="-18" width="128" height="104"/>
         <element name="Lots" positionX="-54" positionY="18" width="128" height="104"/>
+        <element name="List" positionX="-54" positionY="36" width="128" height="59"/>
     </elements>
 </model>
