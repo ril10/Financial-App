@@ -21,7 +21,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var starButton: UIButton!
     
     weak var delegate : CustomCellUpdate?
-    
+        
     var isFavorite : Bool?
     
     var favoriteList = [Favorite]()
@@ -38,24 +38,14 @@ class CustomTableViewCell: UITableViewCell {
         } else {
             starButton.setImage(UIImage(systemName: "star"), for: .normal)
             self.isFavorite = false
-            
         }
         
         if isFavorite! {
-            let favorite = Favorite(context: self.context)
-            favorite.name = companyName.text
-            favorite.symbol = symbol.text
-            favorite.isFavorite = true
-            favorite.currentPrice = currentPrice.text
-            favoriteList.append(favorite)
-            self.saveList()
-            self.updateTableView()
+            updateTableView()
         } else {
-            self.deleteFromFavorite()
-            self.updateTableView()
+            deleteFromFavorite()
         }
-        
-        
+ 
     }
     
     func updateTableView() {

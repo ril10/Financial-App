@@ -52,8 +52,6 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         let formatedDate = formatter.string(from: time ?? Date())
         
         
-        cell.date.sizeToFit()
-        
         cell.symbolName.text = myLots[indexPath.row].symbol
         cell.loatCost.text = myLots[indexPath.row].costLots
         cell.countCost.text = myLots[indexPath.row].count
@@ -76,7 +74,7 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
 
         let request : NSFetchRequest<Lots> = Lots.fetchRequest()
 
-        do{
+        do {
             myLots = try context.fetch(request)
         } catch {
             print("Error loading categories \(error)")
@@ -86,11 +84,7 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
 
     }
     
-
-    
-    
-    
-    //MARK: -NavBarSetup
+    //MARK: - NavBarSetup
     func setupNavigator() {
         
         let nav = self.navigationController?.navigationBar

@@ -15,8 +15,11 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
     var fm = FinhubManager()
-    var favoriteList = [Favorite]()
-
+    
+    var symbol : String?
+    var companyName : String?
+    var currentPrice : String?
+    var changePrice : String?
     
     var searchResult = [Result]() {
         didSet {
@@ -33,11 +36,6 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
                                 forCellReuseIdentifier: "CustomTableViewCell")
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -46,6 +44,7 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         setupSearchBar()
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        
 
     }
     private func setupSearchBar() {
@@ -77,20 +76,26 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         
         cell.symbol.text = searchResult[indexPath.row].symbol
         cell.companyName.text = searchResult[indexPath.row].description
+        
+        symbol = cell.symbol.text
+        companyName = cell.companyName.text
+        currentPrice = cell.currentPrice.text
+        changePrice = cell.changePrice.text
+        
         cell.delegate = self
-    
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         coordinator?.finhubDetail(ticker: searchResult[indexPath.row].symbol)
         coordinator?.dismiss()
     }
     
     func updateTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        coordinator?.listController(symbol: symbol!, companyName: companyName!, currentPrice: currentPrice!, changePrice: changePrice!)
+        coordinator?.dismiss()
     }
     //MARK: - Model Manupulation Methods
     func saveItems() {

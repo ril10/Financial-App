@@ -16,7 +16,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    var lists = [List]()
+    var list = [List]()
     var favoriteList = [Favorite]()
     
     
@@ -30,7 +30,9 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        loadList()
+        loadListSection()
+        
+        loadListData()
         
         tableView.reloadData()
         
@@ -40,7 +42,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         self.registerTableViewCells()
@@ -51,7 +53,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         definesPresentationContext = true
         
     }
-    
+    //MARK: -Setup SearchBar
     private func setupSearchBar() {
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -60,24 +62,24 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
-    
+    //MARK: -TableView
     func updateTableView() {
         tableView.reloadData()
     }
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return lists.count
+        return list.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return lists[section].name
+        return list[section].name
         
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-            return favoriteList.count
+        
+        return favoriteList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,7 +95,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
                 
             }
         }
-
+        
         cell.symbol.text = favoriteList[indexPath.row].symbol
         cell.companyName.text = favoriteList[indexPath.row].name
         if favoriteList[indexPath.row].isFavorite {
@@ -108,10 +110,10 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         coordinator?.finhubDetail(ticker: favoriteList[indexPath.row].symbol!)
     }
     
+    //MARK: - Config NavBar
     func configNavigator() {
         let nav = self.navigationController?.navigationBar
         
@@ -140,7 +142,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
             
             let newList = List(context: self.context)
             newList.name = listTextField.text
-            self.lists.append(newList)
+            self.list.append(newList)
             self.saveList()
             
         }
@@ -172,21 +174,35 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         
     }
     
-    func loadList() {
+    func loadListData() {
         
         let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
         
-        do{
+        do {
             favoriteList = try context.fetch(request)
         } catch {
             print("Error loading categories \(error)")
         }
-       
+        
         tableView.reloadData()
         
     }
     
-            
+    func loadListSection () {
+        
+        let request : NSFetchRequest<List> = List.fetchRequest()
+        
+        do {
+            list = try context.fetch(request)
+        } catch {
+            print("Error loading lists \(error)")
+        }
+        
+        tableView.reloadData()
+        
+    }
+    
+    
 }
 
 extension ViewController : UISearchBarDelegate {

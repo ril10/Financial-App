@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Favorite" representedClassName="Favorite" syncable="YES" codeGenerationType="class">
+    <entity name="Favorite" representedClassName=".Favorite" syncable="YES" codeGenerationType="class">
         <attribute name="currentPrice" optional="YES" attributeType="String"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -12,9 +12,9 @@
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
-    <entity name="List" representedClassName="List" syncable="YES" codeGenerationType="class">
+    <entity name="List" representedClassName=".List" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Favorite" inverseName="parentList" inverseEntity="Favorite"/>
+        <relationship name="list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Favorite" inverseName="parentList" inverseEntity="Favorite"/>
     </entity>
     <entity name="Lots" representedClassName="Lots" syncable="YES" codeGenerationType="class">
         <attribute name="costLots" optional="YES" attributeType="String"/>
@@ -24,8 +24,8 @@
         <attribute name="symbol" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Favorite" positionX="-63" positionY="-18" width="128" height="104"/>
-        <element name="Lots" positionX="-54" positionY="18" width="128" height="104"/>
-        <element name="List" positionX="-54" positionY="36" width="128" height="59"/>
+        <element name="Favorite" positionX="-280.279296875" positionY="-197.7346038818359" width="128" height="118"/>
+        <element name="List" positionX="-178.4007568359375" positionY="46.35333251953125" width="128" height="73"/>
+        <element name="Lots" positionX="-244.68994140625" positionY="265.1319274902344" width="128" height="104"/>
     </elements>
 </model>
