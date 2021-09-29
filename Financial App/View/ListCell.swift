@@ -28,8 +28,8 @@ class ListCell: UITableViewCell {
     var currentPrice : String!
     var changePrice : String!
     
-    var list : List?
     var favoriteList = [Favorite]()
+    var list : List?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -83,5 +83,4 @@ class ListCell: UITableViewCell {
             }
         }
     }
-    
 }

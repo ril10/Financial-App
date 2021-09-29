@@ -9,7 +9,11 @@ import UIKit
 import CoreData
 
 protocol CustomCellUpdate : AnyObject {
-    func updateTableView()
+    func updateTableView(symbol : String, companyName : String, currentPrice : String, changePrice : String)
+}
+
+protocol UpdateTableView : AnyObject {
+    func tableViewReload()
 }
 
 class CustomTableViewCell: UITableViewCell {
@@ -21,7 +25,8 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var starButton: UIButton!
     
     weak var delegate : CustomCellUpdate?
-        
+    weak var mainDelegate : UpdateTableView?
+            
     var isFavorite : Bool?
     
     var favoriteList = [Favorite]()
@@ -43,13 +48,18 @@ class CustomTableViewCell: UITableViewCell {
         if isFavorite! {
             updateTableView()
         } else {
+            tableViewReload()
             deleteFromFavorite()
         }
  
     }
     
+    func tableViewReload() {
+        mainDelegate?.tableViewReload()
+    }
+    
     func updateTableView() {
-        delegate?.updateTableView()
+        delegate?.updateTableView(symbol: symbol.text!, companyName: companyName.text!, currentPrice: currentPrice.text!, changePrice: changePrice.text!)
     }
     
     override func awakeFromNib() {

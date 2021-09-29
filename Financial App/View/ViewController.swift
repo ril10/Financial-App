@@ -8,7 +8,8 @@
 import UIKit
 import CoreData
 
-class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
+class ViewController: UITableViewController,Storyboarded,UpdateTableView {
+
     
     private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
@@ -27,14 +28,13 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
                                 forCellReuseIdentifier: "CustomTableViewCell")
     }
     
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         loadListSection()
         
         loadListData()
-        
-        tableView.reloadData()
         
         configNavigator()
     }
@@ -53,7 +53,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         definesPresentationContext = true
         
     }
-    //MARK: -Setup SearchBar
+    //MARK: - Setup SearchBar
     private func setupSearchBar() {
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -62,8 +62,8 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
-    //MARK: -TableView
-    func updateTableView() {
+    //MARK: - TableView
+    func tableViewReload() {
         tableView.reloadData()
     }
     
@@ -72,10 +72,11 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
+
         return list[section].name
-        
+
     }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -88,6 +89,12 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
         
+        if favoriteList[indexPath.row].isFavorite {
+            cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+            
+        } else {
+            cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
+        }
         
         fm.loadQuote(ticker: favoriteList[indexPath.row].symbol ?? "No Symbol") { quote in
             DispatchQueue.main.async {
@@ -98,19 +105,21 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         
         cell.symbol.text = favoriteList[indexPath.row].symbol
         cell.companyName.text = favoriteList[indexPath.row].name
-        if favoriteList[indexPath.row].isFavorite {
-            cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        } else {
-            cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
-        }
+
         
-        cell.delegate = self
+        cell.mainDelegate = self
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         coordinator?.finhubDetail(ticker: favoriteList[indexPath.row].symbol!)
+    }
+    
+
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
     
     //MARK: - Config NavBar
@@ -129,7 +138,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         
         self.navigationItem.setLeftBarButton(UIBarButtonItem(image: UIImage(systemName: "person.fill"), style: .plain, target: self, action: #selector(ViewController.userAccount(_:))), animated: true)
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createList(_:))), animated: true)
-        
+
     }
     
     @objc func createList(_ sender: UIButton?) {
@@ -187,6 +196,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         tableView.reloadData()
         
     }
+    
     
     func loadListSection () {
         

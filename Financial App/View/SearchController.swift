@@ -16,11 +16,6 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     var coordinator : MainCoordinator?
     var fm = FinhubManager()
     
-    var symbol : String?
-    var companyName : String?
-    var currentPrice : String?
-    var changePrice : String?
-    
     var searchResult = [Result]() {
         didSet {
             DispatchQueue.main.async {
@@ -77,24 +72,18 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         cell.symbol.text = searchResult[indexPath.row].symbol
         cell.companyName.text = searchResult[indexPath.row].description
         
-        symbol = cell.symbol.text
-        companyName = cell.companyName.text
-        currentPrice = cell.currentPrice.text
-        changePrice = cell.changePrice.text
-        
         cell.delegate = self
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         coordinator?.finhubDetail(ticker: searchResult[indexPath.row].symbol)
         coordinator?.dismiss()
     }
     
-    func updateTableView() {
-        coordinator?.listController(symbol: symbol!, companyName: companyName!, currentPrice: currentPrice!, changePrice: changePrice!)
+    func updateTableView(symbol : String, companyName : String, currentPrice : String, changePrice : String) {
+        coordinator?.listController(symbol: symbol, companyName: companyName, currentPrice: currentPrice, changePrice: changePrice)
         coordinator?.dismiss()
     }
     //MARK: - Model Manupulation Methods

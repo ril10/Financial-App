@@ -15,10 +15,10 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     var listSection = [List]()
     var coordinator : MainCoordinator?
     
-    var symbol : String!
-    var companyName : String!
-    var currentPrice : String!
-    var changePrice : String!
+    var symbol : String?
+    var companyName : String?
+    var currentPrice : String?
+    var changePrice : String?
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -38,6 +38,7 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     func addToList() {
         coordinator?.start()
         coordinator?.dismiss()
+        tableView.reloadData()
     }
     
     //MARK: - ConfigNavBar
