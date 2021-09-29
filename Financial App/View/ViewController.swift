@@ -16,6 +16,7 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    var lists = [List]()
     var favoriteList = [Favorite]()
     
     
@@ -62,9 +63,17 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
     
     func updateTableView() {
         tableView.reloadData()
-        saveList()
     }
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return lists.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return lists[section].name
+        
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -128,6 +137,11 @@ class ViewController: UITableViewController,Storyboarded,CustomCellUpdate {
         let alert = UIAlertController(title: "Create List", message: "Create new list for your tickers", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add list", style: .default) { (action) in
+            
+            let newList = List(context: self.context)
+            newList.name = listTextField.text
+            self.lists.append(newList)
+            self.saveList()
             
         }
         
