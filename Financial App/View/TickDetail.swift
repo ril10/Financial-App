@@ -85,15 +85,21 @@ class TickDetail: UIViewController, Storyboarded {
     @objc func update() {
         self.fm.loadQuote(ticker: self.ticker) { [self] quote in
             DispatchQueue.main.async {
-//                currentPrice.text = String(quote.c)
-                lowPrice.text = String(quote.l)
-                openPrice.text = String(quote.o)
-                highPrice.text = String(quote.h)
                 
-                graph.topBorder = CGFloat(quote.h)
-                graph.bottomBorder = CGFloat(quote.l)
+                if let lowPrice = quote.l {
+                    self.lowPrice.text = String(lowPrice)
+                    self.graph.bottomBorder = CGFloat(lowPrice)
+                }
                 
+                if let openPrice = quote.o {
+                    self.openPrice.text = String(openPrice)
+                }
                 
+                if let highPrice = quote.h {
+                    self.highPrice.text = String(highPrice)
+                    self.graph.topBorder = CGFloat(highPrice)
+                }
+
                 graphHighPrice.text = highPrice.text
                 graphMiddlePrice.text = openPrice.text
                 graphLowPrice.text = lowPrice.text
@@ -154,7 +160,7 @@ class TickDetail: UIViewController, Storyboarded {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             let newLot = Lots(context: self.context)
             newLot.symbol = self.name.text
-            newLot.costLots = self.currentPrice.text
+            newLot.costLots = priceLoat.text
             newLot.count = countTextField.text!
             newLot.date = currentTime
             newLot.id = uuid

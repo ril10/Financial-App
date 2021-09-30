@@ -29,7 +29,7 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         self.registerTableViewCells()
     }
     
-    //MARK: -TableRow
+    //MARK: - TableRow
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "LotsCell",
                                   bundle: nil)
@@ -45,19 +45,14 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LotsCell", for: indexPath) as! LotsCell
-        
-        let time = myLots[indexPath.row].date
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd-yyyy HH:mm"
-        let formatedDate = formatter.string(from: time ?? Date())
-        
-        
+                
         cell.symbolName.text = myLots[indexPath.row].symbol
         cell.loatCost.text = myLots[indexPath.row].costLots
         cell.countCost.text = myLots[indexPath.row].count
-        cell.date.text = formatedDate
-        cell.id.text = myLots[indexPath.row].id
+        cell.date.text = dateFormatter(date: myLots[indexPath.row].date)
+        cell.valueDif.text = ""
         
+        cell.loatID = myLots[indexPath.row].id
         
         cell.delegate = self
         
@@ -65,7 +60,15 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         
     }
     
-    
+    func dateFormatter(date : Date?) -> String {
+        let time = date
+        let formmater = DateFormatter()
+        formmater.dateFormat = "MM-dd-yyyy HH:mm"
+        let formatedDate = formmater.string(from: time ?? Date())
+     
+        return formatedDate
+    }
+    //MARK: - Data Manipulations
     func deleteLoatFromList() {
         tableView.reloadData()
     }

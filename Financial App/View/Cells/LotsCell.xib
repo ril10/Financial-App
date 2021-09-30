@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9Ox-BI-JsZ">
-                    <rect key="frame" x="15" y="15" width="111.5" height="131"/>
+                    <rect key="frame" x="15" y="15" width="119" height="131"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ticker:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bup-v5-1tF">
                             <rect key="frame" x="0.0" y="0.0" width="51.5" height="18"/>
@@ -41,8 +41,8 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="id:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiR-VS-Ed0">
-                            <rect key="frame" x="0.0" y="113" width="18.5" height="18"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value diffrence:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jiR-VS-Ed0">
+                            <rect key="frame" x="0.0" y="113" width="119" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                     </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ssu-A8-bDd">
-                    <rect key="frame" x="141.5" y="15" width="43.5" height="131"/>
+                    <rect key="frame" x="149" y="15" width="43.5" height="131"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PkI-fc-QvQ">
                             <rect key="frame" x="0.0" y="0.0" width="42.5" height="18"/>
@@ -76,8 +76,8 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="id" lineBreakMode="characterWrap" numberOfLines="2" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DfA-QP-LTj">
-                            <rect key="frame" x="0.0" y="113" width="14" height="18"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" lineBreakMode="characterWrap" numberOfLines="2" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DfA-QP-LTj">
+                            <rect key="frame" x="0.0" y="113" width="24" height="18"/>
                             <constraints>
                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="170" id="dRw-2C-zkY"/>
                             </constraints>
@@ -115,9 +115,9 @@
             <connections>
                 <outlet property="countCost" destination="WCZ-dO-g2P" id="C3I-DX-ojT"/>
                 <outlet property="date" destination="nzw-xU-Roy" id="wwZ-eu-LZn"/>
-                <outlet property="id" destination="DfA-QP-LTj" id="uVz-tH-MUi"/>
                 <outlet property="loatCost" destination="gVa-0K-0V7" id="5ap-gi-tQW"/>
                 <outlet property="symbolName" destination="PkI-fc-QvQ" id="2hG-Aa-tHs"/>
+                <outlet property="valueDif" destination="DfA-QP-LTj" id="CAR-n9-eMs"/>
             </connections>
             <point key="canvasLocation" x="202.89855072463769" y="-117.52232142857142"/>
         </view>

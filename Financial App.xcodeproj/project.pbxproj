@@ -141,6 +141,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C360126D2705A41D00FC6547 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C36645D62703319600B8410E /* LotsCell.xib */,
+				C3B119A12704766100CE3873 /* ListCell.xib */,
+				C36645D8270333AB00B8410E /* LotsCell.swift */,
+				C3B119A3270477E500CE3873 /* ListCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		C39A40BF26F8CE40007BD630 = {
 			isa = PBXGroup;
 			children = (
@@ -229,15 +240,14 @@
 		C39A40FE26F8D309007BD630 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C360126D2705A41D00FC6547 /* Cells */,
 				C39A40CF26F8CE40007BD630 /* ViewController.swift */,
 				C36A7D4226FA05C400AF91C5 /* TickDetail.swift */,
 				C36A7D4826FA24F000AF91C5 /* UserAccount.swift */,
 				C367B9A726FC72F60005CDD8 /* GraphView.swift */,
 				CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */,
 				C345C5812701BEAC008616CF /* SearchController.swift */,
-				C36645D8270333AB00B8410E /* LotsCell.swift */,
 				C3B1199F270475FC00CE3873 /* ListOfSection.swift */,
-				C3B119A3270477E500CE3873 /* ListCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -249,8 +259,6 @@
 				C39A40CD26F8CE40007BD630 /* SceneDelegate.swift */,
 				C39A40D126F8CE40007BD630 /* Main.storyboard */,
 				CD38B2CF26FF46D700307CB6 /* CustomTableViewCell.xib */,
-				C36645D62703319600B8410E /* LotsCell.xib */,
-				C3B119A12704766100CE3873 /* ListCell.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";

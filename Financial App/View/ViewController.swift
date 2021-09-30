@@ -98,8 +98,9 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
         fm.loadQuote(ticker: favoriteList[indexPath.row].symbol ?? "No Symbol") { quote in
             DispatchQueue.main.async {
-                cell.currentPrice.text = String(quote.c)
-                
+                if let currentPrice = quote.c {
+                    cell.currentPrice.text = String(currentPrice)
+                }
             }
         }
         

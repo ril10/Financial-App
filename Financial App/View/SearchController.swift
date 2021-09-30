@@ -65,7 +65,9 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         
         fm.loadQuote(ticker: searchResult[indexPath.row].symbol) { quote in
             DispatchQueue.main.async {
-                cell.currentPrice.text = String(quote.c)
+                if let currentPrice = quote.c {
+                    cell.currentPrice.text = String(currentPrice)
+                }
             }
     }
         
@@ -99,7 +101,7 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     }
 
 }
-
+//MARK: - SearchControllerDelegate
 extension SearchController : UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

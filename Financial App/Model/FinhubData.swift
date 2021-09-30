@@ -32,10 +32,10 @@ struct FinhubCompany : Codable {
 
 //MARK:Stock Handels API
 struct StockHandels : Codable {
-    var c : [Float]
-    var h : [Float]
-    var l : [Float]
-    var o : [Float]
+    var c : [Double]
+    var h : [Double]
+    var l : [Double]
+    var o : [Double]
     var s : String
     var t : [Int]
     var v : [Int]
@@ -43,10 +43,10 @@ struct StockHandels : Codable {
 
 //MARK:Quote
 struct Quote : Codable {
-    var c : Double
-    var h : Double
-    var l : Double
-    var o : Double
+    var c : Double?
+    var h : Double?
+    var l : Double?
+    var o : Double?
 }
 
 //MARK:Basic Financials API

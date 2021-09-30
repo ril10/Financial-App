@@ -18,25 +18,27 @@ class LotsCell: UITableViewCell {
     
     weak var delegate : DeleteLoat?
     
+    var loatID : String?
+    
     @IBOutlet weak var symbolName: UILabel!
     @IBOutlet weak var loatCost: UILabel!
     @IBOutlet weak var countCost: UILabel!
     @IBOutlet weak var date: UILabel!
-    @IBOutlet weak var id: UILabel!
+    @IBOutlet weak var valueDif: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        
     }
     
     @IBAction func deleteLot(_ sender: UIButton) {
-        deleteLoat()
+        deleteLoatFromCoreData()
         deleteLoatFromList()
     }
     
@@ -44,12 +46,12 @@ class LotsCell: UITableViewCell {
         delegate?.deleteLoatFromList()
     }
     
-    func deleteLoat() {
+    func deleteLoatFromCoreData() {
         let request : NSFetchRequest<Lots> = Lots.fetchRequest()
-        request.predicate = NSPredicate(format: "id== %@", id.text!)
+        request.predicate = NSPredicate(format: "id== %@", loatID as! CVarArg)
         if let result = try? context.fetch(request) {
             for object in result {
-                if object.id == id.text {
+                if object.id == loatID {
                     context.delete(object)
                 }
             }
