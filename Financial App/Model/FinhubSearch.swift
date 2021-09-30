@@ -8,8 +8,8 @@
 import Foundation
 
 struct ResultSearch : Codable {
-//    var count : Int
-    var result : [Result]
+    var count : Int?
+    var result : [Result]?
 }
 
 struct Result : Codable {

@@ -117,6 +117,7 @@
                 <outlet property="date" destination="nzw-xU-Roy" id="wwZ-eu-LZn"/>
                 <outlet property="loatCost" destination="gVa-0K-0V7" id="5ap-gi-tQW"/>
                 <outlet property="symbolName" destination="PkI-fc-QvQ" id="2hG-Aa-tHs"/>
+                <outlet property="trashButton" destination="vu7-Pc-aDZ" id="o2C-Y9-jvI"/>
                 <outlet property="valueDif" destination="DfA-QP-LTj" id="CAR-n9-eMs"/>
             </connections>
             <point key="canvasLocation" x="202.89855072463769" y="-117.52232142857142"/>

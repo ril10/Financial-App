@@ -19,12 +19,14 @@ class LotsCell: UITableViewCell {
     weak var delegate : DeleteLoat?
     
     var loatID : String?
+    var isDelete = false
     
     @IBOutlet weak var symbolName: UILabel!
     @IBOutlet weak var loatCost: UILabel!
     @IBOutlet weak var countCost: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var valueDif: UILabel!
+    @IBOutlet weak var trashButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,8 +40,13 @@ class LotsCell: UITableViewCell {
     }
     
     @IBAction func deleteLot(_ sender: UIButton) {
-        deleteLoatFromCoreData()
-        deleteLoatFromList()
+        
+        self.isDelete = true
+        
+        if isDelete {
+            deleteLoatFromCoreData()
+            deleteLoatFromList()
+        }
     }
     
     func deleteLoatFromList() {

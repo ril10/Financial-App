@@ -54,6 +54,12 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         
         cell.loatID = myLots[indexPath.row].id
         
+        if cell.isDelete {
+            myLots.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            saveList()
+        }
+        
         cell.delegate = self
         
         return cell
@@ -71,6 +77,17 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
     //MARK: - Data Manipulations
     func deleteLoatFromList() {
         tableView.reloadData()
+    }
+    
+    func saveList() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving category \(error)")
+        }
+        
+        tableView.reloadData()
+        
     }
     
     func loadLoatsList() {

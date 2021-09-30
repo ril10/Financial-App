@@ -20,6 +20,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     var list = [List]()
     var favoriteList = [Favorite]()
     
+    var ticker : String!
     
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "CustomTableViewCell",
@@ -51,6 +52,8 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        
+        
         
     }
     //MARK: - Setup SearchBar
@@ -88,14 +91,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
-        
-        if favoriteList[indexPath.row].isFavorite {
-            cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-            
-        } else {
-            cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
-        }
-        
+                
         fm.loadQuote(ticker: favoriteList[indexPath.row].symbol ?? "No Symbol") { quote in
             DispatchQueue.main.async {
                 if let currentPrice = quote.c {
@@ -106,9 +102,21 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
         cell.symbol.text = favoriteList[indexPath.row].symbol
         cell.companyName.text = favoriteList[indexPath.row].name
-
+        
+        if favoriteList[indexPath.row].isFavorite {
+            cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+            
+        } else {
+            cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
+            favoriteList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            saveList()
+        }
         
         cell.mainDelegate = self
+        
+
+        
         return cell
         
     }

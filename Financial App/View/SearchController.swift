@@ -54,7 +54,6 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
 
     // MARK: - Table view data source
 
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return searchResult.count
@@ -116,7 +115,9 @@ extension SearchController : UISearchBarDelegate {
     func searchResults(text: String) {
         DispatchQueue.main.async {
             self.fm.searchFinhub(search: text) { result in
-                self.searchResult = result.result
+                if let searchResult = result.result {
+                    self.searchResult = searchResult
+                }
             }
         }
     }

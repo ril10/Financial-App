@@ -22,6 +22,7 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         setupNavigator()
     }
     
@@ -29,9 +30,11 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
         super.viewDidLoad()
 
         loadListInListSection()
+        
+        registerTableViewCells()
         tableView.delegate = self
         tableView.dataSource = self
-        registerTableViewCells()
+        
 
     }
 
