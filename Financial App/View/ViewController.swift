@@ -18,24 +18,29 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var list = [List]()
+    
+    var loadList : List? {
+        didSet {
+            print("Set something")
+//            loadDataList()
+        }
+    }
+    
     var favoriteList = [Favorite]()
     
-    var ticker : String!
-    
     private func registerTableViewCells() {
-        let textFieldCell = UINib(nibName: "CustomTableViewCell",
-                                  bundle: nil)
-        self.tableView.register(textFieldCell,
-                                forCellReuseIdentifier: "CustomTableViewCell")
+        let textFieldCell = UINib(nibName: "CustomTableViewCell",bundle: nil)
+        self.tableView.register(textFieldCell,forCellReuseIdentifier: "CustomTableViewCell")
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        
         loadListSection()
         
-        loadListData()
+        loadAllFavorites()
         
         configNavigator()
     }
@@ -49,7 +54,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         self.registerTableViewCells()
         
         setupSearchBar()
-        
+//        loadDataList()
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
@@ -114,9 +119,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         }
         
         cell.mainDelegate = self
-        
 
-        
         return cell
         
     }
@@ -125,7 +128,6 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         coordinator?.finhubDetail(ticker: favoriteList[indexPath.row].symbol!)
     }
     
-
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
@@ -192,12 +194,37 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
     }
     
-    func loadListData() {
+//    func loadDataList() {
+//
+//        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+//        let predicate : NSPredicate? = nil
+//
+//        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", loadList!.name!)
+//        print(listPredicate)
+//
+//        if let additionalPredicate = predicate {
+//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
+//        } else {
+//            request.predicate = listPredicate
+//        }
+//
+//        do {
+//            favoriteList = try context.fetch(request)
+//        } catch {
+//            print("Error fetching data from context \(error)")
+//        }
+//
+//        tableView.reloadData()
+//
+//    }
+    
+    func loadAllFavorites() {
         
         let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
         
         do {
             favoriteList = try context.fetch(request)
+            
         } catch {
             print("Error loading categories \(error)")
         }

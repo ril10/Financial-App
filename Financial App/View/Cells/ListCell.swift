@@ -39,7 +39,6 @@ class ListCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-
     }
     
     func addToList() {
@@ -63,9 +62,25 @@ class ListCell: UITableViewCell {
             favorite.isFavorite = true
             favorite.currentPrice = currentPrice
             favorite.parentList = self.list
+            print("parentList:\(favorite.parentList)")
+            print("list:\(self.list)")
             favoriteList.append(favorite)
+            print(favoriteList)
             self.saveToList()
             addToList()
+        }
+    }
+    
+    func didSelect(indexPath : IndexPath) {
+        switch indexPath.row {
+        case 0:
+            print("First stroke")
+        case 1:
+            print("Second stroke")
+        case 2:
+            print("Third stroke")
+        default:
+            print("Something")
         }
         
     }
@@ -83,4 +98,5 @@ class ListCell: UITableViewCell {
             }
         }
     }
+    
 }

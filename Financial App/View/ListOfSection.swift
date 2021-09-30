@@ -41,7 +41,6 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     func addToList() {
         coordinator?.start()
         coordinator?.dismiss()
-        tableView.reloadData()
     }
     
     //MARK: - ConfigNavBar
@@ -72,10 +71,8 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     // MARK: - Table view data source
 
     private func registerTableViewCells() {
-        let textFieldCell = UINib(nibName: "ListCell",
-                                  bundle: nil)
-        self.tableView.register(textFieldCell,
-                                forCellReuseIdentifier: "ListCell")
+        let textFieldCell = UINib(nibName: "ListCell", bundle: nil)
+        self.tableView.register(textFieldCell, forCellReuseIdentifier: "ListCell")
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -109,8 +106,16 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
         
         cell.delegate = self
         
+        
         return cell
         
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? ListCell {
+            cell.didSelect(indexPath: indexPath)
+            
+        }
     }
     //MARK: - LoadListSection
     func loadListInListSection () {
@@ -126,6 +131,5 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
         tableView.reloadData()
 
     }
-
-
+    
 }
