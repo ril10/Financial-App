@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Favorite" representedClassName=".Favorite" syncable="YES" codeGenerationType="class">
+        <attribute name="companyName" optional="YES" attributeType="String"/>
         <attribute name="currentPrice" optional="YES" attributeType="String"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
         <relationship name="parentList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="list" inverseEntity="List"/>
         <uniquenessConstraints>

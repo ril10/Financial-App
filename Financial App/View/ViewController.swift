@@ -21,8 +21,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     var loadList : List? {
         didSet {
-            print("Set something")
-//            loadDataList()
+            loadDataList()
         }
     }
     
@@ -37,10 +36,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         loadListSection()
-        
-        loadAllFavorites()
         
         configNavigator()
     }
@@ -54,11 +50,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         self.registerTableViewCells()
         
         setupSearchBar()
-//        loadDataList()
+        
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
-        
-        
+
         
     }
     //MARK: - Setup SearchBar
@@ -80,7 +75,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
+       
         return list[section].name
 
     }
@@ -106,7 +101,8 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         }
         
         cell.symbol.text = favoriteList[indexPath.row].symbol
-        cell.companyName.text = favoriteList[indexPath.row].name
+        cell.companyName.text = favoriteList[indexPath.row].companyName
+        
         
         if favoriteList[indexPath.row].isFavorite {
             cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
@@ -117,6 +113,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
             saveList()
         }
+        
         
         cell.mainDelegate = self
 
@@ -163,6 +160,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             let newList = List(context: self.context)
             newList.name = listTextField.text
             self.list.append(newList)
+            self.loadList = newList
             self.saveList()
             
         }
@@ -194,29 +192,29 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
     }
     
-//    func loadDataList() {
-//
-//        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
-//        let predicate : NSPredicate? = nil
-//
-//        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", loadList!.name!)
-//        print(listPredicate)
-//
-//        if let additionalPredicate = predicate {
-//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
-//        } else {
-//            request.predicate = listPredicate
-//        }
-//
-//        do {
-//            favoriteList = try context.fetch(request)
-//        } catch {
-//            print("Error fetching data from context \(error)")
-//        }
-//
-//        tableView.reloadData()
-//
-//    }
+    func loadDataList() {
+
+        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        let predicate : NSPredicate? = nil
+
+        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", loadList!.name!)
+        print(listPredicate)
+
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
+        } else {
+            request.predicate = listPredicate
+        }
+
+        do {
+            favoriteList = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+
+        tableView.reloadData()
+
+    }
     
     func loadAllFavorites() {
         
@@ -240,6 +238,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
         do {
             list = try context.fetch(request)
+            
         } catch {
             print("Error loading lists \(error)")
         }

@@ -102,6 +102,8 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
         cell.currentPrice = currentPrice
         cell.changePrice = changePrice
         
+        cell.list = listSection[indexPath.row]
+        
         cell.name.text = listSection[indexPath.row].name
         
         cell.delegate = self

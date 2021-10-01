@@ -27,6 +27,7 @@ class ListCell: UITableViewCell {
     var companyName : String!
     var currentPrice : String!
     var changePrice : String!
+    var listName : String!
     
     var favoriteList = [Favorite]()
     var list : List?
@@ -56,18 +57,19 @@ class ListCell: UITableViewCell {
         }
         
         if isFavorite! {
-            let favorite = Favorite(context: self.context)
-            favorite.name = companyName
-            favorite.symbol = symbol
-            favorite.isFavorite = true
-            favorite.currentPrice = currentPrice
-            favorite.parentList = self.list
-            print("parentList:\(favorite.parentList)")
-            print("list:\(self.list)")
-            favoriteList.append(favorite)
-            print(favoriteList)
-            self.saveToList()
-            addToList()
+                let favorite = Favorite(context: self.context)
+                favorite.companyName = companyName
+                favorite.symbol = symbol
+                favorite.isFavorite = true
+                favorite.currentPrice = currentPrice
+                favorite.parentList = self.list
+                print("parentList:\(favorite.parentList)")
+                print("list:\(self.list?.name)")
+                print("listName:\(self.listName)")
+                favoriteList.append(favorite)
+                print(favoriteList)
+                self.saveToList()
+                addToList()
         }
     }
     
