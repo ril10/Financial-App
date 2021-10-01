@@ -39,6 +39,7 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     }
 
     func addToList() {
+        saveListData()
         coordinator?.start()
         coordinator?.dismiss()
     }
@@ -132,6 +133,16 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
 
         tableView.reloadData()
 
+    }
+    
+    func saveListData() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving category \(error)")
+        }
+        
+        tableView.reloadData()
     }
     
 }

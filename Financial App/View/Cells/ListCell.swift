@@ -65,10 +65,8 @@ class ListCell: UITableViewCell {
                 favorite.parentList = self.list
                 print("parentList:\(favorite.parentList)")
                 print("list:\(self.list?.name)")
-                print("listName:\(self.listName)")
                 favoriteList.append(favorite)
-                print(favoriteList)
-                self.saveToList()
+                saveToList()
                 addToList()
         }
     }

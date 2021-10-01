@@ -12,6 +12,7 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
 
     var coordinator : MainCoordinator?
     var myLots = [Lots]()
+    var fm = FinhubManager()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -45,12 +46,12 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LotsCell", for: indexPath) as! LotsCell
-                
+        
+        
         cell.symbolName.text = myLots[indexPath.row].symbol
         cell.loatCost.text = myLots[indexPath.row].costLots
         cell.countCost.text = myLots[indexPath.row].count
         cell.date.text = dateFormatter(date: myLots[indexPath.row].date)
-        cell.valueDif.text = ""
         
         cell.loatID = myLots[indexPath.row].id
         
@@ -64,6 +65,15 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         
         return cell
         
+    }
+    
+   @objc func difValue(symbol : String) {
+        
+        fm.loadQuote(ticker: symbol) { quote in
+            if let value = quote.c {
+                print(value)
+            }
+        }
     }
     
     func dateFormatter(date : Date?) -> String {

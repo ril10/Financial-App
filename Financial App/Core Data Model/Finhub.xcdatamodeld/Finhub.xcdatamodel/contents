@@ -22,10 +22,11 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="symbol" optional="YES" attributeType="String"/>
+        <attribute name="valueDif" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Favorite" positionX="-280.279296875" positionY="-197.7346038818359" width="128" height="118"/>
         <element name="List" positionX="-178.4007568359375" positionY="46.35333251953125" width="128" height="73"/>
-        <element name="Lots" positionX="-244.68994140625" positionY="265.1319274902344" width="128" height="104"/>
+        <element name="Lots" positionX="-421.250732421875" positionY="-3.8568115234375" width="128" height="133"/>
     </elements>
 </model>

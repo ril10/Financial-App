@@ -22,8 +22,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     var loadList : List? {
         didSet {
             loadDataList()
+            saveList()
         }
     }
+    
     
     var favoriteList = [Favorite]()
     
@@ -32,15 +34,30 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         self.tableView.register(textFieldCell,forCellReuseIdentifier: "CustomTableViewCell")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<Favorite>(entityName: "Favorite")
+        fetchRequest.predicate = NSPredicate(format: "parentList.name MATCHES %@", "List 2")
+        
+        do {
+            favoriteList = try managedContext.fetch(fetchRequest)
+        } catch {
+            print(error)
+        }
+        
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
+        loadAllFavorites()
         loadListSection()
-
-//        loadAllFavorites()
-        
         configNavigator()
     }
     
@@ -226,9 +243,13 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     func loadAllFavorites() {
         
         let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+//        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", "")
+//
+//        request.predicate = listPredicate
         
         do {
             favoriteList = try context.fetch(request)
+            
             
         } catch {
             print("Error loading categories \(error)")
@@ -242,7 +263,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     func loadListSection () {
         
         let request : NSFetchRequest<List> = List.fetchRequest()
-        
+
         do {
             list = try context.fetch(request)
             
