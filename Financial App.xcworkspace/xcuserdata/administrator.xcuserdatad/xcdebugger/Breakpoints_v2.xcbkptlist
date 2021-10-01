@@ -342,8 +342,8 @@
             filePath = "Financial App/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -740,8 +740,8 @@
             filePath = "Financial App/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
             landmarkName = "loadDataList()"
             landmarkType = "7">
          </BreakpointContent>
@@ -756,8 +756,8 @@
             filePath = "Financial App/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "loadAllFavorites()"
             landmarkType = "7">
          </BreakpointContent>
@@ -772,8 +772,8 @@
             filePath = "Financial App/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
             landmarkName = "loadListSection()"
             landmarkType = "7">
          </BreakpointContent>
@@ -788,8 +788,8 @@
             filePath = "Financial App/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "239"
-            endingLineNumber = "239"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
             landmarkName = "loadListSection()"
             landmarkType = "7">
          </BreakpointContent>
@@ -804,8 +804,8 @@
             filePath = "Financial App/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "loadDataList()"
             landmarkType = "7">
          </BreakpointContent>
@@ -820,8 +820,8 @@
             filePath = "Financial App/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
             landmarkName = "loadAllFavorites()"
             landmarkType = "7">
          </BreakpointContent>
@@ -992,25 +992,9 @@
             filePath = "Financial App/View/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "loadDataList()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "65213C2D-9C30-466F-9DD9-A658345BB93E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Financial App/View/ViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "createList(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

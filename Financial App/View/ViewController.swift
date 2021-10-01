@@ -36,7 +36,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        
         loadListSection()
+
+//        loadAllFavorites()
         
         configNavigator()
     }
@@ -53,7 +56,8 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
-
+        
+        
         
     }
     //MARK: - Setup SearchBar
@@ -75,7 +79,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-       
+        
         return list[section].name
 
     }
@@ -113,7 +117,6 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
             saveList()
         }
-        
         
         cell.mainDelegate = self
 
@@ -164,6 +167,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             self.saveList()
             
         }
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
         
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Type name of your list"

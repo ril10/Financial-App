@@ -168,6 +168,10 @@ class TickDetail: UIViewController, Storyboarded {
             self.saveLoats()
         }
         
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Price of loat"
             priceLoat = alertTextField
