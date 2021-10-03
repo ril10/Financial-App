@@ -39,7 +39,6 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     }
 
     func addToList() {
-        saveListData()
         coordinator?.start()
         coordinator?.dismiss()
     }
@@ -65,6 +64,7 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     }
     
     @objc func close(_ sender: UIButton?) {
+        saveListData()
         coordinator?.start()
         coordinator?.dismiss()
     }

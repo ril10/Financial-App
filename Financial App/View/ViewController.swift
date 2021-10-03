@@ -18,16 +18,16 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var list = [List]()
+    var favoriteList = [Favorite]()
+    var fav : Favorite?
     
     var loadList : List? {
         didSet {
             loadDataList()
-            saveList()
         }
     }
+ 
     
-    
-    var favoriteList = [Favorite]()
     
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "CustomTableViewCell",bundle: nil)
@@ -37,27 +37,12 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        
-        let fetchRequest = NSFetchRequest<Favorite>(entityName: "Favorite")
-        fetchRequest.predicate = NSPredicate(format: "parentList.name MATCHES %@", "List 2")
-        
-        do {
-            favoriteList = try managedContext.fetch(fetchRequest)
-        } catch {
-            print(error)
-        }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        loadAllList()
         loadAllFavorites()
-        loadListSection()
         configNavigator()
     }
     
@@ -68,6 +53,8 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         tableView.delegate = self
         tableView.dataSource = self
         self.registerTableViewCells()
+        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         setupSearchBar()
         
@@ -92,26 +79,24 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return list.count
+        return  list.count//favoriteList.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return list[section].name
+        return  list[section].name//favoriteList[section].parentList?.name//list[section].name
 
     }
     
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return favoriteList.count
+        return  list[section].list?.count ?? 0//list[section].list?.count ?? 0 //favoriteList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
+        
+
                 
         fm.loadQuote(ticker: favoriteList[indexPath.row].symbol ?? "No Symbol") { quote in
             DispatchQueue.main.async {
@@ -120,7 +105,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
                 }
             }
         }
-        
+               
         cell.symbol.text = favoriteList[indexPath.row].symbol
         cell.companyName.text = favoriteList[indexPath.row].companyName
         
@@ -179,8 +164,8 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             
             let newList = List(context: self.context)
             newList.name = listTextField.text
-            self.list.append(newList)
             self.loadList = newList
+            self.list.append(newList)
             self.saveList()
             
         }
@@ -240,17 +225,34 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
 
     }
     
+    func loadListSection() {
+        let request: NSFetchRequest<List> = List.fetchRequest()
+        let predicate : NSPredicate? = nil
+
+        let listPredicate = NSPredicate(format: "name MATCHES %@", loadList!.name!)
+        print(listPredicate)
+
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
+        } else {
+            request.predicate = listPredicate
+        }
+
+        do {
+            list = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+
+        tableView.reloadData()
+    }
+    
     func loadAllFavorites() {
-        
         let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
-//        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", "")
-//
-//        request.predicate = listPredicate
+//        request.predicate = NSPredicate(format: "sybmol== %@", fav!.symbol!)
         
         do {
             favoriteList = try context.fetch(request)
-            
-            
         } catch {
             print("Error loading categories \(error)")
         }
@@ -259,20 +261,14 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
     }
     
-    
-    func loadListSection () {
-        
+    func loadAllList() {
         let request : NSFetchRequest<List> = List.fetchRequest()
-
+        
         do {
             list = try context.fetch(request)
-            
         } catch {
-            print("Error loading lists \(error)")
+            print(error)
         }
-        
-        tableView.reloadData()
-        
     }
     
     
