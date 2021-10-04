@@ -94,7 +94,7 @@ class TickDetail: UIViewController, Storyboarded {
                 
                 if let lowPrice = quote.l {
                     self.lowPrice.text = String(format: "%.2f", lowPrice)
-                    self.graph.bottomBorder = CGFloat(lowPrice)
+                    
                 }
                 
                 if let openPrice = quote.o {
@@ -103,17 +103,15 @@ class TickDetail: UIViewController, Storyboarded {
                 
                 if let highPrice = quote.h {
                     self.highPrice.text = String(format: "%.2f", highPrice)
-                    self.graph.topBorder = CGFloat(highPrice)
+                    
                 }
 
-                graphHighPrice.text = highPrice.text
-                graphMiddlePrice.text = openPrice.text
-                graphLowPrice.text = lowPrice.text
+                
             }
         }
         WebSocket.shared.receiveData { (data) in
             DispatchQueue.main.async {
-                self.graph.graphPoints.append(data?.data[0].p ?? 0.0)
+                
                 self.currentPrice.text = String(data?.data[0].p ?? 0.0)
             }
             print(data?.data[0].p)

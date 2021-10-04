@@ -38,13 +38,13 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         loadAllList()
         loadAllFavorites()
         configNavigator()
+        
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        for i in favoriteList {
-            print(i.symbol)
-        }
+        
     }
     
     
@@ -87,39 +87,47 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         return list[section].list?.count ?? 0//favoriteList[section].parentList?.list?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
-        let dataCell = favoriteList[indexPath.row]
+        if favoriteList.count > 0 {
+//            let dataCell = favoriteList[indexPath.row]
+            let item = list[indexPath.section].name
+            let dataCell = favoriteList.filter { fav in
+                return fav.parentList?.name == item
+                
+            }[indexPath.row]
+            
 
-           
-        fm.loadQuote(ticker: dataCell.symbol ?? "") { quote in
-            DispatchQueue.main.async {
-                if let currentPrice = quote.c {
-                    cell.currentPrice.text = String(currentPrice)
+               
+            fm.loadQuote(ticker: dataCell.symbol ?? "") { quote in
+                DispatchQueue.main.async {
+                    if let currentPrice = quote.c {
+                        cell.currentPrice.text = String(currentPrice)
+                    }
                 }
             }
+                   
+            cell.symbol.text = dataCell.symbol
+            cell.companyName.text = dataCell.companyName
+            
+            
+            if favoriteList[indexPath.row].isFavorite {
+                cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+            } else {
+                cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
+                favoriteList.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+                saveList()
+            }
+            
+            cell.mainDelegate = self
         }
-               
-        cell.symbol.text = dataCell.symbol
-        cell.companyName.text = dataCell.companyName
         
-        
-        if favoriteList[indexPath.row].isFavorite {
-            cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        } else {
-            cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
-            favoriteList.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-            saveList()
-        }
-        
-        cell.mainDelegate = self
-
         return cell
         
     }

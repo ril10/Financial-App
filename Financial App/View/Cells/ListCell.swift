@@ -58,6 +58,7 @@ class ListCell: UITableViewCell {
         
         if isFavorite! {
                 let favorite = Favorite(context: self.context)
+                saveToList()
                 favorite.companyName = companyName
                 favorite.symbol = symbol
                 favorite.isFavorite = true

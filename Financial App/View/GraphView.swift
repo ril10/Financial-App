@@ -7,183 +7,171 @@
 
 import UIKit
 
-
 @IBDesignable
 class GraphView: UIView {
+  
+  var days: [CGFloat] = [1, 4, 13, 3, 6, 5, 10, 8]
+  
+  var grpahPoints: [CGFloat] = [156.69,155.11,154.07,148.97,149.55,148.12,150.55,148.12]
     
-    var graphPoints = [Double]()
-    
-    private enum Constants {
-      static let margin: CGFloat = 0.0
-      static let topBorder: CGFloat = 121
-      static let bottomBorder: CGFloat = 118
-      static let colorAlpha: CGFloat = 0.3
-      static let circleDiameter: CGFloat = 5.0
+  // number of y axis labels
+  let yDivisions: CGFloat = 5
+  // margin between lines
+  lazy var gap: CGFloat = {
+    return bounds.height / (yDivisions + 1)
+  }()
+  // averaged value spread over y Divisions
+  lazy var eachLabel: CGFloat = {
+    let maxValue = CGFloat(grpahPoints.max()!)
+    return maxValue / (yDivisions-1)
+  }()
+  
+  // column width
+  lazy var columnWidth: CGFloat = {
+    return bounds.width / CGFloat(grpahPoints.count)
+  }()
+
+  
+  lazy var data: [CGPoint] = {
+    var array = [CGPoint]()
+    for (index, day) in days.enumerated() {
+      let point = CGPoint(x: columnWidth * CGFloat(index),
+                          y: day / eachLabel * gap)
+      array.append(point)
     }
-        
-    @IBInspectable var startColor : UIColor = .white
-    @IBInspectable var endColor : UIColor = .white
+    return array
+  }()
+  
+  override func draw(_ rect: CGRect) {
+    let context = UIGraphicsGetCurrentContext()!
+    drawText(context: context)
     
-    @IBInspectable var graphStartColor : UIColor = .green
-    @IBInspectable var graphEndColor : UIColor = .white
+    context.saveGState()
+    context.translateBy(x: columnWidth/2+10, y: 0)
+    context.scaleBy(x: 1, y: -1)
+    context.translateBy(x: 0, y: -bounds.height)
+    context.translateBy(x: 0, y: gap)
     
-//    var graphPoints = [    0.0,119.12,119.08,119.14,119.19,119.06,119.1,118.9,118.87,118.93,118.95,119.01,118.99,118.88,118.88,118.72,118.67,118.84,118.7,119.11,119.04,118.99,119.29,118.93,118.86,119.34,119.36,119.34,119.4,119.4,119.45,119.38,119.16,118.96,118.89,118.93,119.06,119.15,119.3, 119.36,119.43,119.29, 119.24,119.32,119.7,119.88,119.94, 119.93, 119.99,120.38,120.27,120.45,120.57,120.63, 120.67,120.73,120.65,120.74,120.57,120.52,120.54]
+    // add clip
+    context.saveGState()
+    let clipPath = UIBezierPath()
+    clipPath.interpolatePointsWithHermite(interpolationPoints: data)
+
+    clipPath.addLine(to: CGPoint(x: bounds.width-columnWidth, y: 0))
+    clipPath.addLine(to: .zero)
+    clipPath.close()
+    clipPath.addClip()
     
-    var topBorder : CGFloat = 0.0
-    var bottomBorder : CGFloat = 0.0
     
-    let splitCount = 5
+    drawGradient(context: context)
+    context.restoreGState()
     
-    override func draw(_ rect: CGRect) {
-        
-        
-        let width = rect.width
-        let height = rect.height
-        
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return
-        }
-        
-        let colors = [startColor.cgColor, endColor.cgColor]
-        
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        
-        let colorLocations : [CGFloat] = [0.0, 1.0]
-        
-        guard let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: colorLocations) else {
-            return
-        }
-        
-        let graphColors = [graphStartColor.cgColor, graphEndColor.cgColor]
-        
-        let graphColorSpace = CGColorSpaceCreateDeviceRGB()
-        
-        let graphColorLocations : [CGFloat] = [0.0,0.5,1.0]
-        
-        guard let graphGradient = CGGradient(colorsSpace: graphColorSpace, colors: graphColors as CFArray, locations: graphColorLocations) else {
-            return
-        }
-        
-        let startPoint = CGPoint.zero
-        let endPoint = CGPoint(x:0, y: bounds.height)
-        context.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: [])
-        
-        // Calculate the x point
-        let margin = Constants.margin
-        let graphWidth = width - margin * 2 - 4
-        let columnXPoint = { (column: Double) -> CGFloat in
-          // Calculate the gap between points
-          let spacing = graphWidth / CGFloat(self.graphPoints.count - 1)
-          return CGFloat(column) * spacing + margin + 2
-        }
-        // Calculate the y point
-            
-        let topBorder = Constants.topBorder
-        let bottomBorder = Constants.bottomBorder
-        let graphHeight = height * topBorder + bottomBorder
-        guard let maxValue = graphPoints.max() else {
-          return
-        }
-        let columnYPoint = { (graphPoint: Double) -> CGFloat in
-            let yPoint = (CGFloat(graphPoint) / CGFloat(maxValue) * graphHeight)
-          return graphHeight + topBorder - yPoint // Flip the graph
-        }
-        
-        UIColor.white.setFill()
-        UIColor.white.setStroke()
-            
-        // Set up the points line
-        let graphPath = UIBezierPath()
-
-        // Go to start of line
-        graphPath.move(to: CGPoint(x: columnXPoint(0), y: columnYPoint(graphPoints[0])))
-            
-        // Add points for each item in the graphPoints array
-        // at the correct (x, y) for the point
-        for i in 1..<graphPoints.count {
-            let nextPoint = CGPoint(x: columnXPoint(Double(i)), y: columnYPoint(Double(graphPoints[i])))
-          graphPath.addLine(to: nextPoint)
-        }
-
-        graphPath.stroke()
-
-        // Create the clipping path for the graph gradient
-
-        
-        context.saveGState()
-            
-        
-        guard let clippingPath = graphPath.copy() as? UIBezierPath else {
-          return
-        }
-            
-        
-        clippingPath.addLine(to: CGPoint(
-                                x: columnXPoint(Double(graphPoints.count) - 1.0),
-          y: height))
-        clippingPath.addLine(to: CGPoint(x: columnXPoint(0), y: height))
-        clippingPath.close()
-            
-        
-        clippingPath.addClip()
-            
-       
-        UIColor.green.setFill()
-        let rectPath = UIBezierPath(rect: rect)
-        rectPath.fill()
-        // End temporary code
-        let highestYPoint = columnYPoint(Double(Int(maxValue)))
-        let graphStartPoint = CGPoint(x: margin, y: highestYPoint)
-        let graphEndPoint = CGPoint(x: margin, y: bounds.height)
-                
-        context.drawLinearGradient(
-          gradient,
-          start: graphStartPoint,
-          end: graphEndPoint,
-          options: [])
-        context.restoreGState()
-
-        // Draw the circles on top of the graph stroke
-        for i in 0..<graphPoints.count {
-            var point = CGPoint(x: columnXPoint(Double(i)), y: columnYPoint(Double(Int(graphPoints[i]))))
-          point.x -= Constants.circleDiameter / 2
-          point.y -= Constants.circleDiameter / 2
-              
-          let circle = UIBezierPath(
-            ovalIn: CGRect(
-              origin: point,
-              size: CGSize(
-                width: Constants.circleDiameter,
-                height: Constants.circleDiameter)
-            )
-          )
-          circle.fill()
-        }
-        
-//        let linePath = UIBezierPath()
-//        linePath.lineWidth = 0.5
-//
-//        UIColor.lightGray.setStroke()
-//        for x in 0...splitCount {
-//            for y in 0...splitCount {
-//                if x != y, x == 0, y < splitCount {
-//                    linePath.move(to: getPoint(rect, x: CGFloat(x), y: CGFloat(y)))
-//                    linePath.addLine(to: getPoint(rect, x: CGFloat(splitCount), y: CGFloat(y)))
-//                    linePath.stroke()
-//                } else if y != x, y == 0, x < splitCount {
-//                    linePath.move(to: getPoint(rect, x: CGFloat(x), y: CGFloat(y)))
-//                    linePath.addLine(to: getPoint(rect, x: CGFloat(x), y: CGFloat(splitCount)))
-//                    linePath.stroke()
-//                }
-//            }
-//        }
-//
-//        func getPoint(_ rect: CGRect, x: CGFloat, y: CGFloat) -> CGPoint {
-//            let width = rect.width / CGFloat(splitCount)
-//            let height = rect.height / CGFloat(splitCount)
-//            return CGPoint(x: width * x, y: height * y)
-//        }
-        
+    
+    context.addLines(between: data)
+    context.strokePath()
+    
+    let path = UIBezierPath()
+    path.interpolatePointsWithHermite(interpolationPoints: data)
+    path.stroke()
+    context.restoreGState()
+    
+  }
+  
+  func drawGradient(context: CGContext) {
+    let colorSpace = CGColorSpaceCreateDeviceRGB()
+    let colors: NSArray = [#colorLiteral(red: 0.811568439, green: 0.9574350715, blue: 0.9724325538, alpha: 1).cgColor, #colorLiteral(red: 0.3529999852, green: 0.7839999795, blue: 0.9800000191, alpha: 1).cgColor]
+    let locations: [CGFloat] = [0.0, 0.75]
+    let gradient = CGGradient(colorsSpace: colorSpace,
+                              colors: colors,
+                              locations: locations)
+    let startPoint = CGPoint.zero
+    let endPoint = CGPoint(x: 0, y: bounds.height)
+    context.drawLinearGradient(gradient!,
+                               start: startPoint,
+                               end: endPoint, options: [])
+    
+    
+    
+  }
+  
+  func drawText(context: CGContext) {
+    let font = UIFont(name: "Avenir-Light", size: 12)!
+    let attributes = [NSAttributedString.Key.font: font]
+    
+    let maxValue = CGFloat(grpahPoints.max()!)
+    context.saveGState()
+    for i in 0..<5 {
+      context.translateBy(x: 0, y: gap)
+      
+      context.setStrokeColor(#colorLiteral(red: 0.8238154054, green: 0.8188886046, blue: 0.8286994696, alpha: 1).cgColor)
+      context.setLineWidth(1)
+      context.addLines(between: [CGPoint(x: 35, y: 0),
+                                 CGPoint(x: bounds.width, y: 0)])
+      context.strokePath()
+      
+      let text = "\(maxValue - eachLabel * CGFloat(i))" as NSString
+      let size = text.size(withAttributes: attributes)
+      text.draw(at: CGPoint(x: 6, y: -size.height/2), withAttributes: attributes)
     }
+    context.restoreGState()
     
+  }
+  
 }
+
+extension UIBezierPath
+{
+  func interpolatePointsWithHermite(interpolationPoints : [CGPoint], alpha : CGFloat = 1.0/3.0)
+  {
+    guard !interpolationPoints.isEmpty else { return }
+    self.move(to: interpolationPoints[0])
+    
+    let n = interpolationPoints.count - 1
+    
+    for index in 0..<n
+    {
+      var currentPoint = interpolationPoints[index]
+      var nextIndex = (index + 1) % interpolationPoints.count
+      var prevIndex = index == 0 ? interpolationPoints.count - 1 : index - 1
+      var previousPoint = interpolationPoints[prevIndex]
+      var nextPoint = interpolationPoints[nextIndex]
+      let endPoint = nextPoint
+      var mx : CGFloat
+      var my : CGFloat
+      
+      if index > 0
+      {
+        mx = (nextPoint.x - previousPoint.x) / 2.0
+        my = (nextPoint.y - previousPoint.y) / 2.0
+      }
+      else
+      {
+        mx = (nextPoint.x - currentPoint.x) / 2.0
+        my = (nextPoint.y - currentPoint.y) / 2.0
+      }
+      
+      let controlPoint1 = CGPoint(x: currentPoint.x + mx * alpha, y: currentPoint.y + my * alpha)
+      currentPoint = interpolationPoints[nextIndex]
+      nextIndex = (nextIndex + 1) % interpolationPoints.count
+      prevIndex = index
+      previousPoint = interpolationPoints[prevIndex]
+      nextPoint = interpolationPoints[nextIndex]
+      
+      if index < n - 1
+      {
+        mx = (nextPoint.x - previousPoint.x) / 2.0
+        my = (nextPoint.y - previousPoint.y) / 2.0
+      }
+      else
+      {
+        mx = (currentPoint.x - previousPoint.x) / 2.0
+        my = (currentPoint.y - previousPoint.y) / 2.0
+      }
+      
+      let controlPoint2 = CGPoint(x: currentPoint.x - mx * alpha, y: currentPoint.y - my * alpha)
+      self.addCurve(to: endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+    }
+  }
+}
+
+
