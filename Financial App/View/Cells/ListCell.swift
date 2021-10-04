@@ -58,6 +58,7 @@ class ListCell: UITableViewCell {
         
         if isFavorite! {
                 let favorite = Favorite(context: self.context)
+//                saveToList()
                 favorite.companyName = companyName
                 favorite.symbol = symbol
                 favorite.isFavorite = true
@@ -88,22 +89,22 @@ class ListCell: UITableViewCell {
     }
     
     func saveToList() {
-        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
-        request.predicate = NSPredicate(format: "symbol== %@", symbol)
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print("Error saving context \(error)")
-            }
-        }
-//        do {
-//            try context.save()
-//        } catch {
-//            print("Error saving category \(error)")
+//        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+//        request.predicate = NSPredicate(format: "symbol== %@", symbol)
+//        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+//
+//        if context.hasChanges {
+//            do {
+//                try context.save()
+//            } catch {
+//                print("Error saving context \(error)")
+//            }
 //        }
+        do {
+            try context.save()
+        } catch {
+            print("Error saving category \(error)")
+        }
     }
     
 }

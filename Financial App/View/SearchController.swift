@@ -65,7 +65,7 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         fm.loadQuote(ticker: searchResult[indexPath.row].symbol) { quote in
             DispatchQueue.main.async {
                 if let currentPrice = quote.c {
-                    cell.currentPrice.text = String(currentPrice)
+                    cell.currentPrice.text = String(format: "%.2f", currentPrice)
                 }
             }
     }
