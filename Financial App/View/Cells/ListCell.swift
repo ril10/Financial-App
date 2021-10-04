@@ -66,7 +66,7 @@ class ListCell: UITableViewCell {
                 print("parentList:\(favorite.parentList)")
                 print("list:\(self.list?.name)")
                 favoriteList.append(favorite)
-                saveToList()
+//                saveToList()
                 addToList()
                 
                 
@@ -88,16 +88,21 @@ class ListCell: UITableViewCell {
     }
     
     func saveToList() {
-        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
-        request.predicate = NSPredicate(format: "symbol== %@", symbol)
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print("Error saving context \(error)")
-            }
+//        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+//        request.predicate = NSPredicate(format: "symbol== %@", symbol)
+//        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+//
+//        if context.hasChanges {
+//            do {
+//                try context.save()
+//            } catch {
+//                print("Error saving context \(error)")
+//            }
+//        }
+        do {
+            try context.save()
+        } catch {
+            print("Error saving category \(error)")
         }
     }
     

@@ -16,15 +16,17 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadLoatsList()
         setupNavigator()
+        self.tableView.reloadData()
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
         self.registerTableViewCells()
@@ -46,14 +48,32 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LotsCell", for: indexPath) as! LotsCell
+        let dataCell = myLots[indexPath.row]
         
+        self.fm.loadQuote(ticker: dataCell.symbol ?? "No Symbol") { quote in
+            DispatchQueue.main.async {
+                    let a = Double(dataCell.costLots!)
+                    let b = quote.c ?? 0.0
+                    let c = ((b - a!) / a!) * 100
+                dataCell.valueDif = String(format: "%.2f", c) + "%"
+            }
+            
+        }
+
+        cell.symbolName.text = dataCell.symbol
+        cell.loatCost.text = dataCell.costLots
+        cell.countCost.text = dataCell.count
+        cell.date.text = dateFormatter(date: dataCell.date)
+        cell.loatID = dataCell.id
+        cell.valueDif.text = dataCell.valueDif ?? "" + "%"
         
-        cell.symbolName.text = myLots[indexPath.row].symbol
-        cell.loatCost.text = myLots[indexPath.row].costLots
-        cell.countCost.text = myLots[indexPath.row].count
-        cell.date.text = dateFormatter(date: myLots[indexPath.row].date)
+        let colorChangePrice = dataCell.valueDif?.contains("-")
+        if colorChangePrice == false {
+                cell.valueDif.textColor = UIColor.green
+            } else {
+                cell.valueDif.textColor = UIColor.red
+            }
         
-        cell.loatID = myLots[indexPath.row].id
         
         if cell.isDelete {
             myLots.remove(at: indexPath.row)
@@ -66,14 +86,9 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         return cell
         
     }
-    
-   @objc func difValue(symbol : String) {
-        
-        fm.loadQuote(ticker: symbol) { quote in
-            if let value = quote.c {
-                print(value)
-            }
-        }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.reloadData()
     }
     
     func dateFormatter(date : Date?) -> String {

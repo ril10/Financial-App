@@ -159,7 +159,7 @@ class TickDetail: UIViewController, Storyboarded {
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             let newLot = Lots(context: self.context)
-            newLot.symbol = self.name.text
+            newLot.symbol = self.ticker
             newLot.costLots = priceLoat.text
             newLot.count = countTextField.text!
             newLot.date = currentTime

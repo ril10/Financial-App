@@ -36,15 +36,15 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         loadAllList()
         loadAllFavorites()
         configNavigator()
     }
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//    }
     
     
     override func viewDidLoad() {
@@ -79,25 +79,24 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return  list.count//favoriteList.count
+        return  list.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        return  list[section].name//favoriteList[section].parentList?.name//list[section].name
+        return list[section].name
 
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  list[section].list?.count ?? 0//list[section].list?.count ?? 0 //favoriteList.count
+        
+        return list[section].list?.count ?? 0//favoriteList[section].parentList?.list?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
-        
-
-                
+           
         fm.loadQuote(ticker: favoriteList[indexPath.row].symbol ?? "No Symbol") { quote in
             DispatchQueue.main.async {
                 if let currentPrice = quote.c {
