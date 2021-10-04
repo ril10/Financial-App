@@ -19,7 +19,6 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     var list = [List]()
     var favoriteList = [Favorite]()
-    var fav : Favorite?
     
     var loadList : List? {
         didSet {
@@ -41,10 +40,12 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         configNavigator()
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        for i in favoriteList {
+            print(i.symbol)
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -54,14 +55,11 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         tableView.dataSource = self
         self.registerTableViewCells()
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         setupSearchBar()
         
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
-        
-        
         
     }
     //MARK: - Setup SearchBar
@@ -96,8 +94,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
+        let dataCell = favoriteList[indexPath.row]
+
            
-        fm.loadQuote(ticker: favoriteList[indexPath.row].symbol ?? "No Symbol") { quote in
+        fm.loadQuote(ticker: dataCell.symbol ?? "") { quote in
             DispatchQueue.main.async {
                 if let currentPrice = quote.c {
                     cell.currentPrice.text = String(currentPrice)
@@ -105,13 +105,12 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             }
         }
                
-        cell.symbol.text = favoriteList[indexPath.row].symbol
-        cell.companyName.text = favoriteList[indexPath.row].companyName
+        cell.symbol.text = dataCell.symbol
+        cell.companyName.text = dataCell.companyName
         
         
         if favoriteList[indexPath.row].isFavorite {
             cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-            
         } else {
             cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
             favoriteList.remove(at: indexPath.row)
@@ -224,31 +223,9 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
 
     }
     
-    func loadListSection() {
-        let request: NSFetchRequest<List> = List.fetchRequest()
-        let predicate : NSPredicate? = nil
-
-        let listPredicate = NSPredicate(format: "name MATCHES %@", loadList!.name!)
-        print(listPredicate)
-
-        if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
-        } else {
-            request.predicate = listPredicate
-        }
-
-        do {
-            list = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
-
-        tableView.reloadData()
-    }
     
     func loadAllFavorites() {
         let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
-//        request.predicate = NSPredicate(format: "sybmol== %@", fav!.symbol!)
         
         do {
             favoriteList = try context.fetch(request)

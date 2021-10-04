@@ -45,7 +45,17 @@ class TickDetail: UIViewController, Storyboarded {
         super.viewDidAppear(animated)
         
         configNavigator()
-        webSocketTask.resume()
+        update()
+        fm.loadDataCompany(ticker: self.ticker) { [self] company in
+            DispatchQueue.main.async {
+                name.text = company.name
+                marketCap.text = String(company.marketCapitalization ?? 0.0)
+                let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
+                let url = URL(string: company.logo ?? "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
+                downloadImage(from: (url) ?? (noImage!))
+            }
+        }
+//        webSocketTask.resume()
         
     }
     
@@ -62,17 +72,9 @@ class TickDetail: UIViewController, Storyboarded {
         TickDetail.tick = ticker
         
         
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
-        fm.loadDataCompany(ticker: self.ticker) { [self] company in
-            DispatchQueue.main.async {
-                name.text = company.name
-                marketCap.text = String(company.marketCapitalization ?? 0.0)
-                let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
-                let url = URL(string: company.logo ?? "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
-                downloadImage(from: (url) ?? (noImage!))
-            }
-        }
-        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(graphUpdate), userInfo: nil, repeats: true)
+//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+
+//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(graphUpdate), userInfo: nil, repeats: true)
         
         
         
@@ -82,21 +84,25 @@ class TickDetail: UIViewController, Storyboarded {
         graph.setNeedsDisplay()
     }
     
-    @objc func update() {
+    func update() {
         self.fm.loadQuote(ticker: self.ticker) { [self] quote in
             DispatchQueue.main.async {
                 
+                if let currentPrice = quote.c {
+                    self.currentPrice.text = String(format: "%.2f", currentPrice)
+                }
+                
                 if let lowPrice = quote.l {
-                    self.lowPrice.text = String(lowPrice)
+                    self.lowPrice.text = String(format: "%.2f", lowPrice)
                     self.graph.bottomBorder = CGFloat(lowPrice)
                 }
                 
                 if let openPrice = quote.o {
-                    self.openPrice.text = String(openPrice)
+                    self.openPrice.text = String(format: "%.2f", openPrice)
                 }
                 
                 if let highPrice = quote.h {
-                    self.highPrice.text = String(highPrice)
+                    self.highPrice.text = String(format: "%.2f", highPrice)
                     self.graph.topBorder = CGFloat(highPrice)
                 }
 

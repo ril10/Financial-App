@@ -20,16 +20,19 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         super.viewWillAppear(animated)
         loadLoatsList()
         setupNavigator()
-        self.tableView.reloadData()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.delegate = self
         tableView.dataSource = self
         self.registerTableViewCells()
+ 
     }
     
     //MARK: - TableRow
@@ -51,13 +54,10 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         let dataCell = myLots[indexPath.row]
         
         self.fm.loadQuote(ticker: dataCell.symbol ?? "No Symbol") { quote in
-            DispatchQueue.main.async {
-                    let a = Double(dataCell.costLots!)
-                    let b = quote.c ?? 0.0
-                    let c = ((b - a!) / a!) * 100
-                dataCell.valueDif = String(format: "%.2f", c) + "%"
-            }
-            
+                let buyValue = Double(dataCell.costLots!)
+                let currentValue = quote.c ?? 0.0
+                let indexChange = ((currentValue - buyValue!) / buyValue!) * 100
+                dataCell.valueDif = String(format: "%.2f", indexChange) + "%"
         }
 
         cell.symbolName.text = dataCell.symbol
@@ -85,10 +85,6 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         
         return cell
         
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.reloadData()
     }
     
     func dateFormatter(date : Date?) -> String {
@@ -124,9 +120,6 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         } catch {
             print("Error loading categories \(error)")
         }
-
-        tableView.reloadData()
-
     }
     
     //MARK: - NavBarSetup
