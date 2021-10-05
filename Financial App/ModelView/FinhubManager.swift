@@ -7,13 +7,15 @@
 
 import UIKit
 
+
 struct FinhubManager {
     
-    private let apiKey = "c5474t2ad3ifdcrdfsmg"
-    
+    private let apiKey = ApiKey.apiKey.rawValue
     //MARK:SymbolParse
     func loadSybmbolCompany(completion : @escaping ([SymbolCompany]) -> ()) {
-        if let url = URL(string: "https://finnhub.io/api/v1/stock/symbol?exchange=US" + "&token=" + apiKey) {
+        
+        if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathToSymbol.rawValue + UrlPath.token.rawValue + apiKey) {
+            
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             let session = URLSession(configuration: .default)
@@ -36,7 +38,7 @@ struct FinhubManager {
     
     //MARK:AboutCompany
     func loadDataCompany(ticker : String, completion : @escaping (FinhubCompany) -> ()) {
-        if let url = URL(string: "https://finnhub.io/api/v1/stock/profile2?symbol=" + ticker + "&token=" + apiKey) {
+        if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathCompany.rawValue + ticker + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             let session = URLSession(configuration: .default)
@@ -59,7 +61,7 @@ struct FinhubManager {
     
     //MARK:Quote
     func loadQuote(ticker: String, completion : @escaping (Quote) -> ()) {
-        if let url = URL(string: "https://finnhub.io/api/v1/quote?symbol=\(ticker)&token=" + apiKey) {
+        if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathQuote.rawValue + ticker + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             let session = URLSession(configuration: .default)
@@ -86,7 +88,7 @@ struct FinhubManager {
 
     //MARK:Search
     func searchFinhub(search: String, completion : @escaping (ResultSearch) -> ()) {
-        if let url = URL(string: "https://finnhub.io/api/v1/search?q=\(search)&token=" + apiKey) {
+        if let url = URL(string: UrlPath.base.rawValue + UrlPath.search.rawValue + search + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             let session = URLSession(configuration: .default)

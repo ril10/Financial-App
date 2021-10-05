@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BDA1F3F16171CFB100D6811D /* Pods_Financial_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43127A7A466B09382E177A66 /* Pods_Financial_App.framework */; };
 		C345C5822701BEAC008616CF /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C5812701BEAC008616CF /* SearchController.swift */; };
+		C361628D270C495900D375A7 /* EnumApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361628C270C495900D375A7 /* EnumApi.swift */; };
 		C36645D72703319600B8410E /* LotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36645D62703319600B8410E /* LotsCell.xib */; };
 		C36645D9270333AB00B8410E /* LotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36645D8270333AB00B8410E /* LotsCell.swift */; };
 		C367B9A826FC72F60005CDD8 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367B9A726FC72F60005CDD8 /* GraphView.swift */; };
@@ -67,6 +68,7 @@
 		B75395B5E92058AC86BB9D8F /* Pods-Financial App-Financial AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BD62A926D830FF1ADACB6616 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C345C5812701BEAC008616CF /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		C361628C270C495900D375A7 /* EnumApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumApi.swift; sourceTree = "<group>"; };
 		C36645D62703319600B8410E /* LotsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LotsCell.xib; sourceTree = "<group>"; };
 		C36645D8270333AB00B8410E /* LotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotsCell.swift; sourceTree = "<group>"; };
 		C367B9A726FC72F60005CDD8 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				C39A410626F8DE96007BD630 /* FinhubData.swift */,
 				C3E53E6326FDFA64009EF2B5 /* WebstockTrades.swift */,
 				CD38B2D126FF581E00307CB6 /* FinhubSearch.swift */,
+				C361628C270C495900D375A7 /* EnumApi.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 				C345C5822701BEAC008616CF /* SearchController.swift in Sources */,
 				C39A410726F8DE96007BD630 /* FinhubData.swift in Sources */,
 				C36645D9270333AB00B8410E /* LotsCell.swift in Sources */,
+				C361628D270C495900D375A7 /* EnumApi.swift in Sources */,
 				C3E53E6426FDFA64009EF2B5 /* WebstockTrades.swift in Sources */,
 				C39A40D026F8CE40007BD630 /* ViewController.swift in Sources */,
 				C3E53E6226FDBBC9009EF2B5 /* WebsocketManager.swift in Sources */,
