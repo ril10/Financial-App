@@ -35,10 +35,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadDataList()
         loadAllList()
         loadAllFavorites()
         configNavigator()
-        
 
     }
     
@@ -105,7 +105,6 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
                 return fav.parentList?.name == item
             }[indexPath.row]
             
-
                
             fm.loadQuote(ticker: dataCell.symbol ?? "") { quote in
                 DispatchQueue.main.async {
@@ -123,8 +122,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
                 cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
             } else {
                 cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
-                favoriteList.remove(at: indexPath.row)
-                
+                favoriteList.remove(at: [indexPath.row][indexPath.section])
                 tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
                 saveList()
             }
@@ -222,16 +220,19 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
         let predicate : NSPredicate? = nil
 
-        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", loadList!.name!)
+        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", loadList?.name ?? "Test")
+        request.predicate = listPredicate
+        print(request.predicate)
 
-        if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
-        } else {
-            request.predicate = listPredicate
-        }
+//        if let additionalPredicate = predicate {
+//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
+//        } else {
+//            request.predicate = listPredicate
+//        }
 
         do {
             favoriteList = try context.fetch(request)
+            
         } catch {
             print("Error fetching data from context \(error)")
         }
@@ -243,11 +244,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     func loadAllFavorites() {
         let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
-//        request.predicate = NSPredicate(format: "parentList.name MATCHES %@", listName!)
         
         do {
             favoriteList = try context.fetch(request)
-            print(favoriteList)
+            
         } catch {
             print("Error loading categories \(error)")
         }

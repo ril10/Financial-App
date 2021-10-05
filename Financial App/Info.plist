@@ -22,12 +22,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>https://finnhub.io/api/v1/</string>
-				<string>stock/</string>
-				<string>symbol?exchange=US</string>
-				<string>&amp;token=</string>
-			</array>
+			<array/>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

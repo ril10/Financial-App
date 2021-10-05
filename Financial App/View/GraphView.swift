@@ -9,169 +9,120 @@ import UIKit
 
 @IBDesignable
 class GraphView: UIView {
-  
-  var days: [CGFloat] = [1, 4, 13, 3, 6, 5, 10, 8]
-  
-  var grpahPoints: [CGFloat] = [156.69,155.11,154.07,148.97,149.55,148.12,150.55,148.12]
     
-  // number of y axis labels
-  let yDivisions: CGFloat = 5
-  // margin between lines
-  lazy var gap: CGFloat = {
-    return bounds.height / (yDivisions + 1)
-  }()
-  // averaged value spread over y Divisions
-  lazy var eachLabel: CGFloat = {
-    let maxValue = CGFloat(grpahPoints.max()!)
-    return maxValue / (yDivisions-1)
-  }()
-  
-  // column width
-  lazy var columnWidth: CGFloat = {
-    return bounds.width / CGFloat(grpahPoints.count)
-  }()
+    var days: [CGFloat] = [1, 2, 3, 4, 5, 6, 7, 8]
+    var c: [CGFloat] = [141.62,141.5,141.6,141.53,142,140.73,139.11,139.24,138.52,138.56,138.95,139.19,139.22,139.21,139.4,139.15]//close
+    var h: [CGFloat] = [141.83,141.84,141.7,141.77,142.2,142.21,140.7,139.5,139.25,138.98,139.22,139.315,139.35,139.24,139.5,139.46]//high
+    var l: [CGFloat] = [141.35,141.4,141.21,141.23,141.52,140.24,138.84,138.63,138.31,138.27,138.53,138.47,139.15,139.16,139.26,139.14]//low
+    var o: [CGFloat] = [141.46,141.69,141.44,141.77,141.52,141.95,140.62,139.049,139.22,138.46,138.75,139.05,139.21,139.23,139.38,139.46]//open
+    var t: [Int] = [1633334400,1633338000,1633341600,1633345200,1633348800,1633352400,1633356000,1633359600,1633363200,1633366800,1633370400,1633374000,1633377600,1633381200,1633384800,1633388400]//time
+    //symbol: AAPL resolution: 60 from:1633331689 to:1633418089
+    // number of y axis labels
+    let yDivisions: CGFloat = 5
+    // margin between lines
+    lazy var gap: CGFloat = {
+        return bounds.height / (yDivisions + 1)
+    }()
+    lazy var bottomGap: CGFloat = {
+        return bounds.height / (yDivisions + 1)
+    }()
+    // averaged value spread over y Divisions
+    lazy var eachLabel: CGFloat = {
+        let maxValue = CGFloat(c.max()!)
+        return maxValue / (yDivisions-1)
+    }()
+    
+    // column width
+    lazy var columnWidth: CGFloat = {
+        return bounds.width / CGFloat(c.count)
+    }()
+    
+    
+    lazy var data: [CGPoint] = {
+        var array = [CGPoint]()
+        for (index, day) in days.enumerated() {
+            let point = CGPoint(x: columnWidth * CGFloat(index),
+                                y: day / eachLabel * gap)
+            array.append(point)
+        }
+        return array
+    }()
+    
+    override func draw(_ rect: CGRect) {
+        
+        let context = UIGraphicsGetCurrentContext()!
+        let context2 = UIGraphicsGetCurrentContext()!
+        
 
-  
-  lazy var data: [CGPoint] = {
-    var array = [CGPoint]()
-    for (index, day) in days.enumerated() {
-      let point = CGPoint(x: columnWidth * CGFloat(index),
-                          y: day / eachLabel * gap)
-      array.append(point)
-    }
-    return array
-  }()
-  
-  override func draw(_ rect: CGRect) {
-    let context = UIGraphicsGetCurrentContext()!
-    drawText(context: context)
-    
-    context.saveGState()
-    context.translateBy(x: columnWidth/2+10, y: 0)
-    context.scaleBy(x: 1, y: -1)
-    context.translateBy(x: 0, y: -bounds.height)
-    context.translateBy(x: 0, y: gap)
-    
-    // add clip
-    context.saveGState()
-    let clipPath = UIBezierPath()
-    clipPath.interpolatePointsWithHermite(interpolationPoints: data)
 
-    clipPath.addLine(to: CGPoint(x: bounds.width-columnWidth, y: 0))
-    clipPath.addLine(to: .zero)
-    clipPath.close()
-    clipPath.addClip()
-    
-    
-    drawGradient(context: context)
-    context.restoreGState()
-    
-    
-    context.addLines(between: data)
-    context.strokePath()
-    
-    let path = UIBezierPath()
-    path.interpolatePointsWithHermite(interpolationPoints: data)
-    path.stroke()
-    context.restoreGState()
-    
-  }
-  
-  func drawGradient(context: CGContext) {
-    let colorSpace = CGColorSpaceCreateDeviceRGB()
-    let colors: NSArray = [#colorLiteral(red: 0.811568439, green: 0.9574350715, blue: 0.9724325538, alpha: 1).cgColor, #colorLiteral(red: 0.3529999852, green: 0.7839999795, blue: 0.9800000191, alpha: 1).cgColor]
-    let locations: [CGFloat] = [0.0, 0.75]
-    let gradient = CGGradient(colorsSpace: colorSpace,
-                              colors: colors,
-                              locations: locations)
-    let startPoint = CGPoint.zero
-    let endPoint = CGPoint(x: 0, y: bounds.height)
-    context.drawLinearGradient(gradient!,
-                               start: startPoint,
-                               end: endPoint, options: [])
-    
-    
-    
-  }
-  
-  func drawText(context: CGContext) {
-    let font = UIFont(name: "Avenir-Light", size: 12)!
-    let attributes = [NSAttributedString.Key.font: font]
-    
-    let maxValue = CGFloat(grpahPoints.max()!)
-    context.saveGState()
-    for i in 0..<5 {
-      context.translateBy(x: 0, y: gap)
-      
-      context.setStrokeColor(#colorLiteral(red: 0.8238154054, green: 0.8188886046, blue: 0.8286994696, alpha: 1).cgColor)
-      context.setLineWidth(1)
-      context.addLines(between: [CGPoint(x: 35, y: 0),
-                                 CGPoint(x: bounds.width, y: 0)])
-      context.strokePath()
-      
-      let text = "\(maxValue - eachLabel * CGFloat(i))" as NSString
-      let size = text.size(withAttributes: attributes)
-      text.draw(at: CGPoint(x: 6, y: -size.height/2), withAttributes: attributes)
-    }
-    context.restoreGState()
-    
-  }
-  
-}
+        drawTextLeft(context: context)
+        drawTextBottom(context: context2)
+        
 
-extension UIBezierPath
-{
-  func interpolatePointsWithHermite(interpolationPoints : [CGPoint], alpha : CGFloat = 1.0/3.0)
-  {
-    guard !interpolationPoints.isEmpty else { return }
-    self.move(to: interpolationPoints[0])
-    
-    let n = interpolationPoints.count - 1
-    
-    for index in 0..<n
-    {
-      var currentPoint = interpolationPoints[index]
-      var nextIndex = (index + 1) % interpolationPoints.count
-      var prevIndex = index == 0 ? interpolationPoints.count - 1 : index - 1
-      var previousPoint = interpolationPoints[prevIndex]
-      var nextPoint = interpolationPoints[nextIndex]
-      let endPoint = nextPoint
-      var mx : CGFloat
-      var my : CGFloat
-      
-      if index > 0
-      {
-        mx = (nextPoint.x - previousPoint.x) / 2.0
-        my = (nextPoint.y - previousPoint.y) / 2.0
-      }
-      else
-      {
-        mx = (nextPoint.x - currentPoint.x) / 2.0
-        my = (nextPoint.y - currentPoint.y) / 2.0
-      }
-      
-      let controlPoint1 = CGPoint(x: currentPoint.x + mx * alpha, y: currentPoint.y + my * alpha)
-      currentPoint = interpolationPoints[nextIndex]
-      nextIndex = (nextIndex + 1) % interpolationPoints.count
-      prevIndex = index
-      previousPoint = interpolationPoints[prevIndex]
-      nextPoint = interpolationPoints[nextIndex]
-      
-      if index < n - 1
-      {
-        mx = (nextPoint.x - previousPoint.x) / 2.0
-        my = (nextPoint.y - previousPoint.y) / 2.0
-      }
-      else
-      {
-        mx = (currentPoint.x - previousPoint.x) / 2.0
-        my = (currentPoint.y - previousPoint.y) / 2.0
-      }
-      
-      let controlPoint2 = CGPoint(x: currentPoint.x - mx * alpha, y: currentPoint.y - my * alpha)
-      self.addCurve(to: endPoint, controlPoint1: controlPoint1, controlPoint2: controlPoint2)
+        context.saveGState()
+        context.translateBy(x: columnWidth/2+10, y: 0)
+        context.scaleBy(x: 1, y: -1)
+        context.translateBy(x: bounds.height, y: -bounds.height)
+        context.translateBy(x: 0, y: gap)
+        
+        
+        context2.saveGState()
+        context2.translateBy(x: 0, y: columnWidth/2+10)
+        context2.scaleBy(x: 2, y: -1)
+        context2.translateBy(x: -bounds.height, y: 0)
+        context2.translateBy(x: bottomGap, y: 0)
+        
+        
     }
-  }
+    func drawTextBottom(context: CGContext) {
+        let font = UIFont(name: "Avenir-Light", size: 12)!
+        let attributes = [NSAttributedString.Key.font: font]
+        
+        let minValue = CGFloat(days.min()!)
+        context.saveGState()
+        for i in 0..<8 {
+            context.translateBy(x: bottomGap, y: 0)
+
+            context.setStrokeColor(#colorLiteral(red: 0.8238154054, green: 0.8188886046, blue: 0.8286994696, alpha: 1).cgColor)
+            context.setLineWidth(1)
+            context.addLines(between: [CGPoint(x: 0, y: 35),
+                                       CGPoint(x: 0, y: bounds.height)])
+            context.strokePath()
+
+            let text = "\(minValue + eachLabel * CGFloat(i))" as NSString
+            let size = text.size(withAttributes: attributes)
+            text.draw(at: CGPoint(x: -size.height/2, y: 6), withAttributes: attributes)
+        }
+        context.restoreGState()
+        
+    }
+    
+    func drawTextLeft(context: CGContext) {
+        let font = UIFont(name: "Avenir-Light", size: 12)!
+        let attributes = [NSAttributedString.Key.font: font]
+        
+        let maxValue = CGFloat(c.max()!)
+        context.saveGState()
+        for i in 0..<5 {
+            context.translateBy(x: 0, y: gap)
+            
+            context.setStrokeColor(#colorLiteral(red: 0.8238154054, green: 0.8188886046, blue: 0.8286994696, alpha: 1).cgColor)
+            context.setLineWidth(1)
+            context.addLines(between: [CGPoint(x: 35, y: 0),
+                                       CGPoint(x: bounds.width, y: 0)])
+            
+            
+            context.strokePath()
+            
+            let text = "\(maxValue - eachLabel * CGFloat(i))" as NSString
+            let size = text.size(withAttributes: attributes)
+            text.draw(at: CGPoint(x: 6, y: -size.height/2), withAttributes: attributes)
+            
+        }
+        context.restoreGState()
+        
+    }
+    
 }
 
 

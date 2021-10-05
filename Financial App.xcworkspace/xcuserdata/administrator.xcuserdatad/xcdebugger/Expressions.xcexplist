@@ -3,27 +3,51 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ListCell.addToList(_:):ListCell.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ViewController.tableView(_:numberOfRowsInSection:):ViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in UserAccount.tableView(_:didSelectRowAt:):UserAccount.swift">
-      </ContextState>
-      <ContextState
-         contextName = "UserAccount.tableView(_:cellForRowAt:):UserAccount.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in UserAccount.tableView(_:didSelectRowAt:):UserAccount.swift">
-      </ContextState>
-      <ContextState
          contextName = "ViewController.tableView(_:cellForRowAt:):ViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "indexPath.row">
             </PersistentString>
+            <PersistentString
+               value = "indexPath.section">
+            </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GraphView.bottomGap.getter:GraphView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in UserAccount.tableView(_:didSelectRowAt:):UserAccount.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.tableView(_:numberOfRowsInSection:):ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.viewWillAppear(_:):ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.loadAllFavorites():ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GraphView.drawTextLeft(context:):GraphView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GraphView.draw(_:):GraphView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GraphView.init(coder:):GraphView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ListCell.addToList(_:):ListCell.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UserAccount.tableView(_:cellForRowAt:):UserAccount.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.loadDataList():ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in UserAccount.tableView(_:didSelectRowAt:):UserAccount.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

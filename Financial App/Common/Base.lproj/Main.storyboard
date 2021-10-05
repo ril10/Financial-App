@@ -156,10 +156,10 @@
                                         <rect key="frame" x="0.0" y="227.5" width="375" height="212"/>
                                         <subviews>
                                             <view opaque="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="flx-lj-hCo" userLabel="Graph" customClass="GraphView" customModule="Financial_App" customModuleProvider="target">
-                                                <rect key="frame" x="37.5" y="-19" width="300" height="250"/>
+                                                <rect key="frame" x="12.5" y="-19" width="350" height="250"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="250" id="7hQ-gp-LEJ"/>
-                                                    <constraint firstAttribute="width" constant="300" id="qIL-T9-ChV"/>
+                                                    <constraint firstAttribute="width" constant="350" id="qIL-T9-ChV"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
