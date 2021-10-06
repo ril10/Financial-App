@@ -30,17 +30,6 @@ struct FinhubCompany : Codable {
     var finnhubIndustry : String?
 }
 
-//MARK:Stock Handels API
-struct StockHandels : Codable {
-    var c : [Double]
-    var h : [Double]
-    var l : [Double]
-    var o : [Double]
-    var s : String
-    var t : [Int]
-    var v : [Int]
-}
-
 //MARK:Quote
 struct Quote : Codable {
     var c : Double?

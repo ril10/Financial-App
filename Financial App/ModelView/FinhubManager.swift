@@ -11,7 +11,7 @@ import UIKit
 struct FinhubManager {
     
     private let apiKey = ApiKey.apiKey.rawValue
-    //MARK:SymbolParse
+    //MARK: - SymbolParse
     func loadSybmbolCompany(completion : @escaping ([SymbolCompany]) -> ()) {
         
         if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathToSymbol.rawValue + UrlPath.token.rawValue + apiKey) {
@@ -36,7 +36,7 @@ struct FinhubManager {
         }
     }
     
-    //MARK:AboutCompany
+    //MARK: - AboutCompany
     func loadDataCompany(ticker : String, completion : @escaping (FinhubCompany) -> ()) {
         if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathCompany.rawValue + ticker + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
@@ -59,7 +59,7 @@ struct FinhubManager {
         }
     }
     
-    //MARK:Quote
+    //MARK: - Quote
     func loadQuote(ticker: String, completion : @escaping (Quote) -> ()) {
         if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathQuote.rawValue + ticker + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
@@ -81,12 +81,12 @@ struct FinhubManager {
             task.resume()
         }
     }
-    //MARK:Get Image Data
+    //MARK: - Get Image Data
     func getDataImage(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
 
-    //MARK:Search
+    //MARK: - Search
     func searchFinhub(search: String, completion : @escaping (ResultSearch) -> ()) {
         if let url = URL(string: UrlPath.base.rawValue + UrlPath.search.rawValue + search + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
@@ -108,6 +108,9 @@ struct FinhubManager {
             task.resume()
         }
     }
+    
+    //MARK: - StockCandleData
+    
     
     
     

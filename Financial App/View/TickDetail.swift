@@ -21,7 +21,11 @@ class TickDetail: UIViewController, Storyboarded {
     
     var ticker : String = ""
     
-    public static var tick = ""
+    var middle : Int? {
+        graph.t.count / 2
+    }
+    
+//    public static var tick = ""
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -34,27 +38,22 @@ class TickDetail: UIViewController, Storyboarded {
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var marketCap: UILabel!
     
-    @IBOutlet weak var graph: GraphView!
+    @IBOutlet weak var graph: Graph!
     
     @IBOutlet weak var graphHighPrice: UILabel!
     @IBOutlet weak var graphLowPrice: UILabel!
     @IBOutlet weak var graphMiddlePrice: UILabel!
+    
+    @IBOutlet weak var startDate: UILabel!
+    @IBOutlet weak var secondDate: UILabel!
+    @IBOutlet weak var endDate: UILabel!
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         configNavigator()
-        update()
-        fm.loadDataCompany(ticker: self.ticker) { [self] company in
-            DispatchQueue.main.async {
-                name.text = company.name
-                marketCap.text = String(company.marketCapitalization ?? 0.0)
-                let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
-                let url = URL(string: company.logo ?? "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
-                downloadImage(from: (url) ?? (noImage!))
-            }
-        }
+
 //        webSocketTask.resume()
         
     }
@@ -69,9 +68,22 @@ class TickDetail: UIViewController, Storyboarded {
         super.viewDidLoad()
         
 
-        TickDetail.tick = ticker
+//        TickDetail.tick = ticker
         
-        
+        graphLabelValue()
+        startDate.text = graphLabelDate(time: graph.t.first ?? 0)
+        secondDate.text = graphLabelDate(time: graph.t[middle ?? 0])
+        endDate.text = graphLabelDate(time: graph.t.last ?? 0)
+        priceQuote()
+        fm.loadDataCompany(ticker: self.ticker) { [self] company in
+            DispatchQueue.main.async {
+                name.text = company.name
+                marketCap.text = String(company.marketCapitalization ?? 0.0)
+                let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
+                let url = URL(string: company.logo ?? "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
+                downloadImage(from: (url) ?? (noImage!))
+            }
+        }
 //        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
 
 //        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(graphUpdate), userInfo: nil, repeats: true)
@@ -80,11 +92,38 @@ class TickDetail: UIViewController, Storyboarded {
         
     }
     
+    func graphLabelValue() {
+        let total = graph.c.reduce(0, +)
+        let midVal = total / CGFloat(graph.c.count)
+        
+        graphMiddlePrice.text = String(format: "%.2f", midVal)
+        
+        if let graphTopLabel = graph.c.max() {
+            graphHighPrice.text = "\(graphTopLabel)"
+        }
+        
+        if let graphLowLabel = graph.c.min() {
+            graphLowPrice.text = "\(graphLowLabel)"
+        }
+        
+    }
+    
+    func graphLabelDate(time: Int) -> String {
+        
+        let unixTime = time
+        let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd HH:mm"
+        let dateForm = formatter.string(from: date)
+        return dateForm
+        
+    }
+    
     @objc func graphUpdate() {
         graph.setNeedsDisplay()
     }
     
-    func update() {
+    func priceQuote() {
         self.fm.loadQuote(ticker: self.ticker) { [self] quote in
             DispatchQueue.main.async {
                 

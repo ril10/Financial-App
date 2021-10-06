@@ -56,14 +56,14 @@ let webSocketTask = session.webSocketTask(with: url)
 
 func send() {
     
-    DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
-        send()
-        webSocketTask.send(.string("{\"type\": \"subscribe\", \"symbol\": \"\(TickDetail.tick)\"}")) { error in
-          if let error = error {
-            print("Error when sending a message \(error)")
-          }
-        }
-    }
+//    DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
+//        send()
+//        webSocketTask.send(.string("{\"type\": \"subscribe\", \"symbol\": \"\(TickDetail.tick)\"}")) { error in
+//          if let error = error {
+//            print("Error when sending a message \(error)")
+//          }
+//        }
+//    }
 }
 
 
