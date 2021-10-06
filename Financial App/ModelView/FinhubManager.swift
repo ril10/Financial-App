@@ -110,7 +110,33 @@ struct FinhubManager {
     }
     
     //MARK: - StockCandleData
-    
+//    func loadStockCandle(symbol: String,resolution: String = "60",from: Int,to: Int, completion : @escaping (StockHandelData) -> ()) {
+//        if let url = URL(string:
+//                            UrlPath.base.rawValue +
+//                            UrlPath.pathCandle.rawValue + symbol +
+//                            UrlPath.pathCandleResolution.rawValue + resolution +
+//                            UrlPath.pathCandleFrom.rawValue + from +
+//                            UrlPath.pathCandleTo.rawValue + to +
+//                            UrlPath.token.rawValue + apiKey) {
+//            var request = URLRequest(url: url)
+//            request.httpMethod = "GET"
+//            let session = URLSession(configuration: .default)
+//            let task = session.dataTask(with: request) { (data : Data?, response : URLResponse?, error : Error?) in
+//                if error != nil {
+//                    return
+//                }
+//                if let safeData = data {
+//                    do {
+//                        let data = try JSONDecoder().decode(StockHandelData.self, from: safeData)
+//                        completion(data)
+//                    } catch {
+//                        print(error)
+//                    }
+//                }
+//            }
+//            task.resume()
+//        }
+//    }
     
     
     

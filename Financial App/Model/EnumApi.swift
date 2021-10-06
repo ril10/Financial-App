@@ -17,6 +17,10 @@ enum UrlPath : String, CaseIterable {
     case pathToSymbol = "stock/symbol?exchange=US"
     case pathCompany = "stock/profile2?symbol="
     case pathQuote = "quote?symbol="
+    case pathCandle = "stock/candle?symbol="
+    case pathCandleResolution = "&resolution="
+    case pathCandleFrom = "&from="
+    case pathCandleTo = "&to="
     case search = "search?q="
 
 }

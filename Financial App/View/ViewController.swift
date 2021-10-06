@@ -61,6 +61,8 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
+        
+        
     }
     //MARK: - Setup SearchBar
     private func setupSearchBar() {
