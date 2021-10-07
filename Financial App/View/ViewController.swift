@@ -25,9 +25,11 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             loadDataList()
         }
     }
+    
+    var time : Int? {
+        Int(Date().timeIntervalSince1970) - 86400
+    }
  
-    
-    
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "CustomTableViewCell",bundle: nil)
         self.tableView.register(textFieldCell,forCellReuseIdentifier: "CustomTableViewCell")
@@ -142,7 +144,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             return fav.parentList?.name == item
 
         }[indexPath.row]
-        coordinator?.finhubDetail(ticker: dataCell.symbol!)
+        coordinator?.finhubDetail(ticker: dataCell.symbol!,from: time!, to: Int(Date().timeIntervalSince1970))
     }
     
     

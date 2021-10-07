@@ -24,6 +24,14 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         }
     }
     
+    var time : Int? {
+        Int(Date().timeIntervalSince1970) - 86400
+    }
+    
+    var c : [Double] = []
+    var o : [Double] = []
+    var t : [Int] = []
+    
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "CustomTableViewCell",
                                   bundle: nil)
@@ -79,7 +87,8 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.finhubDetail(ticker: searchResult[indexPath.row].symbol)
+
+        coordinator?.finhubDetail(ticker: self.searchResult[indexPath.row].symbol,from: time!,to: Int(Date().timeIntervalSince1970))
         coordinator?.dismiss()
     }
     

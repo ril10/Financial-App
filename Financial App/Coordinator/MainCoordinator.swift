@@ -25,11 +25,13 @@ class MainCoordinator: Coordinator {
         navigationController.dismiss(animated: true, completion: nil)
     }
     
-    func finhubDetail(ticker : String) {
+    func finhubDetail(ticker : String,from : Int, to : Int) {
         let vc = TickDetail.instantiate()
         vc.ticker = ticker
+        vc.from = from
+        vc.to = to
         vc.coordinator = self
-        navigationController.pushViewController(vc, animated: true)
+        self.navigationController.pushViewController(vc, animated: true)
     }
     
     func userAccount() {

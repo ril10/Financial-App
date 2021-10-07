@@ -3,6 +3,62 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "TickDetail.viewWillAppear(_:):TickDetail.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "graph.c">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.tableView(_:numberOfRowsInSection:):ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in GraphView.bottomGap.getter:GraphView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Graph.draw(_:):Graph.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "c">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in TickDetail.viewWillAppear(_:):TickDetail.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "stock.c">
+            </PersistentString>
+            <PersistentString
+               value = "graph.c">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TickDetail.viewDidAppear(_:):TickDetail.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "graph.t">
+            </PersistentString>
+            <PersistentString
+               value = "graph.c">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.loadDataList():ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in UserAccount.tableView(_:didSelectRowAt:):UserAccount.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.loadAllFavorites():ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GraphView.draw(_:):GraphView.swift">
+      </ContextState>
+      <ContextState
          contextName = "ViewController.tableView(_:cellForRowAt:):ViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -14,40 +70,61 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in GraphView.bottomGap.getter:GraphView.swift">
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in closure #1 in UserAccount.tableView(_:didSelectRowAt:):UserAccount.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ViewController.tableView(_:numberOfRowsInSection:):ViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ViewController.viewWillAppear(_:):ViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ViewController.loadAllFavorites():ViewController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "GraphView.drawTextLeft(context:):GraphView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "GraphView.draw(_:):GraphView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "GraphView.init(coder:):GraphView.swift">
       </ContextState>
       <ContextState
          contextName = "ListCell.addToList(_:):ListCell.swift">
       </ContextState>
       <ContextState
+         contextName = "GraphView.init(coder:):GraphView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "TickDetail.viewDidLoad():TickDetail.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Graph.init(coder:):Graph.swift">
+      </ContextState>
+      <ContextState
+         contextName = "GraphView.drawTextLeft(context:):GraphView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.viewWillAppear(_:):ViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in ViewController.tableView(_:didSelectRowAt:):ViewController.swift">
+      </ContextState>
+      <ContextState
          contextName = "UserAccount.tableView(_:cellForRowAt:):UserAccount.swift">
       </ContextState>
       <ContextState
-         contextName = "ViewController.loadDataList():ViewController.swift">
+         contextName = "closure #1 in TickDetail.viewDidLoad():TickDetail.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "graph.c">
+            </PersistentString>
+            <PersistentString
+               value = "stock.c">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in UserAccount.tableView(_:didSelectRowAt:):UserAccount.swift">
+         contextName = "closure #1 in TickDetail.viewDidAppear(_:):TickDetail.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "graph.c">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in TickDetail.viewDidLoad():TickDetail.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "graph.c">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Graph.c.getter:Graph.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

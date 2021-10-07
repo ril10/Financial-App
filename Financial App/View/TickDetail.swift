@@ -24,8 +24,10 @@ class TickDetail: UIViewController, Storyboarded {
     var middle : Int? {
         graph.t.count / 2
     }
+    var from : Int?
+    var to : Int?
     
-//    public static var tick = ""
+    //    public static var tick = ""
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -49,32 +51,47 @@ class TickDetail: UIViewController, Storyboarded {
     @IBOutlet weak var endDate: UILabel!
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        //        webSocketTask.resume()
+        
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         configNavigator()
 
-//        webSocketTask.resume()
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        let reason = "Closing connection".data(using: .utf8)
-//        webSocketTask.cancel(with: .goingAway, reason: reason)
+        //        let reason = "Closing connection".data(using: .utf8)
+        //        webSocketTask.cancel(with: .goingAway, reason: reason)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //        TickDetail.tick = ticker
+        fm.loadStockCandle(symbol: ticker, from: from!, to: to!) { [self] stock in
 
-//        TickDetail.tick = ticker
+                graph.c.append(contentsOf: stock.c)
+                graph.o.append(contentsOf: stock.o)
+                graph.t.append(contentsOf: stock.t)
+            DispatchQueue.main.async {
+                startDate.text = graphLabelDate(time: stock.t.first ?? 0)
+                secondDate.text = graphLabelDate(time: stock.t[middle ?? 0])
+                endDate.text = graphLabelDate(time: stock.t.last ?? 0)
+                print(graph.c)
+                graphLabelValue()
+                priceQuote()
+                if graph.c.count > 0 {
+                    graph.setNeedsDisplay()
+                }
+            }
+        }
         
-        graphLabelValue()
-        startDate.text = graphLabelDate(time: graph.t.first ?? 0)
-        secondDate.text = graphLabelDate(time: graph.t[middle ?? 0])
-        endDate.text = graphLabelDate(time: graph.t.last ?? 0)
-        priceQuote()
+        
         fm.loadDataCompany(ticker: self.ticker) { [self] company in
             DispatchQueue.main.async {
                 name.text = company.name
@@ -84,28 +101,25 @@ class TickDetail: UIViewController, Storyboarded {
                 downloadImage(from: (url) ?? (noImage!))
             }
         }
-//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        
 
-//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(graphUpdate), userInfo: nil, repeats: true)
-        
-        
         
     }
     
     func graphLabelValue() {
         let total = graph.c.reduce(0, +)
-        let midVal = total / CGFloat(graph.c.count)
+        let midVal = CGFloat(total) / CGFloat(graph.c.count)
         
-        graphMiddlePrice.text = String(format: "%.2f", midVal)
+        self.graphMiddlePrice.text = String(format: "%.2f", midVal)
         
-        if let graphTopLabel = graph.c.max() {
-            graphHighPrice.text = "\(graphTopLabel)"
+        
+        if let graphTopLabel = self.graph.c.max() {
+            self.graphHighPrice.text = "\(graphTopLabel)"
         }
         
-        if let graphLowLabel = graph.c.min() {
-            graphLowPrice.text = "\(graphLowLabel)"
+        if let graphLowLabel = self.graph.c.min() {
+            self.graphLowPrice.text = "\(graphLowLabel)"
         }
-        
     }
     
     func graphLabelDate(time: Int) -> String {
@@ -117,10 +131,6 @@ class TickDetail: UIViewController, Storyboarded {
         let dateForm = formatter.string(from: date)
         return dateForm
         
-    }
-    
-    @objc func graphUpdate() {
-        graph.setNeedsDisplay()
     }
     
     func priceQuote() {
@@ -144,7 +154,7 @@ class TickDetail: UIViewController, Storyboarded {
                     self.highPrice.text = String(format: "%.2f", highPrice)
                     
                 }
-
+                
                 
             }
         }
@@ -186,7 +196,7 @@ class TickDetail: UIViewController, Storyboarded {
     }
     
     @objc func favoite() {
-
+        
     }
     
     @objc func buyLots() {
@@ -231,13 +241,13 @@ class TickDetail: UIViewController, Storyboarded {
     }
     //MARK: - Model Manupulation Methods
     func saveLoats() {
-
+        
         do {
-          try context.save()
+            try context.save()
         } catch {
-           print("Error saving context \(error)")
+            print("Error saving context \(error)")
         }
-
+        
     }
     
 }
