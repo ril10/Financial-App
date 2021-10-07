@@ -71,6 +71,14 @@ class Graph : UIView {
             let spacing = graphWidth / CGFloat(self.c.count)
             return CGFloat(column) * spacing + margin + 2
         }
+        //Xo point
+        // Calculate the x point
+        
+        let columnXOPoint = { (column: Int) -> CGFloat in
+            // Calculate the gap between points
+            let spacing = graphWidth / CGFloat(self.o.count)
+            return CGFloat(column) * spacing + margin + 20
+        }
         //Y Point
         let topBorder = CGFloat(c.max() ?? 0 / 2)
         let bottomBorder = CGFloat((c.min() ?? 0 / 2) + 30)
@@ -82,23 +90,31 @@ class Graph : UIView {
             let yPoint = ((CGFloat(graphPoint) - minValue) / (CGFloat(maxValue) - CGFloat(minValue))) * graphHeight
             return graphHeight + topBorder - yPoint
         }
+        //Oy Point
+        let topBorderOpoint = CGFloat(o.max() ?? 0 / 2)
+        let bottomBorderOpoint = CGFloat((o.min() ?? 0 / 2) + 30)
+        let graphHeightOpoint = height - topBorderOpoint - bottomBorderOpoint
+        let maxValueOpoint = CGFloat(o.max() ?? 0)
+        let minValueOpoint = CGFloat(o.min() ?? 0)
+        
+        let columnOPoint = { (graphPoint: CGFloat) ->CGFloat in
+            let yPoint = ((CGFloat(graphPoint) - minValueOpoint) / (CGFloat(maxValueOpoint) - CGFloat(minValueOpoint))) * graphHeight
+            return graphHeight + topBorder - yPoint
+        }
         
         
         // Draw the circles on top of the graph stroke
         for i in 0 ..< c.count {
             var point = CGPoint(x: columnXPoint(i), y: columnYPoint(CGFloat(c[i])))
+            var pointO = CGPoint(x: columnXOPoint(i), y: columnOPoint(CGFloat(o[i])))
 
-
-            if c.filter{o.contains($0)}.count > 1 {
-                
-                UIColor.red.setFill()
-            } else {
-                
-                UIColor.green.setFill()
-            }
             
             let rectangle = UIBezierPath(roundedRect: CGRect(x: point.x, y: point.y, width: Constants.rectangleW, height: Constants.rectangleH), cornerRadius: 2)
+            UIColor.red.setFill()
             rectangle.fill()
+            let rectangleO = UIBezierPath(roundedRect: CGRect(x: pointO.x, y: pointO.y, width: Constants.rectangleW, height: Constants.rectangleH), cornerRadius: 2)
+            UIColor.green.setFill()
+            rectangleO.fill()
         
         }
 

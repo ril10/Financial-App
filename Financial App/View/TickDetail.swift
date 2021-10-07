@@ -24,6 +24,7 @@ class TickDetail: UIViewController, Storyboarded {
     var middle : Int? {
         graph.t.count / 2
     }
+    
     var from : Int?
     var to : Int?
     
@@ -82,7 +83,6 @@ class TickDetail: UIViewController, Storyboarded {
                 startDate.text = graphLabelDate(time: stock.t.first ?? 0)
                 secondDate.text = graphLabelDate(time: stock.t[middle ?? 0])
                 endDate.text = graphLabelDate(time: stock.t.last ?? 0)
-                print(graph.c)
                 graphLabelValue()
                 priceQuote()
                 if graph.c.count > 0 {
