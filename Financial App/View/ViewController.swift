@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import RxSwift
 
 class ViewController: UITableViewController,Storyboarded,UpdateTableView {
 
@@ -25,6 +26,9 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             loadDataList()
         }
     }
+    
+    private let apiCalling = APICalling()
+    private let disposeBag = DisposeBag()
     
     var time : Int? {
         Int(Date().timeIntervalSince1970) - 86400
@@ -53,11 +57,16 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         tableView.delegate = self
         tableView.dataSource = self
         self.registerTableViewCells()
         
-        
+        let request = APIRequest()
+        let result : Observable<FinhubCompany> = self.apiCalling.send(apiRequest: request)
+        _ = result.bind(onNext: { fin in
+            print(fin)
+        })
         setupSearchBar()
         
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -98,7 +107,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
-        
+
         if favoriteList.count > 0 {
 //            let dataCell = favoriteList[indexPath.row]
             

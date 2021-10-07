@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 
 struct FinhubManager {
@@ -15,9 +17,8 @@ struct FinhubManager {
     func loadSybmbolCompany(completion : @escaping ([SymbolCompany]) -> ()) {
         
         if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathToSymbol.rawValue + UrlPath.token.rawValue + apiKey) {
-            
             var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            request.httpMethod = UrlPath.get.rawValue
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: request) { (data : Data?, response : URLResponse?, error : Error?) in
                 if error != nil {
@@ -40,7 +41,7 @@ struct FinhubManager {
     func loadDataCompany(ticker : String, completion : @escaping (FinhubCompany) -> ()) {
         if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathCompany.rawValue + ticker + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            request.httpMethod = UrlPath.get.rawValue
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: request) { (data : Data?, response : URLResponse?, error : Error?) in
                 if error != nil {
@@ -63,7 +64,7 @@ struct FinhubManager {
     func loadQuote(ticker: String, completion : @escaping (Quote) -> ()) {
         if let url = URL(string: UrlPath.base.rawValue + UrlPath.pathQuote.rawValue + ticker + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            request.httpMethod = UrlPath.get.rawValue
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: request) { (data : Data?, response : URLResponse?, error : Error?) in
                 if error != nil {
@@ -85,12 +86,12 @@ struct FinhubManager {
     func getDataImage(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
-
+    
     //MARK: - Search
     func searchFinhub(search: String, completion : @escaping (ResultSearch) -> ()) {
         if let url = URL(string: UrlPath.base.rawValue + UrlPath.search.rawValue + search + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            request.httpMethod = UrlPath.get.rawValue
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: request) { (data : Data?, response : URLResponse?, error : Error?) in
                 if error != nil {
@@ -115,7 +116,7 @@ struct FinhubManager {
         let part2 = UrlPath.pathCandleFrom.rawValue + "\(from)" +  UrlPath.pathCandleTo.rawValue + "\(to)"
         if let url = URL(string:part1 + part2 + UrlPath.token.rawValue + apiKey) {
             var request = URLRequest(url: url)
-            request.httpMethod = "GET"
+            request.httpMethod = UrlPath.get.rawValue
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: request) { (data : Data?, response : URLResponse?, error : Error?) in
                 if error != nil {
@@ -134,7 +135,44 @@ struct FinhubManager {
         }
     }
     
+}
+class APICalling {
+    func send<T: Codable>(apiRequest: APIRequest) -> Observable<T> {
+        return Observable<T>.create {observer in
+            let request = apiRequest.request(with: apiRequest.url!)
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                do {
+                    let model : FinhubCompany = try JSONDecoder().decode(FinhubCompany.self, from: data ?? Data())
+                    observer.onNext(model as! T)
+                } catch let error {
+                    observer.onError(error)
+                }
+                observer.onCompleted()
+            }
+            task.resume()
+            
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+}
+enum RequestType: String {
+    case GET
+}
+
+class APIRequest {
     
+    let url = URL(string: UrlPath.base.rawValue + UrlPath.pathCompany.rawValue + "AAPL" + UrlPath.token.rawValue + ApiKey.apiKey.rawValue)
+    var method = RequestType.GET
+    var parametrs = [String:String]()
+    
+    func request(with baseURL: URL) -> URLRequest {
+        var request = URLRequest(url:url!)
+        request.httpMethod = method.rawValue
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        return request
+    }
     
 }
 

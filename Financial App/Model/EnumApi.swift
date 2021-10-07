@@ -22,5 +22,6 @@ enum UrlPath : String, CaseIterable {
     case pathCandleFrom = "&from="
     case pathCandleTo = "&to="
     case search = "search?q="
+    case get = "GET"
 
 }
