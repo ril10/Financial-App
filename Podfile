@@ -8,6 +8,7 @@ target 'Financial App' do
   # Pods for Financial App
     pod 'RxSwift', '6.2.0'
     pod 'RxCocoa', '6.2.0'
+    pod 'Dip'
   target 'Financial AppTests' do
     inherit! :search_paths
     # Pods for testing

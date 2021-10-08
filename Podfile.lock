@@ -1,4 +1,5 @@
 PODS:
+  - Dip (7.1.1)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -7,20 +8,23 @@ PODS:
   - RxSwift (6.2.0)
 
 DEPENDENCIES:
+  - Dip
   - RxCocoa (= 6.2.0)
   - RxSwift (= 6.2.0)
 
 SPEC REPOS:
   trunk:
+    - Dip
     - RxCocoa
     - RxRelay
     - RxSwift
 
 SPEC CHECKSUMS:
+  Dip: 6bebb09d50f88633039ce2c9fe5bc56d387b492f
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
 
-PODFILE CHECKSUM: 541d62345d682c5a6898c86d293e5828d5abe9ea
+PODFILE CHECKSUM: cc8915ef6b6b11c1e17f6017fda584b5c5f40c9f
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2
