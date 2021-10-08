@@ -14,7 +14,6 @@
 		C36645D72703319600B8410E /* LotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36645D62703319600B8410E /* LotsCell.xib */; };
 		C36645D9270333AB00B8410E /* LotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36645D8270333AB00B8410E /* LotsCell.swift */; };
 		C367B9A826FC72F60005CDD8 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367B9A726FC72F60005CDD8 /* Graph.swift */; };
-		C36A7D4126F9D34400AF91C5 /* FinhubManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */; };
 		C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4226FA05C400AF91C5 /* TickDetail.swift */; };
 		C36A7D4926FA24F000AF91C5 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4826FA24F000AF91C5 /* UserAccount.swift */; };
 		C39A40CC26F8CE40007BD630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CB26F8CE40007BD630 /* AppDelegate.swift */; };
@@ -32,7 +31,6 @@
 		C3B119A0270475FC00CE3873 /* ListOfSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1199F270475FC00CE3873 /* ListOfSection.swift */; };
 		C3B119A22704766100CE3873 /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3B119A12704766100CE3873 /* ListCell.xib */; };
 		C3B119A4270477E500CE3873 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B119A3270477E500CE3873 /* ListCell.swift */; };
-		C3E53E6426FDFA64009EF2B5 /* WebstockTrades.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E53E6326FDFA64009EF2B5 /* WebstockTrades.swift */; };
 		CD38B2CE26FF469D00307CB6 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */; };
 		CD38B2D026FF46D700307CB6 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD38B2CF26FF46D700307CB6 /* CustomTableViewCell.xib */; };
 		CD38B2D226FF581E00307CB6 /* FinhubSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD38B2D126FF581E00307CB6 /* FinhubSearch.swift */; };
@@ -74,7 +72,6 @@
 		C36645D62703319600B8410E /* LotsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LotsCell.xib; sourceTree = "<group>"; };
 		C36645D8270333AB00B8410E /* LotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotsCell.swift; sourceTree = "<group>"; };
 		C367B9A726FC72F60005CDD8 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
-		C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubManager.swift; sourceTree = "<group>"; };
 		C36A7D4226FA05C400AF91C5 /* TickDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickDetail.swift; sourceTree = "<group>"; };
 		C36A7D4826FA24F000AF91C5 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		C39A40C826F8CE40007BD630 /* Financial App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Financial App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +95,6 @@
 		C3B1199F270475FC00CE3873 /* ListOfSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfSection.swift; sourceTree = "<group>"; };
 		C3B119A12704766100CE3873 /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		C3B119A3270477E500CE3873 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
-		C3E53E6326FDFA64009EF2B5 /* WebstockTrades.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebstockTrades.swift; sourceTree = "<group>"; };
 		CB331FA2D872F5C37799B14E /* Pods_Financial_App_Financial_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Financial_App_Financial_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		CD38B2CF26FF46D700307CB6 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
@@ -228,7 +224,6 @@
 			isa = PBXGroup;
 			children = (
 				C39A410626F8DE96007BD630 /* FinhubData.swift */,
-				C3E53E6326FDFA64009EF2B5 /* WebstockTrades.swift */,
 				CD38B2D126FF581E00307CB6 /* FinhubSearch.swift */,
 				C361628C270C495900D375A7 /* EnumApi.swift */,
 				CD4BEAA2270E5D2500C99791 /* StockHandleData.swift */,
@@ -239,7 +234,6 @@
 		C39A40FD26F8D2FD007BD630 /* ModelView */ = {
 			isa = PBXGroup;
 			children = (
-				C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */,
 				C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */,
 			);
 			path = ModelView;
@@ -538,7 +532,6 @@
 				C39A410726F8DE96007BD630 /* FinhubData.swift in Sources */,
 				C36645D9270333AB00B8410E /* LotsCell.swift in Sources */,
 				C361628D270C495900D375A7 /* EnumApi.swift in Sources */,
-				C3E53E6426FDFA64009EF2B5 /* WebstockTrades.swift in Sources */,
 				C39A40D026F8CE40007BD630 /* ViewController.swift in Sources */,
 				CD38B2D226FF581E00307CB6 /* FinhubSearch.swift in Sources */,
 				CD38B2DC2700BEDC00307CB6 /* Finhub.xcdatamodeld in Sources */,
@@ -547,7 +540,6 @@
 				C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */,
 				CD38B2CE26FF469D00307CB6 /* CustomTableViewCell.swift in Sources */,
 				C39A410326F8D3D1007BD630 /* MainCoordinator.swift in Sources */,
-				C36A7D4126F9D34400AF91C5 /* FinhubManager.swift in Sources */,
 				C3B119A0270475FC00CE3873 /* ListOfSection.swift in Sources */,
 				C367B9A826FC72F60005CDD8 /* Graph.swift in Sources */,
 				C36A7D4926FA24F000AF91C5 /* UserAccount.swift in Sources */,
