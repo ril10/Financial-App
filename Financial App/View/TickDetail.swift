@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import RxSwift
+import RxCocoa
 
 class TickDetail: UIViewController, Storyboarded {
     
