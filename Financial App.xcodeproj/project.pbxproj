@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BDA1F3F16171CFB100D6811D /* Pods_Financial_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43127A7A466B09382E177A66 /* Pods_Financial_App.framework */; };
 		C345C5822701BEAC008616CF /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C5812701BEAC008616CF /* SearchController.swift */; };
+		C3579ADC27102D9D00B70F33 /* FinhubRxRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */; };
 		C361628D270C495900D375A7 /* EnumApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361628C270C495900D375A7 /* EnumApi.swift */; };
 		C36645D72703319600B8410E /* LotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36645D62703319600B8410E /* LotsCell.xib */; };
 		C36645D9270333AB00B8410E /* LotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36645D8270333AB00B8410E /* LotsCell.swift */; };
@@ -31,7 +32,6 @@
 		C3B119A0270475FC00CE3873 /* ListOfSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1199F270475FC00CE3873 /* ListOfSection.swift */; };
 		C3B119A22704766100CE3873 /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3B119A12704766100CE3873 /* ListCell.xib */; };
 		C3B119A4270477E500CE3873 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B119A3270477E500CE3873 /* ListCell.swift */; };
-		C3E53E6226FDBBC9009EF2B5 /* WebsocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E53E6126FDBBC9009EF2B5 /* WebsocketManager.swift */; };
 		C3E53E6426FDFA64009EF2B5 /* WebstockTrades.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E53E6326FDFA64009EF2B5 /* WebstockTrades.swift */; };
 		CD38B2CE26FF469D00307CB6 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */; };
 		CD38B2D026FF46D700307CB6 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD38B2CF26FF46D700307CB6 /* CustomTableViewCell.xib */; };
@@ -69,6 +69,7 @@
 		B75395B5E92058AC86BB9D8F /* Pods-Financial App-Financial AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BD62A926D830FF1ADACB6616 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		C345C5812701BEAC008616CF /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubRxRequests.swift; sourceTree = "<group>"; };
 		C361628C270C495900D375A7 /* EnumApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumApi.swift; sourceTree = "<group>"; };
 		C36645D62703319600B8410E /* LotsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LotsCell.xib; sourceTree = "<group>"; };
 		C36645D8270333AB00B8410E /* LotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotsCell.swift; sourceTree = "<group>"; };
@@ -97,7 +98,6 @@
 		C3B1199F270475FC00CE3873 /* ListOfSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfSection.swift; sourceTree = "<group>"; };
 		C3B119A12704766100CE3873 /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		C3B119A3270477E500CE3873 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
-		C3E53E6126FDBBC9009EF2B5 /* WebsocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsocketManager.swift; sourceTree = "<group>"; };
 		C3E53E6326FDFA64009EF2B5 /* WebstockTrades.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebstockTrades.swift; sourceTree = "<group>"; };
 		CB331FA2D872F5C37799B14E /* Pods_Financial_App_Financial_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Financial_App_Financial_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				C36A7D4026F9D34400AF91C5 /* FinhubManager.swift */,
-				C3E53E6126FDBBC9009EF2B5 /* WebsocketManager.swift */,
+				C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */,
 			);
 			path = ModelView;
 			sourceTree = "<group>";
@@ -540,9 +540,9 @@
 				C361628D270C495900D375A7 /* EnumApi.swift in Sources */,
 				C3E53E6426FDFA64009EF2B5 /* WebstockTrades.swift in Sources */,
 				C39A40D026F8CE40007BD630 /* ViewController.swift in Sources */,
-				C3E53E6226FDBBC9009EF2B5 /* WebsocketManager.swift in Sources */,
 				CD38B2D226FF581E00307CB6 /* FinhubSearch.swift in Sources */,
 				CD38B2DC2700BEDC00307CB6 /* Finhub.xcdatamodeld in Sources */,
+				C3579ADC27102D9D00B70F33 /* FinhubRxRequests.swift in Sources */,
 				C39A40CC26F8CE40007BD630 /* AppDelegate.swift in Sources */,
 				C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */,
 				CD38B2CE26FF469D00307CB6 /* CustomTableViewCell.swift in Sources */,

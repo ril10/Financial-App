@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import RxSwift
 
 class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
 
@@ -14,7 +15,6 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     
     private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
-    var fm = FinhubManager()
     
     var searchResult = [Result]() {
         didSet {
@@ -24,13 +24,16 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         }
     }
     
+    private let apiCalling = APICalling()
+    private let disposeBag = DisposeBag()
+    private let request = APIRequest()
+    
+    var quote : Observable<Quote>!
+    var search : Observable<ResultSearch>!
+    
     var time : Int? {
         Int(Date().timeIntervalSince1970) - 86400
     }
-    
-    var c : [Double] = []
-    var o : [Double] = []
-    var t : [Int] = []
     
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "CustomTableViewCell",
@@ -69,17 +72,17 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
+        let dataCell = searchResult[indexPath.row]
         
-        fm.loadQuote(ticker: searchResult[indexPath.row].symbol) { quote in
+        quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol))
+        quote.subscribe(onNext: { quote in
             DispatchQueue.main.async {
-                if let currentPrice = quote.c {
-                    cell.currentPrice.text = String(format: "%.2f", currentPrice)
-                }
+                cell.currentPrice.text = String(format: "%.2f", quote.c ?? 0.0)
             }
-    }
+        }).disposed(by: self.disposeBag)
         
-        cell.symbol.text = searchResult[indexPath.row].symbol
-        cell.companyName.text = searchResult[indexPath.row].description
+        cell.symbol.text = dataCell.symbol
+        cell.companyName.text = dataCell.description
         
         cell.delegate = self
         
@@ -87,8 +90,9 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        coordinator?.finhubDetail(ticker: self.searchResult[indexPath.row].symbol,from: time!,to: Int(Date().timeIntervalSince1970))
+        let dataCell = searchResult[indexPath.row]
+        
+        coordinator?.finhubDetail(ticker: dataCell.symbol,from: time!,to: Int(Date().timeIntervalSince1970))
         coordinator?.dismiss()
     }
     
@@ -123,11 +127,12 @@ extension SearchController : UISearchBarDelegate {
     
     func searchResults(text: String) {
         DispatchQueue.main.async {
-            self.fm.searchFinhub(search: text) { result in
+            self.search = self.apiCalling.load(apiRequest: self.request.requestSearch(search: text))
+            self.search?.subscribe(onNext:  { result in
                 if let searchResult = result.result {
                     self.searchResult = searchResult
                 }
-            }
+            }).disposed(by: self.disposeBag)
         }
     }
     

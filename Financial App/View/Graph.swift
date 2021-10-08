@@ -91,9 +91,6 @@ class Graph : UIView {
             return graphHeight + topBorder - yPoint
         }
         //Oy Point
-        let topBorderOpoint = CGFloat(o.max() ?? 0 / 2)
-        let bottomBorderOpoint = CGFloat((o.min() ?? 0 / 2) + 30)
-        let graphHeightOpoint = height - topBorderOpoint - bottomBorderOpoint
         let maxValueOpoint = CGFloat(o.max() ?? 0)
         let minValueOpoint = CGFloat(o.min() ?? 0)
         
@@ -105,8 +102,8 @@ class Graph : UIView {
         
         // Draw the circles on top of the graph stroke
         for i in 0 ..< c.count {
-            var point = CGPoint(x: columnXPoint(i), y: columnYPoint(CGFloat(c[i])))
-            var pointO = CGPoint(x: columnXOPoint(i), y: columnOPoint(CGFloat(o[i])))
+            let point = CGPoint(x: columnXPoint(i), y: columnYPoint(CGFloat(c[i])))
+            let pointO = CGPoint(x: columnXOPoint(i), y: columnOPoint(CGFloat(o[i])))
 
             
             let rectangle = UIBezierPath(roundedRect: CGRect(x: point.x, y: point.y, width: Constants.rectangleW, height: Constants.rectangleH), cornerRadius: 2)

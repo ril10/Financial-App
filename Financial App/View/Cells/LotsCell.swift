@@ -55,7 +55,7 @@ class LotsCell: UITableViewCell {
     
     func deleteLoatFromCoreData() {
         let request : NSFetchRequest<Lots> = Lots.fetchRequest()
-        request.predicate = NSPredicate(format: "id== %@", loatID as! CVarArg)
+        request.predicate = NSPredicate(format: "id== %@", loatID!)
         if let result = try? context.fetch(request) {
             for object in result {
                 if object.id == loatID {

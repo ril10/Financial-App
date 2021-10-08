@@ -50,6 +50,9 @@
          contextName = "ViewController.loadDataList():ViewController.swift">
       </ContextState>
       <ContextState
+         contextName = "ViewController.viewDidLoad():ViewController.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in UserAccount.tableView(_:didSelectRowAt:):UserAccount.swift">
       </ContextState>
       <ContextState
@@ -91,10 +94,10 @@
          contextName = "ViewController.viewWillAppear(_:):ViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #2 in ViewController.tableView(_:didSelectRowAt:):ViewController.swift">
+         contextName = "UserAccount.tableView(_:cellForRowAt:):UserAccount.swift">
       </ContextState>
       <ContextState
-         contextName = "UserAccount.tableView(_:cellForRowAt:):UserAccount.swift">
+         contextName = "closure #2 in ViewController.tableView(_:didSelectRowAt:):ViewController.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in TickDetail.viewDidLoad():TickDetail.swift">

@@ -14,7 +14,6 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
-    var fm = FinhubManager()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -29,6 +28,9 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     private let apiCalling = APICalling()
     private let disposeBag = DisposeBag()
+    private let request = APIRequest()
+    
+    var quote : Observable<Quote>!
     
     var time : Int? {
         Int(Date().timeIntervalSince1970) - 86400
@@ -62,11 +64,6 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         tableView.dataSource = self
         self.registerTableViewCells()
         
-        let request = APIRequest()
-        let result : Observable<FinhubCompany> = self.apiCalling.send(apiRequest: request)
-        _ = result.bind(onNext: { fin in
-            print(fin)
-        })
         setupSearchBar()
         
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -110,22 +107,19 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
 
         if favoriteList.count > 0 {
 //            let dataCell = favoriteList[indexPath.row]
-            
-            
-            
+
             let item = list[indexPath.section].name
             let dataCell = favoriteList.filter { fav in
                 return fav.parentList?.name == item
             }[indexPath.row]
             
-               
-            fm.loadQuote(ticker: dataCell.symbol ?? "") { quote in
+            quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol!))
+            quote.subscribe(onNext: { quote in
                 DispatchQueue.main.async {
-                    if let currentPrice = quote.c {
-                        cell.currentPrice.text = String(format: "%.2f", currentPrice)
-                    }
+                    cell.currentPrice.text = String(format: "%.2f", quote.c!)
                 }
-            }
+            }).disposed(by: self.disposeBag)
+
                    
             cell.symbol.text = dataCell.symbol
             cell.companyName.text = dataCell.companyName
@@ -231,11 +225,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     func loadDataList() {
 
         let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
-        let predicate : NSPredicate? = nil
+//        let predicate : NSPredicate? = nil
 
         let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", loadList?.name ?? "Test")
         request.predicate = listPredicate
-        print(request.predicate)
 
 //        if let additionalPredicate = predicate {
 //            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])

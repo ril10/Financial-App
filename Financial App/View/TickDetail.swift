@@ -7,17 +7,13 @@
 
 import UIKit
 import CoreData
+import RxSwift
 
 class TickDetail: UIViewController, Storyboarded {
     
     var coordinator : MainCoordinator?
-    var fm = FinhubManager()
-    
-    var favoriteList = [Favorite]()
     
     var listLots = [Lots]()
-    
-    var graphPoints = [Double]()
     
     var ticker : String = ""
     
@@ -25,10 +21,16 @@ class TickDetail: UIViewController, Storyboarded {
         graph.t.count / 2
     }
     
+    private let apiCalling = APICalling()
+    private let disposeBag = DisposeBag()
+    private let request = APIRequest()
+    
+    var quote : Observable<Quote>!
+    var stock : Observable<StockHandelData>!
+    var company : Observable<FinhubCompany>!
+    
     var from : Int?
     var to : Int?
-    
-    //    public static var tick = ""
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -52,33 +54,20 @@ class TickDetail: UIViewController, Storyboarded {
     @IBOutlet weak var endDate: UILabel!
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        //        webSocketTask.resume()
-        
-    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         configNavigator()
 
     }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //        let reason = "Closing connection".data(using: .utf8)
-        //        webSocketTask.cancel(with: .goingAway, reason: reason)
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        TickDetail.tick = ticker
-        fm.loadStockCandle(symbol: ticker, from: from!, to: to!) { [self] stock in
-
-                graph.c.append(contentsOf: stock.c)
-                graph.o.append(contentsOf: stock.o)
-                graph.t.append(contentsOf: stock.t)
+        stock = self.apiCalling.load(apiRequest: request.requestStockHandleData(symbol: ticker, from: from!, to: to!))
+        stock.subscribe(onNext: { [self] stock in
+            graph.c.append(contentsOf: stock.c)
+            graph.o.append(contentsOf: stock.o)
+            graph.t.append(contentsOf: stock.t)
             DispatchQueue.main.async {
                 startDate.text = graphLabelDate(time: stock.t.first ?? 0)
                 secondDate.text = graphLabelDate(time: stock.t[middle ?? 0])
@@ -89,21 +78,19 @@ class TickDetail: UIViewController, Storyboarded {
                     graph.setNeedsDisplay()
                 }
             }
-        }
+        }).disposed(by: self.disposeBag)
         
-        
-        fm.loadDataCompany(ticker: self.ticker) { [self] company in
+        company = self.apiCalling.load(apiRequest: request.requestDataCompany(symbol: ticker))
+        company.subscribe(onNext: { [self] company in
             DispatchQueue.main.async {
                 name.text = company.name
                 marketCap.text = String(company.marketCapitalization ?? 0.0)
-                let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
-                let url = URL(string: company.logo ?? "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png")
-                downloadImage(from: (url) ?? (noImage!))
+                guard let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png") else { return }
+                downloadImage(from: (URL(string: company.logo!) ?? noImage)!)
             }
-        }
+        }).disposed(by: self.disposeBag)
         
 
-        
     }
     
     func graphLabelValue() {
@@ -134,16 +121,15 @@ class TickDetail: UIViewController, Storyboarded {
     }
     
     func priceQuote() {
-        self.fm.loadQuote(ticker: self.ticker) { [self] quote in
+        quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: ticker))
+        quote.subscribe(onNext:  { [self] quote in
             DispatchQueue.main.async {
-                
                 if let currentPrice = quote.c {
                     self.currentPrice.text = String(format: "%.2f", currentPrice)
                 }
                 
                 if let lowPrice = quote.l {
                     self.lowPrice.text = String(format: "%.2f", lowPrice)
-                    
                 }
                 
                 if let openPrice = quote.o {
@@ -152,30 +138,20 @@ class TickDetail: UIViewController, Storyboarded {
                 
                 if let highPrice = quote.h {
                     self.highPrice.text = String(format: "%.2f", highPrice)
-                    
                 }
-                
-                
             }
-        }
-        WebSocket.shared.receiveData { (data) in
-            DispatchQueue.main.async {
-                
-                self.currentPrice.text = String(data?.data[0].p ?? 0.0)
-            }
-            print(data?.data[0].p)
-        }
+        }).disposed(by: self.disposeBag)
+
     }
     
     func downloadImage(from url: URL) {
-        
-        fm.getDataImage(from: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async() { [weak self] in
-                self?.logo.image = UIImage(data: data)
-            }
-        }
+        URLSession.shared.rx
+            .response(request: URLRequest(url: url))
+            .subscribe(onNext: { (response, data) in
+                DispatchQueue.main.async {
+                    self.logo.image = UIImage(data: data)
+                }
+            }).disposed(by: self.disposeBag)
     }
     
     func configNavigator() {
@@ -191,13 +167,9 @@ class TickDetail: UIViewController, Storyboarded {
         nav?.topItem?.title = ticker
         nav?.tintColor = .darkGray
         
-        self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(favoite)), animated: true)
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buyLots)), animated: true)
     }
     
-    @objc func favoite() {
-        
-    }
     
     @objc func buyLots() {
         

@@ -7,12 +7,18 @@
 
 import UIKit
 import CoreData
+import RxSwift
 
 class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
 
     var coordinator : MainCoordinator?
     var myLots = [Lots]()
-    var fm = FinhubManager()
+    
+    private let apiCalling = APICalling()
+    private let disposeBag = DisposeBag()
+    private let request = APIRequest()
+    
+    var quote : Observable<Quote>!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -53,12 +59,14 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LotsCell", for: indexPath) as! LotsCell
         let dataCell = myLots[indexPath.row]
         
-        self.fm.loadQuote(ticker: dataCell.symbol ?? "No Symbol") { quote in
-                let buyValue = Double(dataCell.costLots!)
-                let currentValue = quote.c ?? 0.0
-                let indexChange = ((currentValue - buyValue!) / buyValue!) * 100
-                dataCell.valueDif = String(format: "%.2f", indexChange) + "%"
-        }
+        quote = apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol ?? ""))
+        quote.subscribe(onNext: { quote in
+            let buyValue = Double(dataCell.costLots!)
+            let currentValue = quote.c ?? 0.0
+            let indexChange = ((currentValue - buyValue!) / buyValue!) * 100
+            dataCell.valueDif = String(format: "%.2f", indexChange) + "%"
+        }).disposed(by: self.disposeBag)
+
 
         cell.symbolName.text = dataCell.symbol
         cell.loatCost.text = dataCell.costLots

@@ -64,8 +64,6 @@ class ListCell: UITableViewCell {
                 favorite.isFavorite = true
                 favorite.currentPrice = currentPrice
                 favorite.parentList = self.list
-                print("parentList:\(favorite.parentList)")
-                print("list:\(self.list?.name)")
                 favoriteList.append(favorite)
                 saveToList()
                 addToList()
