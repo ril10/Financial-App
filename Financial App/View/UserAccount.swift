@@ -10,7 +10,7 @@ import CoreData
 import RxSwift
 import Dip
 
-class UserAccount : UITableViewController, Storyboarded,DeleteLoat,StoryboardInstantiatable {
+class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
 
     var coordinator : MainCoordinator?
     
@@ -151,3 +151,5 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat,StoryboardIns
     }
     
 }
+//MARK: - StoryboardInstantiatable
+extension UserAccount : StoryboardInstantiatable {}

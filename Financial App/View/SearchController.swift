@@ -10,7 +10,7 @@ import CoreData
 import RxSwift
 import Dip
 
-class SearchController: UITableViewController,Storyboarded,CustomCellUpdate,StoryboardInstantiatable {
+class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
 
     var context : NSManagedObjectContext!
     
@@ -147,3 +147,5 @@ extension SearchController : UISearchBarDelegate {
     
     
 }
+//MARK: - StoryboardInstantiatable
+extension SearchController : StoryboardInstantiatable {}

@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import Dip
 
-class ListOfSection: UITableViewController,Storyboarded,AddTolist,StoryboardInstantiatable {
+class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     
 
     
@@ -149,3 +149,6 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist,StoryboardInst
     }
     
 }
+
+//MARK: - StoryboardInstantiatable
+extension ListOfSection : StoryboardInstantiatable {}

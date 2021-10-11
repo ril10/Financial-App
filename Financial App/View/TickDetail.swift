@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import Dip
 
-class TickDetail: UIViewController, Storyboarded,StoryboardInstantiatable {
+class TickDetail: UIViewController, Storyboarded {
     
     var coordinator : MainCoordinator?
     
@@ -227,3 +227,5 @@ class TickDetail: UIViewController, Storyboarded,StoryboardInstantiatable {
     }
     
 }
+//MARK: - StoryboardInstantiatable
+extension TickDetail : StoryboardInstantiatable {}
