@@ -8,19 +8,23 @@
 import UIKit
 import CoreData
 import RxSwift
+import Dip
 
-class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
+class UserAccount : UITableViewController, Storyboarded,DeleteLoat,StoryboardInstantiatable {
 
     var coordinator : MainCoordinator?
-    var myLots = [Lots]()
     
-    private let apiCalling = APICalling()
-    private let disposeBag = DisposeBag()
-    private let request = APIRequest()
+    var lots : [Lots]!
+    
+    var apiCalling : APICalling!
+    var disposeBag : DisposeBag!
+    
+    var context : NSManagedObjectContext!
+    
+    var request : APIRequest!
     
     var quote : Observable<Quote>!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -51,13 +55,13 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myLots.count
+        return lots.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "LotsCell", for: indexPath) as! LotsCell
-        let dataCell = myLots[indexPath.row]
+        let dataCell = lots[indexPath.row]
         
         quote = apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol ?? ""))
         quote.subscribe(onNext: { quote in
@@ -84,7 +88,7 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         
         
         if cell.isDelete {
-            myLots.remove(at: indexPath.row)
+            lots.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
             saveList()
         }
@@ -124,7 +128,7 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         let request : NSFetchRequest<Lots> = Lots.fetchRequest()
 
         do {
-            myLots = try context.fetch(request)
+            lots = try context.fetch(request)
         } catch {
             print("Error loading categories \(error)")
         }

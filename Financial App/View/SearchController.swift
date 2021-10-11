@@ -8,10 +8,11 @@
 import UIKit
 import CoreData
 import RxSwift
+import Dip
 
-class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
+class SearchController: UITableViewController,Storyboarded,CustomCellUpdate,StoryboardInstantiatable {
 
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var context : NSManagedObjectContext!
     
     private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
@@ -24,9 +25,9 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         }
     }
     
-    private let apiCalling = APICalling()
-    private let disposeBag = DisposeBag()
-    private let request = APIRequest()
+    var apiCalling : APICalling!
+    var disposeBag : DisposeBag!
+    var request : APIRequest!
     
     var quote : Observable<Quote>!
     var search : Observable<ResultSearch>!
@@ -77,7 +78,9 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol))
         quote.subscribe(onNext: { quote in
             DispatchQueue.main.async {
-                cell.currentPrice.text = String(format: "%.2f", quote.c ?? 0.0)
+                if let currentPrice = quote.c {
+                    cell.currentPrice.text = String(format: "%.2f", currentPrice)
+                }
             }
         }).disposed(by: self.disposeBag)
         

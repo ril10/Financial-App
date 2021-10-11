@@ -7,12 +7,15 @@
 
 import UIKit
 import CoreData
+import Dip
 
-class ListOfSection: UITableViewController,Storyboarded,AddTolist {
+class ListOfSection: UITableViewController,Storyboarded,AddTolist,StoryboardInstantiatable {
     
 
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var listSection = [List]()
+    
+    var context : NSManagedObjectContext!
+    var list : [List]!
+
     var coordinator : MainCoordinator?
     
     var symbol : String?
@@ -90,7 +93,7 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return listSection.count
+        return list.count
         
     }
     
@@ -103,9 +106,9 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
         cell.currentPrice = currentPrice
         cell.changePrice = changePrice
         
-        cell.list = listSection[indexPath.row]
+        cell.list = list[indexPath.row]
         
-        cell.name.text = listSection[indexPath.row].name
+        cell.name.text = list[indexPath.row].name
         
         cell.delegate = self
         
@@ -126,7 +129,7 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
         let request : NSFetchRequest<List> = List.fetchRequest()
 
         do {
-            listSection = try context.fetch(request)
+            list = try context.fetch(request)
         } catch {
             print("Error loading lists \(error)")
         }

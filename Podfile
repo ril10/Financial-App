@@ -6,9 +6,11 @@ target 'Financial App' do
   use_frameworks!
 
   # Pods for Financial App
-    pod 'RxSwift', '6.2.0'
-    pod 'RxCocoa', '6.2.0'
-    pod 'Dip'
+	pod 'RxSwift'
+	pod 'RxCocoa'
+	pod 'RxRelay'
+	pod 'Dip'
+
   target 'Financial AppTests' do
     inherit! :search_paths
     # Pods for testing

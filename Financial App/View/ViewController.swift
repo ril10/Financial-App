@@ -8,17 +8,15 @@
 import UIKit
 import CoreData
 import RxSwift
+import Dip
 
 class ViewController: UITableViewController,Storyboarded,UpdateTableView {
 
     
     private let searchController = UISearchController(searchResultsController: nil)
+    
     var coordinator : MainCoordinator?
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    var list = [List]()
-    var favoriteList = [Favorite]()
+    var context : NSManagedObjectContext!
     
     var loadList : List? {
         didSet {
@@ -26,14 +24,16 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         }
     }
     
-    private let apiCalling = APICalling()
-    private let disposeBag = DisposeBag()
-    private let request = APIRequest()
-    
+    var list : [List]!
+    var favoriteList : [Favorite]!
+    var apiCalling : APICalling!
+    var disposeBag : DisposeBag!
+    var request : APIRequest!
+
     var quote : Observable<Quote>!
     
     var time : Int? {
-        Int(Date().timeIntervalSince1970) - 86400
+        Int(Date().timeIntervalSince1970) - 86400 * 3
     }
  
     private func registerTableViewCells() {
@@ -116,7 +116,9 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol!))
             quote.subscribe(onNext: { quote in
                 DispatchQueue.main.async {
-                    cell.currentPrice.text = String(format: "%.2f", quote.c!)
+                    if let currentPrice = quote.c {
+                        cell.currentPrice.text = String(format: "%.2f", currentPrice)
+                    }
                 }
             }).disposed(by: self.disposeBag)
 
@@ -284,5 +286,7 @@ extension ViewController : UISearchBarDelegate {
     }
     
 }
+
+extension ViewController : StoryboardInstantiatable {}
 
 

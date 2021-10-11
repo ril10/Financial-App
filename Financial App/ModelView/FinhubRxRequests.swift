@@ -34,13 +34,15 @@ class APICalling {
 class APIRequest {
 
     func requestDataCompany(symbol: String) -> URLRequest {
-        var request = URLRequest(url:URL(string: UrlPath.base.rawValue + UrlPath.pathCompany.rawValue + "\(symbol)" + UrlPath.token.rawValue)!)
+        guard let url = URL(string: UrlPath.base.rawValue + UrlPath.pathCompany.rawValue + symbol + UrlPath.token.rawValue) else { return URLRequest(url: URL(string: UrlPath.base.rawValue)!) }
+        var request = URLRequest(url:url)
         request.httpMethod = UrlPath.get.rawValue
         return request
     }
 
     func requestQuote(symbol: String) -> URLRequest {
-        var request = URLRequest(url:URL(string: UrlPath.base.rawValue + UrlPath.pathQuote.rawValue + symbol + UrlPath.token.rawValue)!)
+        guard let url = URL(string: UrlPath.base.rawValue + UrlPath.pathQuote.rawValue + symbol + UrlPath.token.rawValue) else { return URLRequest(url: URL(string: UrlPath.base.rawValue)!) }
+        var request = URLRequest(url: url)
         request.httpMethod = UrlPath.get.rawValue
         return request
     }
@@ -53,7 +55,9 @@ class APIRequest {
     }
     
     func requestStockHandleData(symbol: String,from: Int,to: Int) -> URLRequest {
-        var request = URLRequest(url:URL(string: UrlPath.pathCandle.rawValue + symbol + UrlPath.pathCandleResolution.rawValue + "\(from)" +  UrlPath.pathCandleTo.rawValue + "\(to)" + UrlPath.token.rawValue)!)
+        guard let url = URL(string: UrlPath.pathCandle.rawValue + symbol + UrlPath.pathCandleResolution.rawValue + "\(from)" +  UrlPath.pathCandleTo.rawValue + "\(to)" + UrlPath.token.rawValue) else { return URLRequest(url: URL(string: UrlPath.base.rawValue)!) }
+        var request = URLRequest(url: url)
+//        var request = URLRequest(url:URL(string: UrlPath.pathCandle.rawValue + symbol + UrlPath.pathCandleResolution.rawValue + "\(from)" +  UrlPath.pathCandleTo.rawValue + "\(to)" + UrlPath.token.rawValue)!)
         request.httpMethod = UrlPath.get.rawValue
         return request
     }

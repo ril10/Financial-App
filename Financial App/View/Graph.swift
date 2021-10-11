@@ -18,7 +18,6 @@ class Graph : UIView {
     var c = [Double]()//close
     var o = [Double]()//open
     var t = [Int]()
-    //symbol: AAPL resolution: 60 from:1633331689 to:1633418089
 
     private enum Constants {
         static let cornerRadiusSize = CGSize(width: 8.0, height: 8.0)

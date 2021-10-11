@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BDA1F3F16171CFB100D6811D /* Pods_Financial_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43127A7A466B09382E177A66 /* Pods_Financial_App.framework */; };
+		05F71CB7E1E88DC28C140EBE /* Pods_Financial_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE470CFB315B964990D50FB /* Pods_Financial_App.framework */; };
+		70EC372F6BACA00147DEC4CC /* Pods_Financial_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B075FD96257DB4ED8FBD8395 /* Pods_Financial_AppTests.framework */; };
+		9D245C056320E1D7BBBA96D6 /* Pods_Financial_App_Financial_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0FB97ACCBA7F23E566919D8 /* Pods_Financial_App_Financial_AppUITests.framework */; };
 		C345C5822701BEAC008616CF /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345C5812701BEAC008616CF /* SearchController.swift */; };
 		C3579ADC27102D9D00B70F33 /* FinhubRxRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */; };
+		C35EAF6527145B930005498B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35EAF6427145B930005498B /* Service.swift */; };
 		C361628D270C495900D375A7 /* EnumApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361628C270C495900D375A7 /* EnumApi.swift */; };
 		C36645D72703319600B8410E /* LotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36645D62703319600B8410E /* LotsCell.xib */; };
 		C36645D9270333AB00B8410E /* LotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36645D8270333AB00B8410E /* LotsCell.swift */; };
@@ -36,8 +39,6 @@
 		CD38B2D226FF581E00307CB6 /* FinhubSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD38B2D126FF581E00307CB6 /* FinhubSearch.swift */; };
 		CD38B2DC2700BEDC00307CB6 /* Finhub.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD38B2DA2700BEDC00307CB6 /* Finhub.xcdatamodeld */; };
 		CD4BEAA3270E5D2500C99791 /* StockHandleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4BEAA2270E5D2500C99791 /* StockHandleData.swift */; };
-		F830C1F6FB83A89A847D4A33 /* Pods_Financial_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5734296C7BEB79EB3F5F289A /* Pods_Financial_AppTests.framework */; };
-		F9B485452B1994126D63933F /* Pods_Financial_App_Financial_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB331FA2D872F5C37799B14E /* Pods_Financial_App_Financial_AppUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,16 +59,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2BC2870D7FD55BBF769FCAA6 /* Pods-Financial AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Financial AppTests/Pods-Financial AppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		398E4209E96985804627960D /* Pods-Financial App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App.release.xcconfig"; path = "Target Support Files/Pods-Financial App/Pods-Financial App.release.xcconfig"; sourceTree = "<group>"; };
-		43127A7A466B09382E177A66 /* Pods_Financial_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Financial_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B99EC6CC5754EAD69B7C261 /* Pods-Financial AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial AppTests.release.xcconfig"; path = "Target Support Files/Pods-Financial AppTests/Pods-Financial AppTests.release.xcconfig"; sourceTree = "<group>"; };
-		5734296C7BEB79EB3F5F289A /* Pods_Financial_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Financial_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D9CBE3B0F6C9B1CAB745A37 /* Pods-Financial App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App.debug.xcconfig"; path = "Target Support Files/Pods-Financial App/Pods-Financial App.debug.xcconfig"; sourceTree = "<group>"; };
-		B75395B5E92058AC86BB9D8F /* Pods-Financial App-Financial AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.release.xcconfig"; sourceTree = "<group>"; };
-		BD62A926D830FF1ADACB6616 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		1BC9EA1F720ECC8C8C9F8B19 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4C3BB4DBF8ED92FEF29E79BA /* Pods-Financial App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App.release.xcconfig"; path = "Target Support Files/Pods-Financial App/Pods-Financial App.release.xcconfig"; sourceTree = "<group>"; };
+		7755888AB85AC5FB267334D4 /* Pods-Financial AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial AppTests.debug.xcconfig"; path = "Target Support Files/Pods-Financial AppTests/Pods-Financial AppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		84A68B11B70530CEB0F53153 /* Pods-Financial AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial AppTests.release.xcconfig"; path = "Target Support Files/Pods-Financial AppTests/Pods-Financial AppTests.release.xcconfig"; sourceTree = "<group>"; };
+		967EAC40839AC656643E38FF /* Pods-Financial App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App.debug.xcconfig"; path = "Target Support Files/Pods-Financial App/Pods-Financial App.debug.xcconfig"; sourceTree = "<group>"; };
+		A0FB97ACCBA7F23E566919D8 /* Pods_Financial_App_Financial_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Financial_App_Financial_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B075FD96257DB4ED8FBD8395 /* Pods_Financial_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Financial_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C345C5812701BEAC008616CF /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubRxRequests.swift; sourceTree = "<group>"; };
+		C35EAF6427145B930005498B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		C361628C270C495900D375A7 /* EnumApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumApi.swift; sourceTree = "<group>"; };
 		C36645D62703319600B8410E /* LotsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LotsCell.xib; sourceTree = "<group>"; };
 		C36645D8270333AB00B8410E /* LotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotsCell.swift; sourceTree = "<group>"; };
@@ -95,7 +96,8 @@
 		C3B1199F270475FC00CE3873 /* ListOfSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfSection.swift; sourceTree = "<group>"; };
 		C3B119A12704766100CE3873 /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		C3B119A3270477E500CE3873 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
-		CB331FA2D872F5C37799B14E /* Pods_Financial_App_Financial_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Financial_App_Financial_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCE470CFB315B964990D50FB /* Pods_Financial_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Financial_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCFA53DDD701C48AF1491D35 /* Pods-Financial App-Financial AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Financial App-Financial AppUITests.release.xcconfig"; path = "Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		CD38B2CF26FF46D700307CB6 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 		CD38B2D126FF581E00307CB6 /* FinhubSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubSearch.swift; sourceTree = "<group>"; };
@@ -108,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDA1F3F16171CFB100D6811D /* Pods_Financial_App.framework in Frameworks */,
+				05F71CB7E1E88DC28C140EBE /* Pods_Financial_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F830C1F6FB83A89A847D4A33 /* Pods_Financial_AppTests.framework in Frameworks */,
+				70EC372F6BACA00147DEC4CC /* Pods_Financial_AppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,21 +126,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9B485452B1994126D63933F /* Pods_Financial_App_Financial_AppUITests.framework in Frameworks */,
+				9D245C056320E1D7BBBA96D6 /* Pods_Financial_App_Financial_AppUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		53476D4881B83E729E783F8B /* Frameworks */ = {
+		414703BE1A8E04A2FBD39F3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				43127A7A466B09382E177A66 /* Pods_Financial_App.framework */,
-				CB331FA2D872F5C37799B14E /* Pods_Financial_App_Financial_AppUITests.framework */,
-				5734296C7BEB79EB3F5F289A /* Pods_Financial_AppTests.framework */,
+				CCE470CFB315B964990D50FB /* Pods_Financial_App.framework */,
+				A0FB97ACCBA7F23E566919D8 /* Pods_Financial_App_Financial_AppUITests.framework */,
+				B075FD96257DB4ED8FBD8395 /* Pods_Financial_AppTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C35EAF612714474F0005498B /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				C35EAF6427145B930005498B /* Service.swift */,
+			);
+			path = Dependencies;
 			sourceTree = "<group>";
 		};
 		C360126D2705A41D00FC6547 /* Cells */ = {
@@ -162,7 +172,7 @@
 				C39A40EC26F8CE42007BD630 /* Financial AppUITests */,
 				C39A40C926F8CE40007BD630 /* Products */,
 				C56672EC95C3056C08BCA518 /* Pods */,
-				53476D4881B83E729E783F8B /* Frameworks */,
+				414703BE1A8E04A2FBD39F3F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,6 +189,7 @@
 		C39A40CA26F8CE40007BD630 /* Financial App */ = {
 			isa = PBXGroup;
 			children = (
+				C35EAF612714474F0005498B /* Dependencies */,
 				CD38B2D92700BEBC00307CB6 /* Core Data Model */,
 				C39A40FF26F8D315007BD630 /* Common */,
 				C39A40FE26F8D309007BD630 /* View */,
@@ -266,12 +277,12 @@
 		C56672EC95C3056C08BCA518 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				8D9CBE3B0F6C9B1CAB745A37 /* Pods-Financial App.debug.xcconfig */,
-				398E4209E96985804627960D /* Pods-Financial App.release.xcconfig */,
-				BD62A926D830FF1ADACB6616 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */,
-				B75395B5E92058AC86BB9D8F /* Pods-Financial App-Financial AppUITests.release.xcconfig */,
-				2BC2870D7FD55BBF769FCAA6 /* Pods-Financial AppTests.debug.xcconfig */,
-				4B99EC6CC5754EAD69B7C261 /* Pods-Financial AppTests.release.xcconfig */,
+				967EAC40839AC656643E38FF /* Pods-Financial App.debug.xcconfig */,
+				4C3BB4DBF8ED92FEF29E79BA /* Pods-Financial App.release.xcconfig */,
+				1BC9EA1F720ECC8C8C9F8B19 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */,
+				CCFA53DDD701C48AF1491D35 /* Pods-Financial App-Financial AppUITests.release.xcconfig */,
+				7755888AB85AC5FB267334D4 /* Pods-Financial AppTests.debug.xcconfig */,
+				84A68B11B70530CEB0F53153 /* Pods-Financial AppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -291,11 +302,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C39A40F226F8CE42007BD630 /* Build configuration list for PBXNativeTarget "Financial App" */;
 			buildPhases = (
-				0C2FA4BFEB97CAF732A2059D /* [CP] Check Pods Manifest.lock */,
+				38994ECCE7AF8654151A8148 /* [CP] Check Pods Manifest.lock */,
 				C39A40C426F8CE40007BD630 /* Sources */,
 				C39A40C526F8CE40007BD630 /* Frameworks */,
 				C39A40C626F8CE40007BD630 /* Resources */,
-				112553680C5FAD18571ECA85 /* [CP] Embed Pods Frameworks */,
+				C803900DC16AA8746EFAB0F8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -310,7 +321,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C39A40F526F8CE42007BD630 /* Build configuration list for PBXNativeTarget "Financial AppTests" */;
 			buildPhases = (
-				E5A4DE718959A0C64E007073 /* [CP] Check Pods Manifest.lock */,
+				20742B964C34B43FA319C751 /* [CP] Check Pods Manifest.lock */,
 				C39A40DA26F8CE42007BD630 /* Sources */,
 				C39A40DB26F8CE42007BD630 /* Frameworks */,
 				C39A40DC26F8CE42007BD630 /* Resources */,
@@ -329,11 +340,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C39A40F826F8CE42007BD630 /* Build configuration list for PBXNativeTarget "Financial AppUITests" */;
 			buildPhases = (
-				F1E24B0A8F23DF3E8F34D78F /* [CP] Check Pods Manifest.lock */,
+				1267CEAB2409E81343F46CF7 /* [CP] Check Pods Manifest.lock */,
 				C39A40E526F8CE42007BD630 /* Sources */,
 				C39A40E626F8CE42007BD630 /* Frameworks */,
 				C39A40E726F8CE42007BD630 /* Resources */,
-				2E1F962BF3012F219A6F7C41 /* [CP] Embed Pods Frameworks */,
+				C933658C3A521DD2B5BD28AC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -418,85 +429,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C2FA4BFEB97CAF732A2059D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Financial App-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		112553680C5FAD18571ECA85 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Financial App/Pods-Financial App-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Financial App/Pods-Financial App-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Financial App/Pods-Financial App-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2E1F962BF3012F219A6F7C41 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E5A4DE718959A0C64E007073 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Financial AppTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F1E24B0A8F23DF3E8F34D78F /* [CP] Check Pods Manifest.lock */ = {
+		1267CEAB2409E81343F46CF7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -518,6 +451,84 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		20742B964C34B43FA319C751 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Financial AppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		38994ECCE7AF8654151A8148 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Financial App-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C803900DC16AA8746EFAB0F8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Financial App/Pods-Financial App-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Financial App/Pods-Financial App-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Financial App/Pods-Financial App-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C933658C3A521DD2B5BD28AC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Financial App-Financial AppUITests/Pods-Financial App-Financial AppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -533,6 +544,7 @@
 				C36645D9270333AB00B8410E /* LotsCell.swift in Sources */,
 				C361628D270C495900D375A7 /* EnumApi.swift in Sources */,
 				C39A40D026F8CE40007BD630 /* ViewController.swift in Sources */,
+				C35EAF6527145B930005498B /* Service.swift in Sources */,
 				CD38B2D226FF581E00307CB6 /* FinhubSearch.swift in Sources */,
 				CD38B2DC2700BEDC00307CB6 /* Finhub.xcdatamodeld in Sources */,
 				C3579ADC27102D9D00B70F33 /* FinhubRxRequests.swift in Sources */,
@@ -717,7 +729,7 @@
 		};
 		C39A40F326F8CE42007BD630 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8D9CBE3B0F6C9B1CAB745A37 /* Pods-Financial App.debug.xcconfig */;
+			baseConfigurationReference = 967EAC40839AC656643E38FF /* Pods-Financial App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -737,7 +749,7 @@
 		};
 		C39A40F426F8CE42007BD630 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 398E4209E96985804627960D /* Pods-Financial App.release.xcconfig */;
+			baseConfigurationReference = 4C3BB4DBF8ED92FEF29E79BA /* Pods-Financial App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -757,7 +769,7 @@
 		};
 		C39A40F626F8CE42007BD630 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BC2870D7FD55BBF769FCAA6 /* Pods-Financial AppTests.debug.xcconfig */;
+			baseConfigurationReference = 7755888AB85AC5FB267334D4 /* Pods-Financial AppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -780,7 +792,7 @@
 		};
 		C39A40F726F8CE42007BD630 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B99EC6CC5754EAD69B7C261 /* Pods-Financial AppTests.release.xcconfig */;
+			baseConfigurationReference = 84A68B11B70530CEB0F53153 /* Pods-Financial AppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -803,7 +815,7 @@
 		};
 		C39A40F926F8CE42007BD630 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD62A926D830FF1ADACB6616 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */;
+			baseConfigurationReference = 1BC9EA1F720ECC8C8C9F8B19 /* Pods-Financial App-Financial AppUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -824,7 +836,7 @@
 		};
 		C39A40FA26F8CE42007BD630 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B75395B5E92058AC86BB9D8F /* Pods-Financial App-Financial AppUITests.release.xcconfig */;
+			baseConfigurationReference = CCFA53DDD701C48AF1491D35 /* Pods-Financial App-Financial AppUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -9,31 +9,34 @@ import UIKit
 import CoreData
 import RxSwift
 import RxCocoa
+import Dip
 
-class TickDetail: UIViewController, Storyboarded {
+class TickDetail: UIViewController, Storyboarded,StoryboardInstantiatable {
     
     var coordinator : MainCoordinator?
     
-    var listLots = [Lots]()
+    var lots : [Lots]!
     
     var ticker : String = ""
     
     var middle : Int? {
         graph.t.count / 2
     }
+    var apiCalling : APICalling!
+    var disposeBag : DisposeBag!
     
-    private let apiCalling = APICalling()
-    private let disposeBag = DisposeBag()
-    private let request = APIRequest()
+    var context : NSManagedObjectContext!
+
+    var request : APIRequest!
     
     var quote : Observable<Quote>!
     var stock : Observable<StockHandelData>!
     var company : Observable<FinhubCompany>!
     
     var from : Int?
+    
     var to : Int?
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var highPrice: UILabel!
@@ -190,7 +193,7 @@ class TickDetail: UIViewController, Storyboarded {
             newLot.count = countTextField.text!
             newLot.date = currentTime
             newLot.id = uuid
-            self.listLots.append(newLot)
+            self.lots.append(newLot)
             self.saveLoats()
         }
         

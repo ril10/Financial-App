@@ -46,6 +46,9 @@
                             <outlet property="delegate" destination="QXY-i1-AEw" id="1Kq-tl-JAR"/>
                         </connections>
                     </tableView>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dipTag" value="ViewController"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="tableView" destination="eWk-J4-CmW" id="Frq-Tn-Aak"/>
                     </connections>
@@ -77,6 +80,9 @@
                             <outlet property="delegate" destination="HGe-aN-qQA" id="zz7-6Q-IeW"/>
                         </connections>
                     </tableView>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dipTag" value="SearchController"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p8g-AB-HgC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -105,6 +111,9 @@
                             <outlet property="delegate" destination="xMc-WM-yuH" id="8RK-Om-KzF"/>
                         </connections>
                     </tableView>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dipTag" value="ListOfSection"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WwZ-nn-06d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -324,6 +333,9 @@
                             <constraint firstItem="DID-VJ-XK2" firstAttribute="top" secondItem="9sb-Wk-QYh" secondAttribute="top" id="y6Q-iJ-tay"/>
                         </constraints>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dipTag" value="TickDetail"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="currentPrice" destination="WYJ-kZ-1mL" id="ewd-C8-N1t"/>
                         <outlet property="endDate" destination="5MX-8e-sVR" id="j76-IC-BQf"/>
@@ -368,6 +380,9 @@
                             <outlet property="delegate" destination="RGp-uC-YbE" id="pwO-iZ-9H3"/>
                         </connections>
                     </tableView>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="dipTag" value="UserAccount"/>
+                    </userDefinedRuntimeAttributes>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52S-rr-ant" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
