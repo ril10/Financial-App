@@ -2,6 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>RequestURL</key>
+        <dict>
+        <key>PathToCandleTo</key>
+        <string>&amp;to=</string>
+        <key>PathToCandleResolution</key>
+        <string>&amp;resolution=60&amp;from=</string>
+        <key>PathToSearch</key>
+        <string>search?q=</string>
+        <key>PathToCandle</key>
+        <string>stock/candle?symbol=</string>
+        <key>PathToQuote</key>
+        <string>quote?symbol=</string>
+        <key>PathToCompany</key>
+        <string>stock/profile2?symbol=</string>
+        <key>PathToSymbol</key>
+        <string>stock/symbol?exchange=US</string>
+        <key>BaseURL</key>
+        <string>https://finnhub.io/api/v1/</string>
+        <key>APIKEY_FINANCE</key>
+        <string>c5474t2ad3ifdcrdfsmg</string>
+        </dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

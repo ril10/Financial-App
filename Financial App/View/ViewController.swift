@@ -69,8 +69,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
-        
-        
+//        let path = Bundle.main.path(forResource: "Info", ofType: ".plist")
+//        let path2 = NSDictionary(contentsOfFile: path!)
+//        let path3 = path2?.object(forKey: "RequestURL")
+
     }
     //MARK: - Setup SearchBar
     private func setupSearchBar() {
