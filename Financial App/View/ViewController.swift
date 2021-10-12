@@ -35,6 +35,8 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     var time : Int? {
         Int(Date().timeIntervalSince1970) - 86400 * 3
     }
+    
+    private let viewModel = ViewModel()
  
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "CustomTableViewCell",bundle: nil)
@@ -47,14 +49,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         loadAllList()
         loadAllFavorites()
         configNavigator()
-
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,9 +64,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
-//        let path = Bundle.main.path(forResource: "Info", ofType: ".plist")
-//        let path2 = NSDictionary(contentsOfFile: path!)
-//        let path3 = path2?.object(forKey: "RequestURL")
+
 
     }
     //MARK: - Setup SearchBar
@@ -89,7 +82,8 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return  list.count
+
+        return list.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
