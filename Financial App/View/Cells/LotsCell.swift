@@ -21,6 +21,8 @@ class LotsCell: UITableViewCell {
     var loatID : String?
     var isDelete = false
     
+    var onDelete : ((String?) -> Void)?
+    
     @IBOutlet weak var symbolName: UILabel!
     @IBOutlet weak var loatCost: UILabel!
     @IBOutlet weak var countCost: UILabel!
@@ -32,7 +34,33 @@ class LotsCell: UITableViewCell {
         super.awakeFromNib()
         
     }
-
+    
+    var lotsCell : LotsCellModel? {
+        didSet {
+            symbolName.text = lotsCell?.symbol
+            loatCost.text = lotsCell?.loatCost
+            countCost.text = lotsCell?.countOfLots
+            date.text = lotsCell?.date
+            loatID = lotsCell?.id
+            if lotsCell?.diffrence.contains("-") == false {
+                valueDif.textColor = UIColor.green
+            } else {
+                valueDif.textColor = UIColor.red
+            }
+            
+            valueDif.text = lotsCell?.diffrence
+        }
+    }
+    
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//        symbolName.text = nil
+//        loatCost.text = nil
+//        countCost.text = nil
+//        date.text = nil
+//        valueDif.text = nil
+//    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -40,34 +68,12 @@ class LotsCell: UITableViewCell {
     }
     
     @IBAction func deleteLot(_ sender: UIButton) {
-        
-        self.isDelete = true
-        
-        if isDelete {
-            deleteLoatFromCoreData()
-            deleteLoatFromList()
-        }
+        onDelete?(loatID)
     }
     
     func deleteLoatFromList() {
         delegate?.deleteLoatFromList()
     }
     
-    func deleteLoatFromCoreData() {
-        let request : NSFetchRequest<Lots> = Lots.fetchRequest()
-        request.predicate = NSPredicate(format: "id== %@", loatID!)
-        if let result = try? context.fetch(request) {
-            for object in result {
-                if object.id == loatID {
-                    context.delete(object)
-                }
-            }
-        }
-        do {
-            try context.save()
-        } catch {
-            print(error)
-        }
-    }
 
 }

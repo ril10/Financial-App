@@ -14,6 +14,9 @@
 		C3579ADC27102D9D00B70F33 /* FinhubRxRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */; };
 		C35EAF6527145B930005498B /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35EAF6427145B930005498B /* Service.swift */; };
 		C361628D270C495900D375A7 /* EnumApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C361628C270C495900D375A7 /* EnumApi.swift */; };
+		C362AC652716E24000DF6180 /* UserAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362AC642716E24000DF6180 /* UserAccountViewModel.swift */; };
+		C362AC672716E26300DF6180 /* LotsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362AC662716E26300DF6180 /* LotsCellModel.swift */; };
+		C362AC692716E57A00DF6180 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C362AC682716E57A00DF6180 /* Formatter.swift */; };
 		C36645D72703319600B8410E /* LotsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C36645D62703319600B8410E /* LotsCell.xib */; };
 		C36645D9270333AB00B8410E /* LotsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36645D8270333AB00B8410E /* LotsCell.swift */; };
 		C367B9A826FC72F60005CDD8 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367B9A726FC72F60005CDD8 /* Graph.swift */; };
@@ -71,6 +74,9 @@
 		C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubRxRequests.swift; sourceTree = "<group>"; };
 		C35EAF6427145B930005498B /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		C361628C270C495900D375A7 /* EnumApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumApi.swift; sourceTree = "<group>"; };
+		C362AC642716E24000DF6180 /* UserAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountViewModel.swift; sourceTree = "<group>"; };
+		C362AC662716E26300DF6180 /* LotsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotsCellModel.swift; sourceTree = "<group>"; };
+		C362AC682716E57A00DF6180 /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		C36645D62703319600B8410E /* LotsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LotsCell.xib; sourceTree = "<group>"; };
 		C36645D8270333AB00B8410E /* LotsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LotsCell.swift; sourceTree = "<group>"; };
 		C367B9A726FC72F60005CDD8 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
@@ -156,14 +162,23 @@
 		C360126D2705A41D00FC6547 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				C362AC662716E26300DF6180 /* LotsCellModel.swift */,
+				C36645D8270333AB00B8410E /* LotsCell.swift */,
 				C36645D62703319600B8410E /* LotsCell.xib */,
 				C3B119A12704766100CE3873 /* ListCell.xib */,
 				CD38B2CF26FF46D700307CB6 /* CustomTableViewCell.xib */,
-				C36645D8270333AB00B8410E /* LotsCell.swift */,
 				C3B119A3270477E500CE3873 /* ListCell.swift */,
 				CD38B2CD26FF469D00307CB6 /* CustomTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		C362AC6A2716E67B00DF6180 /* Formatter */ = {
+			isa = PBXGroup;
+			children = (
+				C362AC682716E57A00DF6180 /* Formatter.swift */,
+			);
+			path = Formatter;
 			sourceTree = "<group>";
 		};
 		C39A40BF26F8CE40007BD630 = {
@@ -191,6 +206,7 @@
 		C39A40CA26F8CE40007BD630 /* Financial App */ = {
 			isa = PBXGroup;
 			children = (
+				C362AC6A2716E67B00DF6180 /* Formatter */,
 				C35EAF612714474F0005498B /* Dependencies */,
 				CD38B2D92700BEBC00307CB6 /* Core Data Model */,
 				C39A40FF26F8D315007BD630 /* Common */,
@@ -249,6 +265,7 @@
 			children = (
 				C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */,
 				C3E9C2AC2715B95E003486E7 /* ViewModel.swift */,
+				C362AC642716E24000DF6180 /* UserAccountViewModel.swift */,
 			);
 			path = ModelView;
 			sourceTree = "<group>";
@@ -540,6 +557,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD4BEAA3270E5D2500C99791 /* StockHandleData.swift in Sources */,
+				C362AC672716E26300DF6180 /* LotsCellModel.swift in Sources */,
 				C3B119A4270477E500CE3873 /* ListCell.swift in Sources */,
 				C39A410126F8D370007BD630 /* Coordinator.swift in Sources */,
 				C345C5822701BEAC008616CF /* SearchController.swift in Sources */,
@@ -555,9 +573,11 @@
 				C39A40CC26F8CE40007BD630 /* AppDelegate.swift in Sources */,
 				C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */,
 				CD38B2CE26FF469D00307CB6 /* CustomTableViewCell.swift in Sources */,
+				C362AC692716E57A00DF6180 /* Formatter.swift in Sources */,
 				C39A410326F8D3D1007BD630 /* MainCoordinator.swift in Sources */,
 				C3B119A0270475FC00CE3873 /* ListOfSection.swift in Sources */,
 				C367B9A826FC72F60005CDD8 /* Graph.swift in Sources */,
+				C362AC652716E24000DF6180 /* UserAccountViewModel.swift in Sources */,
 				C36A7D4926FA24F000AF91C5 /* UserAccount.swift in Sources */,
 				C39A40CE26F8CE40007BD630 /* SceneDelegate.swift in Sources */,
 				C39A410526F8DAFB007BD630 /* Storyboarded.swift in Sources */,

@@ -33,7 +33,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     var quote : Observable<Quote>!
     
     var time : Int? {
-        Int(Date().timeIntervalSince1970) - 86400 * 3
+        Int(Date().timeIntervalSince1970) - 86400
     }
     
     private let viewModel = ViewModel()
