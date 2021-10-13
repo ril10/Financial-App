@@ -56,7 +56,7 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     }
     private func setupSearchBar() {
         searchController.searchBar.delegate = self
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.placeholder = "Tick and name"
         definesPresentationContext = true

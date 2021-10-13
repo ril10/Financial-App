@@ -72,7 +72,7 @@ class UserAccount : UITableViewController, Storyboarded {
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)
         ]
         
-        nav?.isTranslucent = false
+        nav?.isTranslucent = true
         nav?.backItem?.title = ""
         nav?.topItem?.title = "My loats"
         nav?.tintColor = .darkGray

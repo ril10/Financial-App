@@ -166,7 +166,7 @@ class TickDetail: UIViewController, Storyboarded {
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)
         ]
         
-        nav?.isTranslucent = false
+        nav?.isTranslucent = true
         nav?.backItem?.title = ""
         nav?.topItem?.title = ticker
         nav?.tintColor = .darkGray

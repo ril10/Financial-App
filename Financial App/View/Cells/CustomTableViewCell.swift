@@ -26,9 +26,7 @@ class CustomTableViewCell: UITableViewCell {
     weak var delegate : CustomCellUpdate?
     weak var mainDelegate : UpdateTableView?
             
-    var isFavorite : Bool?
-    
-    var favoriteList = [Favorite]()
+    var isFavorite : Bool!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -37,6 +35,7 @@ class CustomTableViewCell: UITableViewCell {
             symbol.text = customCell?.symbol
             companyName.text = customCell?.companyName
             currentPrice.text = customCell?.currentPrice
+            isFavorite = customCell?.isFavorite
         }
     }
     

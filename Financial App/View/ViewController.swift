@@ -56,17 +56,14 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        self.registerTableViewCells()
-        
         setupSearchBar()
         
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.registerTableViewCells()
         viewModel.reloadTableView = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -74,16 +71,15 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         }
         viewModel.loadAllList()
         viewModel.loadDataList()
+        viewModel.loadAllFavorites()
 
-        
-//        viewModel.loadAllFavorites()
 
 
     }
     //MARK: - Setup SearchBar
     private func setupSearchBar() {
         searchController.searchBar.delegate = self
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.placeholder = "Tick and name"
         definesPresentationContext = true
@@ -115,11 +111,17 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
 
-        let cellVM = viewModel.getLoatsCellModel(at: indexPath)
-//            let item = viewModel.listViewModel[indexPath.section].name
+
         
-        cell.customCell = cellVM
-        
+        if viewModel.favoriteViewModel.count > 0 {
+            
+//           var cellVM = viewModel.favoriteViewModel.filter { fav in
+//               return fav.parentList.name == viewModel.listViewModel[indexPath.row].name
+//           }[indexPath.row]
+            let cellVM = viewModel.getFavoriteCellModel(at: indexPath)
+            
+            cell.customCell = cellVM
+        }
 //        if favoriteList.count > 0 {
 ////            let dataCell = favoriteList[indexPath.row]
 //            
@@ -181,7 +183,7 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18)
         ]
         
-        nav?.isTranslucent = false
+        nav?.isTranslucent = true
         nav?.backItem?.title = ""
         nav?.topItem?.title = "Main"
         nav?.tintColor = .darkGray
@@ -199,12 +201,12 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         
         let action = UIAlertAction(title: "Add list", style: .default) { (action) in
             
-            let newList = List(context: self.context)
+            let newList = List(context: self.viewModel.context)
             newList.name = listTextField.text
-//            self.loadList = newList
+//            self.viewModel.loadList = newList
 
-//            self.list.append(newList)
-//            self.saveList()
+            self.viewModel.list.append(newList)
+            self.viewModel.saveList()
             
         }
         
