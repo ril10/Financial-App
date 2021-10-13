@@ -99,8 +99,8 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         coordinator?.dismiss()
     }
     
-    func updateTableView(symbol : String, companyName : String, currentPrice : String, changePrice : String) {
-        coordinator?.listController(symbol: symbol, companyName: companyName, currentPrice: currentPrice, changePrice: changePrice)
+    func updateTableView(symbol : String, companyName : String, currentPrice : String) {
+        coordinator?.listController(symbol: symbol, companyName: companyName, currentPrice: currentPrice)
         coordinator?.dismiss()
     }
     //MARK: - Model Manupulation Methods

@@ -18,25 +18,27 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     var coordinator : MainCoordinator?
     var context : NSManagedObjectContext!
     
-    var loadList : List? {
-        didSet {
-            loadDataList()
-        }
-    }
+//    var loadList : List? {
+//        didSet {
+//
+////            loadDataList()
+//        }
+//    }
     
-    var list : [List]!
-    var favoriteList : [Favorite]!
-    var apiCalling : APICalling!
-    var disposeBag : DisposeBag!
-    var request : APIRequest!
-
-    var quote : Observable<Quote>!
+    var viewModel : ViewControllerViewModel!
+    
+//    var list : [List]!
+//    var favoriteList : [Favorite]!
+//    var apiCalling : APICalling!
+//    var disposeBag : DisposeBag!
+//    var request : APIRequest!
+//
+//    var quote : Observable<Quote>!
     
     var time : Int? {
         Int(Date().timeIntervalSince1970) - 86400
     }
-    
-    private let viewModel = ViewModel()
+
  
     private func registerTableViewCells() {
         let textFieldCell = UINib(nibName: "CustomTableViewCell",bundle: nil)
@@ -45,9 +47,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadDataList()
-        loadAllList()
-        loadAllFavorites()
+//        loadDataList()
+//        loadAllList()
+//        loadAllFavorites()
+        
         configNavigator()
     }
     
@@ -64,6 +67,16 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
         
+        viewModel.reloadTableView = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        viewModel.loadAllList()
+        viewModel.loadDataList()
+
+        
+//        viewModel.loadAllFavorites()
 
 
     }
@@ -83,69 +96,75 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
 
-        return list.count
+        return viewModel.listViewModel.count//list.count
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        return list[section].name
+
+        return viewModel.listViewModel[section].name//list[section].name
 
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return list[section].list?.count ?? 0
+        return viewModel.listViewModel[section].list.count //list[section].list?.count ?? 0
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
 
-        if favoriteList.count > 0 {
-//            let dataCell = favoriteList[indexPath.row]
-
-            let item = list[indexPath.section].name
-            let dataCell = favoriteList.filter { fav in
-                return fav.parentList?.name == item
-            }[indexPath.row]
-            
-            quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol!))
-            quote.subscribe(onNext: { quote in
-                DispatchQueue.main.async {
-                    if let currentPrice = quote.c {
-                        cell.currentPrice.text = String(format: "%.2f", currentPrice)
-                    }
-                }
-            }).disposed(by: self.disposeBag)
-
-                   
-            cell.symbol.text = dataCell.symbol
-            cell.companyName.text = dataCell.companyName
-            
-            
-            if dataCell.isFavorite {
-                cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-            } else {
-                cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
-                favoriteList.remove(at: [indexPath.row][indexPath.section])
-                tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-                saveList()
-            }
-            
-            cell.mainDelegate = self
-        }
+        let cellVM = viewModel.getLoatsCellModel(at: indexPath)
+//            let item = viewModel.listViewModel[indexPath.section].name
+        
+        cell.customCell = cellVM
+        
+//        if favoriteList.count > 0 {
+////            let dataCell = favoriteList[indexPath.row]
+//            
+//            
+////            let dataCell = favoriteList.filter { fav in
+////                return fav.parentList?.name == item
+////            }[indexPath.row]
+////            
+////            quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol!))
+////            quote.subscribe(onNext: { quote in
+////                DispatchQueue.main.async {
+////                    if let currentPrice = quote.c {
+////                        cell.currentPrice.text = String(format: "%.2f", currentPrice)
+////                    }
+////                }
+////            }).disposed(by: self.disposeBag)
+////
+////                   
+////            cell.symbol.text = dataCell.symbol
+////            cell.companyName.text = dataCell.companyName
+//            
+//            
+////            if dataCell.isFavorite {
+////                cell.starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+////            } else {
+////                cell.starButton.setImage(UIImage(systemName: "star"), for: .normal)
+////                favoriteList.remove(at: [indexPath.row][indexPath.section])
+////                tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+////                saveList()
+////            }
+//            
+//            cell.mainDelegate = self
+//        }
         
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = list[indexPath.section].name
-        let dataCell = favoriteList.filter { fav in
-            return fav.parentList?.name == item
-
-        }[indexPath.row]
-        coordinator?.finhubDetail(ticker: dataCell.symbol!,from: time!, to: Int(Date().timeIntervalSince1970))
+//        let item = list[indexPath.section].name
+//        let dataCell = favoriteList.filter { fav in
+//            return fav.parentList?.name == item
+//
+//        }[indexPath.row]
+//        coordinator?.finhubDetail(ticker: dataCell.symbol!,from: time!, to: Int(Date().timeIntervalSince1970))
     }
     
     
@@ -182,10 +201,10 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             
             let newList = List(context: self.context)
             newList.name = listTextField.text
-            self.loadList = newList
-            
-            self.list.append(newList)
-            self.saveList()
+//            self.loadList = newList
+
+//            self.list.append(newList)
+//            self.saveList()
             
         }
         
@@ -209,66 +228,66 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
     
     //MARK: - Data Manipulation Methods
     
-    func saveList() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving category \(error)")
-        }
-        
-        tableView.reloadData()
-        
-    }
-    
-    func loadDataList() {
-
-        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
-//        let predicate : NSPredicate? = nil
-
-        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", loadList?.name ?? "Test")
-        request.predicate = listPredicate
-
-//        if let additionalPredicate = predicate {
-//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
-//        } else {
-//            request.predicate = listPredicate
+//    func saveList() {
+//        do {
+//            try context.save()
+//        } catch {
+//            print("Error saving category \(error)")
 //        }
-
-        do {
-            favoriteList = try context.fetch(request)
-            
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
-
-        tableView.reloadData()
-
-    }
-    
-    
-    func loadAllFavorites() {
-        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
-        
-        do {
-            favoriteList = try context.fetch(request)
-            
-        } catch {
-            print("Error loading categories \(error)")
-        }
-        
-        tableView.reloadData()
-        
-    }
-    
-    func loadAllList() {
-        let request : NSFetchRequest<List> = List.fetchRequest()
-        
-        do {
-            list = try context.fetch(request)
-        } catch {
-            print(error)
-        }
-    }
+//        
+//        tableView.reloadData()
+//        
+//    }
+//    
+//    func loadDataList() {
+//
+//        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
+////        let predicate : NSPredicate? = nil
+//
+//        let listPredicate = NSPredicate(format: "parentList.name MATCHES %@", loadList?.name ?? "Test")
+//        request.predicate = listPredicate
+//
+////        if let additionalPredicate = predicate {
+////            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
+////        } else {
+////            request.predicate = listPredicate
+////        }
+//
+//        do {
+//            favoriteList = try context.fetch(request)
+//            
+//        } catch {
+//            print("Error fetching data from context \(error)")
+//        }
+//
+//        tableView.reloadData()
+//
+//    }
+//    
+//    
+//    func loadAllFavorites() {
+//        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+//        
+//        do {
+//            favoriteList = try context.fetch(request)
+//            
+//        } catch {
+//            print("Error loading categories \(error)")
+//        }
+//        
+//        tableView.reloadData()
+//        
+//    }
+//    
+//    func loadAllList() {
+//        let request : NSFetchRequest<List> = List.fetchRequest()
+//        
+//        do {
+//            list = try context.fetch(request)
+//        } catch {
+//            print(error)
+//        }
+//    }
     
     
 }

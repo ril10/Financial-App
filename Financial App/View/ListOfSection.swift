@@ -11,8 +11,6 @@ import Dip
 
 class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     
-
-    
     var context : NSManagedObjectContext!
     var list : [List]!
 

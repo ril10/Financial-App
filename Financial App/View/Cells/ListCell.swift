@@ -67,8 +67,7 @@ class ListCell: UITableViewCell {
                 favoriteList.append(favorite)
                 saveToList()
                 addToList()
-                
-                
+  
         }
     }
     

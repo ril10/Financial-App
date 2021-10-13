@@ -6,20 +6,10 @@
 //
 
 import UIKit
-import CoreData
-
-protocol DeleteLoat : AnyObject {
-    func deleteLoatFromList()
-}
 
 class LotsCell: UITableViewCell {
-
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    weak var delegate : DeleteLoat?
     
     var loatID : String?
-    var isDelete = false
     
     var onDelete : ((String?) -> Void)?
     
@@ -52,28 +42,16 @@ class LotsCell: UITableViewCell {
         }
     }
     
-//    override func prepareForReuse() {
-//        super.prepareForReuse()
-//        symbolName.text = nil
-//        loatCost.text = nil
-//        countCost.text = nil
-//        date.text = nil
-//        valueDif.text = nil
-//    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        
     }
     
     @IBAction func deleteLot(_ sender: UIButton) {
         onDelete?(loatID)
     }
     
-    func deleteLoatFromList() {
-        delegate?.deleteLoatFromList()
-    }
     
 
 }

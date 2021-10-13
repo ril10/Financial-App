@@ -13,24 +13,20 @@ import Dip
 class UserAccountViewModel {
     
     var lots : [Lots]!
-
     var apiCalling : APICalling!
     var disposeBag : DisposeBag!
-
     var context : NSManagedObjectContext!
-
     var request : APIRequest!
-
     var quote : Observable<Quote>!
-    
     var reloadTableView : (() -> Void)?
+    
     
     var loatCellViewModel = [LotsCellModel]() {
         didSet {
             reloadTableView?()
         }
     }
-    
+    //MARK: - Configure Cell
     func fetchData(loat: [Lots]) {
         var loatsData = [LotsCellModel]()
         for lots in lots {
@@ -56,14 +52,14 @@ class UserAccountViewModel {
         }).disposed(by: self.disposeBag)
 
         let diffrence = lots.valueDif ?? "" + "%"
-        saveList()
+
         return LotsCellModel(symbol: symbol, loatCost: loatCost, countOfLots: countOfLoats, date: date.dateFormatter(), diffrence: diffrence, id: id)
     }
     
     func getLoatsCellModel(at indexPath: IndexPath) -> LotsCellModel {
         return loatCellViewModel[indexPath.row]
     }
-    
+    //MARK: - Data Manipulations
     func loadLoatsList() {
 
         let request : NSFetchRequest<Lots> = Lots.fetchRequest()
@@ -74,17 +70,6 @@ class UserAccountViewModel {
             print("Error loading Loats \(error)")
         }
         reloadTableView?()
-    }
-    
-    func saveList() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving category \(error)")
-        }
-        
-        reloadTableView?()
-        
     }
     
     func deleteLoatFromCoreData(loatID: String?) {

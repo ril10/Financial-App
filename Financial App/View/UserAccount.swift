@@ -10,10 +10,9 @@ import CoreData
 import RxSwift
 import Dip
 
-class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
+class UserAccount : UITableViewController, Storyboarded {
 
     var coordinator : MainCoordinator?
-    
     
     var viewModel : UserAccountViewModel!
     
@@ -24,7 +23,6 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
     }
     
     override func viewDidLoad() {
@@ -49,7 +47,7 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.loatCellViewModel.count//lots.count
+        return viewModel.loatCellViewModel.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,20 +57,10 @@ class UserAccount : UITableViewController, Storyboarded,DeleteLoat {
         cell.lotsCell = cellVM
         cell.onDelete = viewModel.deleteLoatFromCoreData
         
-//        if cell.isDelete {
-//            lots.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-//        }
-        
-        cell.delegate = self
-        
         return cell
         
     }
-    //MARK: - Data Manipulations
-    func deleteLoatFromList() {
-        tableView.reloadData()
-    }
+
     
     //MARK: - NavBarSetup
     func setupNavigator() {

@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 protocol CustomCellUpdate : AnyObject {
-    func updateTableView(symbol : String, companyName : String, currentPrice : String, changePrice : String)
+    func updateTableView(symbol : String, companyName : String, currentPrice : String)
 }
 
 protocol UpdateTableView : AnyObject {
@@ -21,7 +21,6 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var currentPrice: UILabel!
-    @IBOutlet weak var changePrice: UILabel!
     @IBOutlet weak var starButton: UIButton!
     
     weak var delegate : CustomCellUpdate?
@@ -33,7 +32,13 @@ class CustomTableViewCell: UITableViewCell {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
+    var customCell : CustomCellModel? {
+        didSet {
+            symbol.text = customCell?.symbol
+            companyName.text = customCell?.companyName
+            currentPrice.text = customCell?.currentPrice
+        }
+    }
     
     @IBAction func addToFavorite(_ sender: UIButton) {
         
@@ -59,7 +64,7 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     func updateTableView() {
-        delegate?.updateTableView(symbol: symbol.text!, companyName: companyName.text!, currentPrice: currentPrice.text!, changePrice: changePrice.text!)
+        delegate?.updateTableView(symbol: symbol.text!, companyName: companyName.text!, currentPrice: currentPrice.text!)
     }
     
     override func awakeFromNib() {
