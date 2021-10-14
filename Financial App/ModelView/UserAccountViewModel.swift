@@ -29,7 +29,7 @@ class UserAccountViewModel {
     //MARK: - Configure Cell
     func fetchData(loat: [Lots]) {
         var loatsData = [LotsCellModel]()
-        for lots in lots {
+        for lots in loat {
             loatsData.append(createCellModel(lots: lots))
         }
         loatCellViewModel = loatsData

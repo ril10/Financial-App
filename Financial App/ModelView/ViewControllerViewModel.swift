@@ -22,10 +22,11 @@ class ViewControllerViewModel {
     
     var reloadTableView : (() -> Void)?
     
-    var loadList : ListCellModel? {
+    var loadList : List? {
         didSet {
-            loadDataList()
+            loadAllList()
 
+            reloadTableView?()
         }
     }
     
@@ -43,8 +44,8 @@ class ViewControllerViewModel {
     //MARK: - ConfigureCell
     func fetchData(fav: [Favorite]) {
         var favData = [CustomCellModel]()
-        for fav in favoriteList {
-            favData.append(createCellModel(fav: fav))
+        for f in fav {
+            favData.append(createCellModel(fav: f))
         }
         favoriteViewModel = favData
     }
@@ -60,7 +61,7 @@ class ViewControllerViewModel {
     func createListCellModel(list: List) -> ListCellModel {
         let name = list.name
         let list = list.list
-        self.loadList = ListCellModel(name: name!, list: list!)
+
         return ListCellModel(name: name!, list: list! )
     }
     
@@ -76,6 +77,10 @@ class ViewControllerViewModel {
         let currentPrice = fav.currentPrice
         
         let isFavorite = fav.isFavorite
+        
+        if fav.isFavorite == false {
+            
+        }
         
         let parentList = fav.parentList
 
@@ -95,13 +100,30 @@ class ViewControllerViewModel {
         } catch {
             print("Error saving category \(error)")
         }
-        
         reloadTableView?()
+    }
+    
+    func deleteFromFavorite(symbol: String?) {
+        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        request.predicate = NSPredicate(format: "symbol== %@", symbol!)
+        if let result = try? context.fetch(request) {
+            for object in result {
+                if object.symbol == symbol {
+                    context.delete(object)
+                }
+            }
+        }
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+        loadAllFavorites()
     }
     
     func loadAllList() {
         let request : NSFetchRequest<List> = List.fetchRequest()
-        
+
         do {
             list = try context.fetch(request)
             fetchList(list: list)
@@ -117,7 +139,9 @@ class ViewControllerViewModel {
 
         let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
 //        let predicate : NSPredicate? = nil
-        request.predicate = NSPredicate(format: "parentList.name== %@", loadList?.name ?? "")
+//        request.predicate = NSPredicate(format: "parentList.name== %@", loadList?.name ?? "")
+        let sort = NSSortDescriptor(key: "parentList", ascending: true)
+        request.sortDescriptors = [sort]
 
 //        if let additionalPredicate = predicate {
 //            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
@@ -128,10 +152,13 @@ class ViewControllerViewModel {
         do {
             favoriteList = try context.fetch(request)
             fetchData(fav: favoriteList)
+            
         } catch {
             print("Error fetching data from context \(error)")
         }
+
         reloadTableView?()
+
     }
     
     
@@ -139,8 +166,9 @@ class ViewControllerViewModel {
         let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
         
         do {
-            favoriteList = try context.fetch(request)
-            fetchData(fav: favoriteList)
+                favoriteList = try context.fetch(request)
+                fetchData(fav: favoriteList)
+
         } catch {
             print("Error loading categories \(error)")
         }

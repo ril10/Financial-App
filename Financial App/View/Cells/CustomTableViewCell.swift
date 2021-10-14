@@ -25,7 +25,11 @@ class CustomTableViewCell: UITableViewCell {
     
     weak var delegate : CustomCellUpdate?
     weak var mainDelegate : UpdateTableView?
-            
+    
+    var symbolName : String?
+    
+    var onDelete : ((String?) -> Void)?
+    
     var isFavorite : Bool!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -36,6 +40,7 @@ class CustomTableViewCell: UITableViewCell {
             companyName.text = customCell?.companyName
             currentPrice.text = customCell?.currentPrice
             isFavorite = customCell?.isFavorite
+            symbolName = customCell?.symbol
         }
     }
     
@@ -52,8 +57,8 @@ class CustomTableViewCell: UITableViewCell {
         if isFavorite! {
             updateTableView()
         } else {
-            tableViewReload()
-            deleteFromFavorite()
+            onDelete?(symbolName)
+
         }
  
     }
@@ -89,23 +94,6 @@ class CustomTableViewCell: UITableViewCell {
             } catch {
                 print("Error saving context \(error)")
             }
-        }
-    }
-    
-    func deleteFromFavorite() {
-        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
-        request.predicate = NSPredicate(format: "symbol== %@", symbol.text!)
-        if let result = try? context.fetch(request) {
-            for object in result {
-                if object.symbol == symbol.text {
-                    context.delete(object)
-                }
-            }
-        }
-        do {
-            try context.save()
-        } catch {
-            print(error)
         }
     }
     
