@@ -21,6 +21,8 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     var currentPrice : String?
     var changePrice : String?
     
+    var viewModel : SectionViewModel!
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -115,12 +117,6 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
         
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let cell = tableView.cellForRow(at: indexPath) as? ListCell {
-            cell.didSelect(indexPath: indexPath)
-            
-        }
-    }
     //MARK: - LoadListSection
     func loadListInListSection () {
 

@@ -78,10 +78,6 @@ class ViewControllerViewModel {
         
         let isFavorite = fav.isFavorite
         
-        if fav.isFavorite == false {
-            
-        }
-        
         let parentList = fav.parentList
 
         return CustomCellModel(symbol: symbol, companyName: companyName, currentPrice: currentPrice!, isFavorite: isFavorite, parentList: parentList!)
@@ -101,6 +97,20 @@ class ViewControllerViewModel {
             print("Error saving category \(error)")
         }
         reloadTableView?()
+    }
+    
+    func saveListFav(symbol : String?) {
+        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+        request.predicate = NSPredicate(format: "symbol== %@", symbol!)
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                print("Error saving context \(error)")
+            }
+        }
     }
     
     func deleteFromFavorite(symbol: String?) {
@@ -134,33 +144,7 @@ class ViewControllerViewModel {
         reloadTableView?()
         
     }
-    
-    func loadDataList() {
-
-        let request: NSFetchRequest<Favorite> = Favorite.fetchRequest()
-//        let predicate : NSPredicate? = nil
-//        request.predicate = NSPredicate(format: "parentList.name== %@", loadList?.name ?? "")
-        let sort = NSSortDescriptor(key: "parentList", ascending: true)
-        request.sortDescriptors = [sort]
-
-//        if let additionalPredicate = predicate {
-//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [listPredicate, additionalPredicate])
-//        } else {
-//            request.predicate = listPredicate
-//        }
-
-        do {
-            favoriteList = try context.fetch(request)
-            fetchData(fav: favoriteList)
-            
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
-
-        reloadTableView?()
-
-    }
-    
+        
     
     func loadAllFavorites() {
         let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()

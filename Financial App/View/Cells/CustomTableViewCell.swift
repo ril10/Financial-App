@@ -6,14 +6,10 @@
 //
 
 import UIKit
-import CoreData
+import RxSwift
 
 protocol CustomCellUpdate : AnyObject {
     func updateTableView(symbol : String, companyName : String, currentPrice : String)
-}
-
-protocol UpdateTableView : AnyObject {
-    func tableViewReload()
 }
 
 class CustomTableViewCell: UITableViewCell {
@@ -24,15 +20,17 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var starButton: UIButton!
     
     weak var delegate : CustomCellUpdate?
-    weak var mainDelegate : UpdateTableView?
     
+    var apiCalling = APICalling()
+    var disposeBag = DisposeBag()
+    var quote : Observable<Quote>!
+    var apiRequest = APIRequest()
     var symbolName : String?
     
     var onDelete : ((String?) -> Void)?
     
     var isFavorite : Bool!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var customCell : CustomCellModel? {
         didSet {
@@ -41,6 +39,25 @@ class CustomTableViewCell: UITableViewCell {
             currentPrice.text = customCell?.currentPrice
             isFavorite = customCell?.isFavorite
             symbolName = customCell?.symbol
+        }
+    }
+    
+    var resultCell : ResultSearchModel? {
+        didSet {
+            DispatchQueue.main.async { [self] in
+                symbol.text = resultCell?.symbol
+                companyName.text = resultCell?.companyName
+                quote = apiCalling.load(apiRequest: apiRequest.requestQuote(symbol: symbol.text ?? ""))
+                quote.subscribe(onNext: { quote in
+                    self.resultCell?.currentPrice = String(format: "%.2f", quote.c ?? 0.0)
+                    DispatchQueue.main.async {
+                        self.currentPrice.text = resultCell?.currentPrice
+                    }
+                }).disposed(by: self.disposeBag)
+            }
+
+//            currentPrice.text = resultCell?.currentPrice
+            
         }
     }
     
@@ -63,9 +80,6 @@ class CustomTableViewCell: UITableViewCell {
  
     }
     
-    func tableViewReload() {
-        mainDelegate?.tableViewReload()
-    }
     
     func updateTableView() {
         delegate?.updateTableView(symbol: symbol.text!, companyName: companyName.text!, currentPrice: currentPrice.text!)
@@ -82,20 +96,7 @@ class CustomTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    //MARK: - Model Manupulation Methods
-    func saveList() {
-        let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
-        request.predicate = NSPredicate(format: "symbol== %@", symbol.text!)
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                print("Error saving context \(error)")
-            }
-        }
-    }
+
     
 }
 

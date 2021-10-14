@@ -22,6 +22,7 @@ extension DependencyContainer {
             container.register(.unique) { (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext }
             container.register(.unique) { [Lots]() }
             container.register(.unique) { APIRequest() }
+            container.register(.unique) { [Result]() }
             
             container.register(.unique) { ViewControllerViewModel() }
                 .resolvingProperties { container, service in
@@ -42,23 +43,36 @@ extension DependencyContainer {
                     service.request = try! container.resolve()
                 }
             
+            container.register(.unique) { TickDetailViewModel() }
+                .resolvingProperties { container, service in
+                    service.apiCalling = try! container.resolve()
+                    service.disposeBag = try! container.resolve()
+                    service.lots = try! container.resolve()
+                    service.request = try! container.resolve()
+                }
+            
+            container.register(.unique) { SearchControllerViewModel() }
+                .resolvingProperties { container, service in
+                    service.apiCalling = try! container.resolve()
+                    service.disposeBag = try! container.resolve()
+                    service.request = try! container.resolve()
+                    service.result = try! container.resolve()
+                }
+            
+            container.register(.unique) { SectionViewModel() }
+                .resolvingProperties { container, service in
+                    service.context = try! container.resolve()
+                    service.list = try! container.resolve()
+                }
+            
             container.register(tag: "ViewController") { ViewController() }
                 .resolvingProperties { container, controller in
-//                    controller.apiCalling = try! container.resolve()
-//                    controller.disposeBag = try! container.resolve()
-//                    controller.list = try! container.resolve()
-//                    controller.favoriteList = try! container.resolve()
-//                    controller.context = try! container.resolve()
-//                    controller.request = try! container.resolve()
                     controller.viewModel = try! container.resolve()
                 }
             
             container.register(tag: "SearchController") { SearchController() }
                 .resolvingProperties { container, controller in
-                    controller.apiCalling = try! container.resolve()
-                    controller.disposeBag = try! container.resolve()
-                    controller.context = try! container.resolve()
-                    controller.request = try! container.resolve()
+                    controller.viewModel = try! container.resolve()
                 }
             
             container.register(tag: "TickDetail") { TickDetail() }
@@ -68,6 +82,7 @@ extension DependencyContainer {
                     controller.disposeBag = try! container.resolve()
                     controller.lots = try! container.resolve()
                     controller.request = try! container.resolve()
+                    controller.viewModel = try! container.resolve()
                 }
             
             container.register(tag: "UserAccount") { UserAccount() }
@@ -79,6 +94,7 @@ extension DependencyContainer {
                 .resolvingProperties { container, controller in
                     controller.context = try! container.resolve()
                     controller.list = try! container.resolve()
+                    controller.viewModel = try! container.resolve()
                 }
             
             DependencyContainer.uiContainers = [container]

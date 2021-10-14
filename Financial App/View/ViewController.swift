@@ -10,7 +10,7 @@ import CoreData
 import RxSwift
 import Dip
 
-class ViewController: UITableViewController,Storyboarded,UpdateTableView {
+class ViewController: UITableViewController,Storyboarded{
 
     
     private let searchController = UISearchController(searchResultsController: nil)
@@ -53,7 +53,6 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
             }
         }
         viewModel.loadAllList()
-        viewModel.loadDataList()
         viewModel.loadAllFavorites()
 
 
@@ -69,9 +68,6 @@ class ViewController: UITableViewController,Storyboarded,UpdateTableView {
         tableView.tableHeaderView = searchController.searchBar
     }
     //MARK: - TableView
-    func tableViewReload() {
-        tableView.reloadData()
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
 

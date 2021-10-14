@@ -32,6 +32,12 @@ class ListCell: UITableViewCell {
     var favoriteList = [Favorite]()
     var list : List?
     
+    var listCellModel : ListCellModel? {
+        didSet {
+            name.text = listCellModel?.name
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
 
@@ -69,20 +75,6 @@ class ListCell: UITableViewCell {
                 addToList()
   
         }
-    }
-    
-    func didSelect(indexPath : IndexPath) {
-        switch indexPath.row {
-        case 0:
-            print("First stroke")
-        case 1:
-            print("Second stroke")
-        case 2:
-            print("Third stroke")
-        default:
-            print("Something")
-        }
-        
     }
     
     func saveToList() {

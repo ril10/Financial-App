@@ -20,3 +20,16 @@ extension Date {
     
 }
 
+extension Int {
+    
+    func graphLabelDate() -> String {
+        let unixTime = self
+        let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM-dd HH:mm"
+        let dateForm = formatter.string(from: date)
+        return dateForm
+    }
+    
+}
+

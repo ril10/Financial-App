@@ -11,26 +11,11 @@ import RxSwift
 import Dip
 
 class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
-
-    var context : NSManagedObjectContext!
+    
+    var viewModel : SearchControllerViewModel!
     
     private let searchController = UISearchController(searchResultsController: nil)
     var coordinator : MainCoordinator?
-    
-    var searchResult = [Result]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    var apiCalling : APICalling!
-    var disposeBag : DisposeBag!
-    var request : APIRequest!
-    
-    var quote : Observable<Quote>!
-    var search : Observable<ResultSearch>!
     
     var time : Int? {
         Int(Date().timeIntervalSince1970) - 86400
@@ -48,6 +33,11 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         tableView.delegate = self
         tableView.dataSource = self
         self.registerTableViewCells()
+        viewModel.reloadTableView = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
         setupSearchBar()
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
@@ -67,35 +57,22 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return searchResult.count
+        
+        return viewModel.resultViewModel.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
-        let dataCell = searchResult[indexPath.row]
-        
-        quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: dataCell.symbol))
-        quote.subscribe(onNext: { quote in
-            DispatchQueue.main.async {
-                if let currentPrice = quote.c {
-                    cell.currentPrice.text = String(format: "%.2f", currentPrice)
-                }
-            }
-        }).disposed(by: self.disposeBag)
-        
-        cell.symbol.text = dataCell.symbol
-        cell.companyName.text = dataCell.description
-        
+        let cellVm = viewModel.getResultCellModel(at: indexPath)
+        cell.resultCell = cellVm
         cell.delegate = self
-        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dataCell = searchResult[indexPath.row]
+        let cellVm = viewModel.getResultCellModel(at: indexPath)
         
-        coordinator?.finhubDetail(ticker: dataCell.symbol,from: time!,to: Int(Date().timeIntervalSince1970))
+        coordinator?.finhubDetail(ticker: cellVm.symbol,from: time!,to: Int(Date().timeIntervalSince1970))
         coordinator?.dismiss()
     }
     
@@ -103,46 +80,23 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
         coordinator?.listController(symbol: symbol, companyName: companyName, currentPrice: currentPrice)
         coordinator?.dismiss()
     }
-    //MARK: - Model Manupulation Methods
-    func saveItems() {
-        
-        do {
-          try context.save()
-        } catch {
-           print("Error saving context \(error)")
-        }
-        
-        self.tableView.reloadData()
-    }
 
 }
 //MARK: - SearchControllerDelegate
 extension SearchController : UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchResult.removeAll()
+        viewModel.resultViewModel.removeAll()
         
         guard let textToSearch = searchBar.text, !textToSearch.isEmpty else {
             return
         }
-        searchResults(text: textToSearch)
-    }
-    
-    func searchResults(text: String) {
-        DispatchQueue.main.async {
-            self.search = self.apiCalling.load(apiRequest: self.request.requestSearch(search: text))
-            self.search?.subscribe(onNext:  { result in
-                if let searchResult = result.result {
-                    self.searchResult = searchResult
-                }
-            }).disposed(by: self.disposeBag)
-        }
+        viewModel.searchResults(text: textToSearch)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchResult.removeAll()
+        viewModel.resultViewModel.removeAll()
         coordinator?.dismiss()
-        saveItems()
     }
     
     

@@ -37,6 +37,7 @@ class TickDetail: UIViewController, Storyboarded {
     
     var to : Int?
     
+    var viewModel : TickDetailViewModel!
     
     @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var highPrice: UILabel!
@@ -73,9 +74,9 @@ class TickDetail: UIViewController, Storyboarded {
             graph.o.append(contentsOf: stock.o)
             graph.t.append(contentsOf: stock.t)
             DispatchQueue.main.async {
-                startDate.text = graphLabelDate(time: stock.t.first ?? 0)
-                secondDate.text = graphLabelDate(time: stock.t[middle ?? 0])
-                endDate.text = graphLabelDate(time: stock.t.last ?? 0)
+                startDate.text = stock.t.first?.graphLabelDate()
+                secondDate.text = stock.t[middle ?? 0].graphLabelDate()
+                endDate.text = stock.t.last?.graphLabelDate()
                 graphLabelValue()
                 priceQuote()
                 if graph.c.count > 0 {
@@ -112,18 +113,7 @@ class TickDetail: UIViewController, Storyboarded {
             self.graphLowPrice.text = "\(graphLowLabel)"
         }
     }
-    
-    func graphLabelDate(time: Int) -> String {
         
-        let unixTime = time
-        let date = Date(timeIntervalSince1970: TimeInterval(unixTime))
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM-dd HH:mm"
-        let dateForm = formatter.string(from: date)
-        return dateForm
-        
-    }
-    
     func priceQuote() {
         quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: ticker))
         quote.subscribe(onNext:  { [self] quote in
