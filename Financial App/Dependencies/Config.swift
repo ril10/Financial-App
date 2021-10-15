@@ -43,14 +43,6 @@ extension DependencyContainer {
                     service.request = try! container.resolve()
                 }
             
-            container.register(.unique) { TickDetailViewModel() }
-                .resolvingProperties { container, service in
-                    service.apiCalling = try! container.resolve()
-                    service.disposeBag = try! container.resolve()
-                    service.lots = try! container.resolve()
-                    service.request = try! container.resolve()
-                }
-            
             container.register(.unique) { SearchControllerViewModel() }
                 .resolvingProperties { container, service in
                     service.apiCalling = try! container.resolve()
@@ -63,6 +55,15 @@ extension DependencyContainer {
                 .resolvingProperties { container, service in
                     service.context = try! container.resolve()
                     service.list = try! container.resolve()
+                }
+            
+            container.register(.unique) { TickDetailViewModel() }
+                .resolvingProperties { container, service in
+                    service.apiCalling = try! container.resolve()
+                    service.disposeBag = try! container.resolve()
+                    service.lots = try! container.resolve()
+                    service.request = try! container.resolve()
+                    service.context = try! container.resolve()
                 }
             
             container.register(tag: "ViewController") { ViewController() }
@@ -80,7 +81,6 @@ extension DependencyContainer {
                     controller.apiCalling = try! container.resolve()
                     controller.context = try! container.resolve()
                     controller.disposeBag = try! container.resolve()
-                    controller.lots = try! container.resolve()
                     controller.request = try! container.resolve()
                     controller.viewModel = try! container.resolve()
                 }
@@ -92,8 +92,6 @@ extension DependencyContainer {
             
             container.register(tag: "ListOfSection") { ListOfSection() }
                 .resolvingProperties { container, controller in
-                    controller.context = try! container.resolve()
-                    controller.list = try! container.resolve()
                     controller.viewModel = try! container.resolve()
                 }
             

@@ -13,5 +13,5 @@ struct CustomCellModel {
     var companyName : String
     var currentPrice : String
     var isFavorite : Bool
-    var parentList : List
+    var parentList : List?
 }

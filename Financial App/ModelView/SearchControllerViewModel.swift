@@ -16,13 +16,10 @@ class SearchControllerViewModel {
     var apiCalling : APICalling!
     var disposeBag : DisposeBag!
     var request : APIRequest!
-    var quote : Observable<Quote>!
     var search : Observable<ResultSearch>!
     var result : [Result]!
     
     var reloadTableView : (() -> Void)?
-    
-    var currentPrice : String?
     
     var resultModel = [ResultSearchModel]() {
         didSet {

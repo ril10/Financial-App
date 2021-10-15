@@ -8,8 +8,8 @@
 import UIKit
 import CoreData
 
-protocol AddTolist : AnyObject {
-    func addToList()
+protocol CloseListSection : AnyObject {
+    func closeList()
 }
 
 class ListCell: UITableViewCell {
@@ -19,22 +19,20 @@ class ListCell: UITableViewCell {
     
     var isFavorite : Bool?
     
-    weak var delegate : AddTolist?
+    weak var delegate : CloseListSection?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var symbol : String!
     var companyName : String!
     var currentPrice : String!
-    var changePrice : String!
-    var listName : String!
     
     var favoriteList = [Favorite]()
     var list : List?
     
-    var listCellModel : ListCellModel? {
+    var listCellModel : SectionCellModel? {
         didSet {
-            name.text = listCellModel?.name
+            name.text = listCellModel?.sectionName
         }
     }
     
@@ -48,8 +46,8 @@ class ListCell: UITableViewCell {
         
     }
     
-    func addToList() {
-        delegate?.addToList()
+    func closeList() {
+        delegate?.closeList()
     }
     
     @IBAction func addToList(_ sender: UIButton) {
@@ -63,8 +61,9 @@ class ListCell: UITableViewCell {
         }
         
         if isFavorite! {
+
                 let favorite = Favorite(context: self.context)
-//                saveToList()
+                saveToList()
                 favorite.companyName = companyName
                 favorite.symbol = symbol
                 favorite.isFavorite = true
@@ -72,7 +71,7 @@ class ListCell: UITableViewCell {
                 favorite.parentList = self.list
                 favoriteList.append(favorite)
                 saveToList()
-                addToList()
+                closeList()
   
         }
     }

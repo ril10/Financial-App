@@ -9,17 +9,13 @@ import UIKit
 import CoreData
 import Dip
 
-class ListOfSection: UITableViewController,Storyboarded,AddTolist {
-    
-    var context : NSManagedObjectContext!
-    var list : [List]!
+class ListOfSection: UITableViewController,Storyboarded,CloseListSection {
 
     var coordinator : MainCoordinator?
     
     var symbol : String?
     var companyName : String?
     var currentPrice : String?
-    var changePrice : String?
     
     var viewModel : SectionViewModel!
     
@@ -31,17 +27,20 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadListInListSection()
         
         registerTableViewCells()
         tableView.delegate = self
         tableView.dataSource = self
-        
+        viewModel.tableViewReload = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        viewModel.loadListInListSection()
 
     }
 
-    func addToList() {
+    func closeList() {
         coordinator?.start()
         coordinator?.dismiss()
     }
@@ -67,7 +66,6 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
     }
     
     @objc func close(_ sender: UIButton?) {
-        saveListData()
         coordinator?.start()
         coordinator?.dismiss()
     }
@@ -93,53 +91,28 @@ class ListOfSection: UITableViewController,Storyboarded,AddTolist {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return list.count
+        return viewModel.list.count
         
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! ListCell
+        let cellVM = viewModel.getResultCellModel(at: indexPath)
         
+        cell.listCellModel = cellVM
+
+        cell.list = viewModel.list[indexPath.row]
         cell.companyName = companyName
         cell.symbol = symbol
         cell.currentPrice = currentPrice
-        cell.changePrice = changePrice
         
-        cell.list = list[indexPath.row]
-        
-        cell.name.text = list[indexPath.row].name
         
         cell.delegate = self
         
         
         return cell
         
-    }
-    
-    //MARK: - LoadListSection
-    func loadListInListSection () {
-
-        let request : NSFetchRequest<List> = List.fetchRequest()
-
-        do {
-            list = try context.fetch(request)
-        } catch {
-            print("Error loading lists \(error)")
-        }
-
-        tableView.reloadData()
-
-    }
-    
-    func saveListData() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving category \(error)")
-        }
-        
-        tableView.reloadData()
     }
     
 }

@@ -16,11 +16,32 @@ class SectionViewModel {
     
     var tableViewReload : (() -> Void)?
     
-
+    var sectionModel = [SectionCellModel]() {
+        didSet {
+            tableViewReload?()
+        }
+    }
     //MARK: - ConfigureCell
     
+    func fetchData(listData: [List]) {
+        var resData = [SectionCellModel]()
+        for l in listData {
+            resData.append(createCellModel(res: l))
+        }
+        sectionModel = resData
+    }
     
+    func createCellModel(res: List) -> SectionCellModel {
+        let name = res.name
+        let list = res.list
+        
+        
+        return SectionCellModel(sectionName: name!,list: list!)
+    }
     
+    func getResultCellModel(at indexPath: IndexPath) -> SectionCellModel {
+        return sectionModel[indexPath.row]
+    }
     //MARK: - LoadListSection
     func loadListInListSection () {
 
@@ -28,6 +49,7 @@ class SectionViewModel {
 
         do {
             list = try context.fetch(request)
+            fetchData(listData: list)
         } catch {
             print("Error loading lists \(error)")
         }

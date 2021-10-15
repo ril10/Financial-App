@@ -95,7 +95,7 @@ class ViewController: UITableViewController,Storyboarded{
         if viewModel.favoriteViewModel.count > 0 {
             
            let cellVM = viewModel.favoriteViewModel.filter { fav in
-               return fav.parentList.name == viewModel.listViewModel[indexPath.section].name
+            return fav.parentList?.name == viewModel.listViewModel[indexPath.section].name
            }[indexPath.row]
 
             cell.customCell = cellVM
@@ -112,7 +112,7 @@ class ViewController: UITableViewController,Storyboarded{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         let cellVM = viewModel.favoriteViewModel.filter { fav in
-            return fav.parentList.name == viewModel.listViewModel[indexPath.section].name
+            return fav.parentList?.name == viewModel.listViewModel[indexPath.section].name
         }[indexPath.row]
         coordinator?.finhubDetail(ticker: cellVM.symbol,from: time!, to: Int(Date().timeIntervalSince1970))
     }

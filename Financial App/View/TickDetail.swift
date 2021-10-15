@@ -15,8 +15,6 @@ class TickDetail: UIViewController, Storyboarded {
     
     var coordinator : MainCoordinator?
     
-    var lots : [Lots]!
-    
     var ticker : String = ""
     
     var middle : Int? {
@@ -61,39 +59,116 @@ class TickDetail: UIViewController, Storyboarded {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         configNavigator()
-
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.reloadView = { [weak self] in
+            DispatchQueue.main.async {
+                self?.view.setNeedsDisplay()
+            }
+        }
+        viewModel.priceQuote(symbol: ticker)
+        viewModel.companyData(symbol: ticker)
+        viewModel.requestStockHandleData(symbol: ticker, from: from!, to: to!)
+        
+        viewModel.gc = { [self] graphC in
+            DispatchQueue.main.async {
+                graph.c.append(contentsOf: graphC)
+                if graph.c.count > 0 {
+                    graph.setNeedsDisplay()
+                }
+            }
+        }
+        viewModel.go = { [self] graphO in
+            DispatchQueue.main.async {
+                graph.o.append(contentsOf: graphO)
+            }
+        }
+        viewModel.gt = { [self] graphT in
+            DispatchQueue.main.async {
+                graph.t.append(contentsOf: graphT)
+            }
+        }
+        viewModel.gHP = { [self] gHighPrice in
+            DispatchQueue.main.async {
+                graphHighPrice.text = String(format: "%.2f", gHighPrice)
+            }
+        }
+        viewModel.mDP = { [self] gMiddlePrice in
+            DispatchQueue.main.async {
+                graphMiddlePrice.text = String(format: "%.2f", gMiddlePrice)
+            }
+        }
+        viewModel.lP = { [self] gLowPrice in
+            DispatchQueue.main.async {
+                graphLowPrice.text = String(format: "%.2f", gLowPrice)
+            }
+        }
+        viewModel.startT = { [self] startTime in
+            DispatchQueue.main.async {
+                startDate.text = startTime
+            }
+        }
+        viewModel.middleT = { [self] middleTime in
+            DispatchQueue.main.async {
+                secondDate.text = middleTime
+            }
+        }
+        viewModel.endT = { [self] endTime in
+            DispatchQueue.main.async {
+                endDate.text = endTime
+            }
+        }
+        
         stock = self.apiCalling.load(apiRequest: request.requestStockHandleData(symbol: ticker, from: from!, to: to!))
         stock.subscribe(onNext: { [self] stock in
-            graph.c.append(contentsOf: stock.c)
-            graph.o.append(contentsOf: stock.o)
-            graph.t.append(contentsOf: stock.t)
             DispatchQueue.main.async {
                 startDate.text = stock.t.first?.graphLabelDate()
                 secondDate.text = stock.t[middle ?? 0].graphLabelDate()
                 endDate.text = stock.t.last?.graphLabelDate()
                 graphLabelValue()
-                priceQuote()
                 if graph.c.count > 0 {
                     graph.setNeedsDisplay()
                 }
             }
         }).disposed(by: self.disposeBag)
-        
-        company = self.apiCalling.load(apiRequest: request.requestDataCompany(symbol: ticker))
-        company.subscribe(onNext: { [self] company in
+        //Company
+        viewModel.companyName = { [self] company in
             DispatchQueue.main.async {
-                name.text = company.name
-                marketCap.text = String(company.marketCapitalization ?? 0.0)
-                guard let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png") else { return }
-                downloadImage(from: (URL(string: company.logo ?? noImage.absoluteString) ?? noImage)!)
+                name.text = company
             }
-        }).disposed(by: self.disposeBag)
+        }
+        viewModel.market = { [self] capital in
+            DispatchQueue.main.async {
+                marketCap.text = capital
+            }
+        }
+        viewModel.image = { [self] logotype in
+            logo.image = UIImage(data: logotype)
+        }
+        //Label price
+        viewModel.c = { [self] current in
+            DispatchQueue.main.async {
+                currentPrice.text = current
+            }
+        }
+        viewModel.o = { [self] open in
+            DispatchQueue.main.async {
+                openPrice.text = open
+            }
+        }
+        viewModel.h = { [self] high in
+            DispatchQueue.main.async {
+                highPrice.text = high
+            }
+        }
+        viewModel.l = { [self] low in
+            DispatchQueue.main.async {
+                lowPrice.text = low
+            }
+        }
         
 
     }
@@ -106,46 +181,12 @@ class TickDetail: UIViewController, Storyboarded {
         
         
         if let graphTopLabel = self.graph.c.max() {
-            self.graphHighPrice.text = "\(graphTopLabel)"
+            self.graphHighPrice.text = String(format: "%.2f", graphTopLabel)
         }
         
         if let graphLowLabel = self.graph.c.min() {
-            self.graphLowPrice.text = "\(graphLowLabel)"
+            self.graphLowPrice.text = String(format: "%.2f", graphLowLabel)
         }
-    }
-        
-    func priceQuote() {
-        quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: ticker))
-        quote.subscribe(onNext:  { [self] quote in
-            DispatchQueue.main.async {
-                if let currentPrice = quote.c {
-                    self.currentPrice.text = String(format: "%.2f", currentPrice)
-                }
-                
-                if let lowPrice = quote.l {
-                    self.lowPrice.text = String(format: "%.2f", lowPrice)
-                }
-                
-                if let openPrice = quote.o {
-                    self.openPrice.text = String(format: "%.2f", openPrice)
-                }
-                
-                if let highPrice = quote.h {
-                    self.highPrice.text = String(format: "%.2f", highPrice)
-                }
-            }
-        }).disposed(by: self.disposeBag)
-
-    }
-    
-    func downloadImage(from url: URL) {
-        URLSession.shared.rx
-            .response(request: URLRequest(url: url))
-            .subscribe(onNext: { (response, data) in
-                DispatchQueue.main.async {
-                    self.logo.image = UIImage(data: data)
-                }
-            }).disposed(by: self.disposeBag)
     }
     
     func configNavigator() {
@@ -183,8 +224,8 @@ class TickDetail: UIViewController, Storyboarded {
             newLot.count = countTextField.text!
             newLot.date = currentTime
             newLot.id = uuid
-            self.lots.append(newLot)
-            self.saveLoats()
+            self.viewModel.lots.append(newLot)
+            self.viewModel.saveLoats()
         }
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
@@ -205,16 +246,7 @@ class TickDetail: UIViewController, Storyboarded {
         
         present(alert, animated: true, completion: nil)
     }
-    //MARK: - Model Manupulation Methods
-    func saveLoats() {
-        
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context \(error)")
-        }
-        
-    }
+
     
 }
 //MARK: - StoryboardInstantiatable

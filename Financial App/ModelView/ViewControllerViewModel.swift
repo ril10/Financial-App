@@ -25,7 +25,6 @@ class ViewControllerViewModel {
     var loadList : List? {
         didSet {
             loadAllList()
-
             reloadTableView?()
         }
     }
