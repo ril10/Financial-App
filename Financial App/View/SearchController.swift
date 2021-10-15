@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import CoreData
-import RxSwift
 import Dip
 
 class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {

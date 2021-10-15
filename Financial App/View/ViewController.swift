@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import CoreData
-import RxSwift
 import Dip
 
 class ViewController: UITableViewController,Storyboarded{
@@ -16,8 +14,6 @@ class ViewController: UITableViewController,Storyboarded{
     private let searchController = UISearchController(searchResultsController: nil)
     
     var coordinator : MainCoordinator?
-    var context : NSManagedObjectContext!
-
     
     var viewModel : ViewControllerViewModel!
     

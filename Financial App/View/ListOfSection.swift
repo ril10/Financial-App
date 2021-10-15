@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CoreData
 import Dip
 
 class ListOfSection: UITableViewController,Storyboarded,CloseListSection {
@@ -101,7 +100,7 @@ class ListOfSection: UITableViewController,Storyboarded,CloseListSection {
         let cellVM = viewModel.getResultCellModel(at: indexPath)
         
         cell.listCellModel = cellVM
-
+//        cell.addToList = viewModel.addToFavorite
         cell.list = viewModel.list[indexPath.row]
         cell.companyName = companyName
         cell.symbol = symbol

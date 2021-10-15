@@ -13,8 +13,15 @@ class SectionViewModel {
     
     var context : NSManagedObjectContext!
     var list : [List]!
+    var favoriteList : [Favorite]!
     
     var tableViewReload : (() -> Void)?
+    
+    var listData : List!
+    
+    var symbol : String!
+    var currentPrice : String!
+    var companyName : String!
     
     var sectionModel = [SectionCellModel]() {
         didSet {
@@ -41,6 +48,18 @@ class SectionViewModel {
     
     func getResultCellModel(at indexPath: IndexPath) -> SectionCellModel {
         return sectionModel[indexPath.row]
+    }
+    
+    func addToFavorite(add: Bool?) {
+        let favorite = Favorite(context: self.context)
+        favorite.companyName = self.companyName
+        favorite.symbol = self.symbol
+        favorite.isFavorite = true
+        favorite.currentPrice = self.currentPrice
+        favorite.parentList = self.listData
+        favoriteList.append(favorite)
+        saveListData()
+
     }
     //MARK: - LoadListSection
     func loadListInListSection () {

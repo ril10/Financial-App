@@ -55,6 +55,7 @@ extension DependencyContainer {
                 .resolvingProperties { container, service in
                     service.context = try! container.resolve()
                     service.list = try! container.resolve()
+                    service.favoriteList = try! container.resolve()
                 }
             
             container.register(.unique) { TickDetailViewModel() }

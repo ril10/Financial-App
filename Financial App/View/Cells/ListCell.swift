@@ -19,6 +19,8 @@ class ListCell: UITableViewCell {
     
     var isFavorite : Bool?
     
+    var addToList : ((Bool) ->Void)?
+    
     weak var delegate : CloseListSection?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -61,9 +63,8 @@ class ListCell: UITableViewCell {
         }
         
         if isFavorite! {
-
+//            addToList?(true)
                 let favorite = Favorite(context: self.context)
-                saveToList()
                 favorite.companyName = companyName
                 favorite.symbol = symbol
                 favorite.isFavorite = true
