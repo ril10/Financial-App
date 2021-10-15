@@ -58,7 +58,7 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return viewModel.resultViewModel.count
+        return viewModel.resultModel.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,7 +86,7 @@ class SearchController: UITableViewController,Storyboarded,CustomCellUpdate {
 extension SearchController : UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.resultViewModel.removeAll()
+        viewModel.resultModel.removeAll()
         
         guard let textToSearch = searchBar.text, !textToSearch.isEmpty else {
             return
@@ -95,7 +95,7 @@ extension SearchController : UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.resultViewModel.removeAll()
+        viewModel.resultModel.removeAll()
         coordinator?.dismiss()
     }
     

@@ -24,7 +24,7 @@ class SearchControllerViewModel {
     
     var currentPrice : String?
     
-    var resultViewModel = [ResultSearchModel]() {
+    var resultModel = [ResultSearchModel]() {
         didSet {
             reloadTableView?()
         }
@@ -35,22 +35,15 @@ class SearchControllerViewModel {
         for r in res {
             resData.append(createCellModel(res: r))
         }
-        resultViewModel = resData
+        resultModel = resData
     }
     
     func createCellModel(res: Result) -> ResultSearchModel {
         let symbol = res.symbol
         let companyName = res.description
 
-//        DispatchQueue.main.async {
-//            quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: symbol))
-//            quote.subscribe(onNext: { quote in
-//                self.currentPrice = String(format: "%.2f", quote.c ?? 0.0)
-//        }).disposed(by: self.disposeBag)
-//        }
-
         
-        return ResultSearchModel(symbol: symbol, companyName: companyName, currentPrice: currentPrice ?? "0.0")
+        return ResultSearchModel(symbol: symbol, companyName: companyName)
     }
     
     
@@ -66,7 +59,7 @@ class SearchControllerViewModel {
     }
 
     func getResultCellModel(at indexPath: IndexPath) -> ResultSearchModel {
-        return resultViewModel[indexPath.row]
+        return resultModel[indexPath.row]
     }
     
     

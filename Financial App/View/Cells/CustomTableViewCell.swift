@@ -49,14 +49,11 @@ class CustomTableViewCell: UITableViewCell {
                 companyName.text = resultCell?.companyName
                 quote = apiCalling.load(apiRequest: apiRequest.requestQuote(symbol: symbol.text ?? ""))
                 quote.subscribe(onNext: { quote in
-                    self.resultCell?.currentPrice = String(format: "%.2f", quote.c ?? 0.0)
                     DispatchQueue.main.async {
-                        self.currentPrice.text = resultCell?.currentPrice
+                        self.currentPrice.text = String(format: "%.2f", quote.c ?? 0.0)
                     }
                 }).disposed(by: self.disposeBag)
             }
-
-//            currentPrice.text = resultCell?.currentPrice
             
         }
     }

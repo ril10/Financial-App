@@ -91,7 +91,7 @@ class TickDetail: UIViewController, Storyboarded {
                 name.text = company.name
                 marketCap.text = String(company.marketCapitalization ?? 0.0)
                 guard let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png") else { return }
-                downloadImage(from: (URL(string: company.logo!) ?? noImage)!)
+                downloadImage(from: (URL(string: company.logo ?? noImage.absoluteString) ?? noImage)!)
             }
         }).disposed(by: self.disposeBag)
         
