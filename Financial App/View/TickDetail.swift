@@ -17,9 +17,6 @@ class TickDetail: UIViewController, Storyboarded {
     
     var ticker : String = ""
     
-    var middle : Int? {
-        graph.t.count / 2
-    }
     var apiCalling : APICalling!
     var disposeBag : DisposeBag!
     
@@ -121,19 +118,6 @@ class TickDetail: UIViewController, Storyboarded {
                 endDate.text = endTime
             }
         }
-        
-        stock = self.apiCalling.load(apiRequest: request.requestStockHandleData(symbol: ticker, from: from!, to: to!))
-        stock.subscribe(onNext: { [self] stock in
-            DispatchQueue.main.async {
-                startDate.text = stock.t.first?.graphLabelDate()
-                secondDate.text = stock.t[middle ?? 0].graphLabelDate()
-                endDate.text = stock.t.last?.graphLabelDate()
-                graphLabelValue()
-                if graph.c.count > 0 {
-                    graph.setNeedsDisplay()
-                }
-            }
-        }).disposed(by: self.disposeBag)
         //Company
         viewModel.companyName = { [self] company in
             DispatchQueue.main.async {
@@ -168,24 +152,6 @@ class TickDetail: UIViewController, Storyboarded {
             DispatchQueue.main.async {
                 lowPrice.text = low
             }
-        }
-        
-
-    }
-    
-    func graphLabelValue() {
-        let total = graph.c.reduce(0, +)
-        let midVal = CGFloat(total) / CGFloat(graph.c.count)
-        
-        self.graphMiddlePrice.text = String(format: "%.2f", midVal)
-        
-        
-        if let graphTopLabel = self.graph.c.max() {
-            self.graphHighPrice.text = String(format: "%.2f", graphTopLabel)
-        }
-        
-        if let graphLowLabel = self.graph.c.min() {
-            self.graphLowPrice.text = String(format: "%.2f", graphLowLabel)
         }
     }
     
