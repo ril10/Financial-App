@@ -102,16 +102,18 @@ class Graph : UIView {
         // Draw the circles on top of the graph stroke
         for i in 0 ..< c.count {
             let point = CGPoint(x: columnXPoint(i), y: columnYPoint(CGFloat(c[i])))
-            let pointO = CGPoint(x: columnXOPoint(i), y: columnOPoint(CGFloat(o[i])))
 
-            
             let rectangle = UIBezierPath(roundedRect: CGRect(x: point.x, y: point.y, width: Constants.rectangleW, height: Constants.rectangleH), cornerRadius: 2)
             UIColor.red.setFill()
             rectangle.fill()
+        
+        }
+        for i in 0 ..< o.count {
+            let pointO = CGPoint(x: columnXOPoint(i), y: columnOPoint(CGFloat(o[i])))
+            
             let rectangleO = UIBezierPath(roundedRect: CGRect(x: pointO.x, y: pointO.y, width: Constants.rectangleW, height: Constants.rectangleH), cornerRadius: 2)
             UIColor.green.setFill()
             rectangleO.fill()
-        
         }
 
         

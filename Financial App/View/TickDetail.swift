@@ -17,16 +17,7 @@ class TickDetail: UIViewController, Storyboarded {
     
     var ticker : String = ""
     
-    var apiCalling : APICalling!
-    var disposeBag : DisposeBag!
-    
     var context : NSManagedObjectContext!
-
-    var request : APIRequest!
-    
-    var quote : Observable<Quote>!
-    var stock : Observable<StockHandelData>!
-    var company : Observable<FinhubCompany>!
     
     var from : Int?
     

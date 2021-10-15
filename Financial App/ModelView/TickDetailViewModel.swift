@@ -54,6 +54,7 @@ class TickDetailViewModel {
             self.o?(String(format: "%.2f", quote.o ?? 0.0))
             self.l?(String(format: "%.2f", quote.l ?? 0.0))
             self.h?(String(format: "%.2f", quote.h ?? 0.0))
+            self.reloadView?()
         }).disposed(by: self.disposeBag)
     }
     
@@ -64,6 +65,7 @@ class TickDetailViewModel {
             self.market?(String(company.marketCapitalization ?? 0.0))
             guard let noImage = URL(string: "https://static.finnhub.io/img/finnhub_2020-05-09_20_51/logo/logo-gradient-thumbnail-trans.png") else { return }
             self.downloadImage(from: URL(string: company.logo ?? noImage.absoluteString)!)
+            self.reloadView?()
         }).disposed(by: self.disposeBag)
     }
     
@@ -85,7 +87,7 @@ class TickDetailViewModel {
             self.startT?(String(stock.t.first!.graphLabelDate()))
             self.middleT?(String(stock.t[middle].graphLabelDate()))
             self.endT?(String(stock.t.last!.graphLabelDate()))
-            
+            self.reloadView?()
         }).disposed(by: self.disposeBag)
     }
     
@@ -95,6 +97,7 @@ class TickDetailViewModel {
             .subscribe(onNext: { (response, data) in
                 DispatchQueue.main.async {
                     self.image?(data)
+                    self.reloadView?()
                 }
             }).disposed(by: self.disposeBag)
     }

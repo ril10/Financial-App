@@ -78,10 +78,7 @@ extension DependencyContainer {
             
             container.register(tag: "TickDetail") { TickDetail() }
                 .resolvingProperties { container, controller in
-                    controller.apiCalling = try! container.resolve()
                     controller.context = try! container.resolve()
-                    controller.disposeBag = try! container.resolve()
-                    controller.request = try! container.resolve()
                     controller.viewModel = try! container.resolve()
                 }
             
