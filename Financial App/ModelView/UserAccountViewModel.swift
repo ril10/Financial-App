@@ -52,7 +52,7 @@ class UserAccountViewModel {
         }).disposed(by: self.disposeBag)
 
         let diffrence = lots.valueDif ?? "" + "%"
-
+        
         return LotsCellModel(symbol: symbol, loatCost: loatCost, countOfLots: countOfLoats, date: date.dateFormatter(), diffrence: diffrence, id: id)
     }
     

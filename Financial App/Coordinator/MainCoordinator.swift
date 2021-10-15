@@ -27,9 +27,10 @@ class MainCoordinator: Coordinator {
     
     func finhubDetail(ticker : String,from : Int, to : Int) {
         let vc = TickDetail.instantiate()
-        vc.ticker = ticker
-        vc.from = from
-        vc.to = to
+        vc.viewModel.companyData(symbol: ticker)
+        vc.viewModel.priceQuote(symbol: ticker)
+        vc.viewModel.requestStockHandleData(symbol: ticker, from: from, to: to)
+        vc.viewModel.symbol = ticker
         vc.coordinator = self
         self.navigationController.pushViewController(vc, animated: true)
     }

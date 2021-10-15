@@ -6,22 +6,11 @@
 //
 
 import UIKit
-import CoreData
-import RxSwift
-import RxCocoa
 import Dip
 
 class TickDetail: UIViewController, Storyboarded {
     
     var coordinator : MainCoordinator?
-    
-    var ticker : String = ""
-    
-    var context : NSManagedObjectContext!
-    
-    var from : Int?
-    
-    var to : Int?
     
     var viewModel : TickDetailViewModel!
     
@@ -57,9 +46,6 @@ class TickDetail: UIViewController, Storyboarded {
                 self?.view.setNeedsDisplay()
             }
         }
-        viewModel.priceQuote(symbol: ticker)
-        viewModel.companyData(symbol: ticker)
-        viewModel.requestStockHandleData(symbol: ticker, from: from!, to: to!)
         
         viewModel.gc = { [self] graphC in
             DispatchQueue.main.async {
@@ -156,7 +142,7 @@ class TickDetail: UIViewController, Storyboarded {
         
         nav?.isTranslucent = true
         nav?.backItem?.title = ""
-        nav?.topItem?.title = ticker
+        nav?.topItem?.title = viewModel.symbol
         nav?.tintColor = .darkGray
         
         self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(buyLots)), animated: true)
@@ -175,8 +161,8 @@ class TickDetail: UIViewController, Storyboarded {
         let uuid = UUID().uuidString
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            let newLot = Lots(context: self.context)
-            newLot.symbol = self.ticker
+            let newLot = Lots(context: self.viewModel.context)
+            newLot.symbol = self.viewModel.symbol
             newLot.costLots = priceLoat.text
             newLot.count = countTextField.text!
             newLot.date = currentTime

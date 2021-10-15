@@ -8,6 +8,7 @@
 import Foundation
 import Dip
 import RxSwift
+import RxCocoa
 import CoreData
 
 
@@ -23,6 +24,12 @@ class TickDetailViewModel {
     var context : NSManagedObjectContext!
     
     var reloadView : (() -> Void)?
+    
+    var symbol : String! {
+        didSet {
+            reloadView?()
+        }
+    }
     //Company
     var companyName : ((String) -> Void)?
     var market : ((String) -> Void)?
