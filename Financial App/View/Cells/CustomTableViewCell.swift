@@ -18,6 +18,7 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var starButton: UIButton!
+    @IBOutlet weak var customView: UIView!
     
     weak var delegate : CustomCellUpdate?
     

@@ -52,7 +52,6 @@ class ViewController: UITableViewController,Storyboarded{
         viewModel.loadAllFavorites()
 
 
-
     }
     //MARK: - Setup SearchBar
     private func setupSearchBar() {
@@ -101,6 +100,8 @@ class ViewController: UITableViewController,Storyboarded{
             }
         }
         
+        cell.addShadow(view: cell.customView, backgroundColor: .white, cornerRadius: 13, shadowRadius: 5, shadowOpacity: 0.1, shadowPathInset: (dx: 16, dy: 6), shadowPathOffset: (dx: 0, dy: 2))
+        cell.clipsToBounds = true
         return cell
         
     }
@@ -113,10 +114,11 @@ class ViewController: UITableViewController,Storyboarded{
         coordinator?.finhubDetail(ticker: cellVM.symbol,from: time!, to: Int(Date().timeIntervalSince1970))
     }
     
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
+    
+
     
     //MARK: - Config NavBar
     func configNavigator() {

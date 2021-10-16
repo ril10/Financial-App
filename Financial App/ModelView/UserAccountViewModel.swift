@@ -50,7 +50,6 @@ class UserAccountViewModel {
             let indexChange = ((currentValue - buyValue!) / buyValue!) * 100
             lots.valueDif = String(format: "%.2f", indexChange) + "%"
         }).disposed(by: self.disposeBag)
-
         let diffrence = lots.valueDif ?? "" + "%"
         
         return LotsCellModel(symbol: symbol, loatCost: loatCost, countOfLots: countOfLoats, date: date.dateFormatter(), diffrence: diffrence, id: id)

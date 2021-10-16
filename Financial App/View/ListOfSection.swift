@@ -12,10 +12,6 @@ class ListOfSection: UITableViewController,Storyboarded,CloseListSection {
 
     var coordinator : MainCoordinator?
     
-    var symbol : String?
-    var companyName : String?
-    var currentPrice : String?
-    
     var viewModel : SectionViewModel!
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,9 +98,8 @@ class ListOfSection: UITableViewController,Storyboarded,CloseListSection {
         cell.listCellModel = cellVM
         cell.list = viewModel.list[indexPath.row]
         cell.addToList = viewModel.addToFavorite
-
-        cell.delegate = self
         
+        cell.delegate = self
         
         return cell
         
