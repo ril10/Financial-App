@@ -49,12 +49,9 @@ class MainCoordinator: Coordinator {
     
     func listController(symbol : String, companyName : String, currentPrice : String) {
         let vc = ListOfSection.instantiate()
-//        vc.viewModel.symbol = symbol
-//        vc.viewModel.companyName = companyName
-//        vc.viewModel.currentPrice = currentPrice
-        vc.symbol = symbol
-        vc.companyName = companyName
-        vc.currentPrice = currentPrice
+        vc.viewModel.symbol = symbol
+        vc.viewModel.companyName = companyName
+        vc.viewModel.currentPrice = currentPrice
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }

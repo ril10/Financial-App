@@ -17,8 +17,6 @@ class SectionViewModel {
     
     var tableViewReload : (() -> Void)?
     
-    var listData : List!
-    
     var symbol : String!
     var currentPrice : String!
     var companyName : String!
@@ -42,7 +40,6 @@ class SectionViewModel {
         let name = res.name
         let list = res.list
         
-        
         return SectionCellModel(sectionName: name!,list: list!)
     }
     
@@ -50,13 +47,13 @@ class SectionViewModel {
         return sectionModel[indexPath.row]
     }
     
-    func addToFavorite(add: Bool?) {
+    func addToFavorite(addList: List?) {        
         let favorite = Favorite(context: self.context)
         favorite.companyName = self.companyName
         favorite.symbol = self.symbol
         favorite.isFavorite = true
         favorite.currentPrice = self.currentPrice
-        favorite.parentList = self.listData
+        favorite.parentList = addList
         favoriteList.append(favorite)
         saveListData()
 
@@ -78,12 +75,17 @@ class SectionViewModel {
     }
     
     func saveListData() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving category \(error)")
-        }
+                let request : NSFetchRequest<Favorite> = Favorite.fetchRequest()
+                request.predicate = NSPredicate(format: "symbol== %@", symbol)
+                context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         
+                if context.hasChanges {
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Error saving context \(error)")
+                    }
+                }        
         tableViewReload?()
     }
     

@@ -100,13 +100,9 @@ class ListOfSection: UITableViewController,Storyboarded,CloseListSection {
         let cellVM = viewModel.getResultCellModel(at: indexPath)
         
         cell.listCellModel = cellVM
-//        cell.addToList = viewModel.addToFavorite
         cell.list = viewModel.list[indexPath.row]
-        cell.companyName = companyName
-        cell.symbol = symbol
-        cell.currentPrice = currentPrice
-        
-        
+        cell.addToList = viewModel.addToFavorite
+
         cell.delegate = self
         
         
