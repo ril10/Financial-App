@@ -50,7 +50,7 @@ class ViewController: UITableViewController,Storyboarded{
         }
         viewModel.loadAllList()
         viewModel.loadAllFavorites()
-
+        
 
     }
     //MARK: - Setup SearchBar

@@ -13,11 +13,9 @@ import Dip
 class UserAccountViewModel {
     
     var lots : [Lots]!
-    var apiCalling : APICalling!
     var disposeBag : DisposeBag!
     var context : NSManagedObjectContext!
-    var request : APIRequest!
-    var quote : Observable<Quote>!
+    var requestService : RequestService!
     var reloadTableView : (() -> Void)?
     
     
@@ -43,8 +41,8 @@ class UserAccountViewModel {
         let date = lots.date!
         let id = lots.id!
         
-        quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: symbol))
-        quote.subscribe(onNext: { quote in
+        requestService.requestQuote(symbol: symbol)
+            .subscribe(onNext: { quote in
             let buyValue = Double(loatCost)
             let currentValue = quote.c ?? 0.0
             let indexChange = ((currentValue - buyValue!) / buyValue!) * 100

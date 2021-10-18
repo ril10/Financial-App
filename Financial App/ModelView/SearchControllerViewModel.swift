@@ -13,11 +13,9 @@ import RxSwift
 
 class SearchControllerViewModel {
     
-    var apiCalling : APICalling!
     var disposeBag : DisposeBag!
-    var request : APIRequest!
-    var search : Observable<ResultSearch>!
     var result : [Result]!
+    var requestservice : RequestService!
     
     var reloadTableView : (() -> Void)?
     
@@ -38,16 +36,16 @@ class SearchControllerViewModel {
     func createCellModel(res: Result) -> ResultSearchModel {
         let symbol = res.symbol
         let companyName = res.description
-
+        let rs = requestservice
         
-        return ResultSearchModel(symbol: symbol, companyName: companyName)
+        return ResultSearchModel(symbol: symbol, companyName: companyName,requestService: rs!)
     }
     
     
     func searchResults(text: String) {
-        DispatchQueue.main.async {
-            self.search = self.apiCalling.load(apiRequest: self.request.requestSearch(search: text))
-            self.search?.subscribe(onNext:  { result in
+        DispatchQueue.main.async { [self] in
+            requestservice.requestSearch(search: text)
+                .subscribe(onNext:  { result in
                 if let searchResult = result.result {
                     self.fetchData(res: searchResult)
                 }

@@ -18,14 +18,10 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var starButton: UIButton!
-    @IBOutlet weak var customView: UIView!
     
     weak var delegate : CustomCellUpdate?
     
-    var apiCalling = APICalling()
     var disposeBag = DisposeBag()
-    var quote : Observable<Quote>!
-    var apiRequest = APIRequest()
     var symbolName : String?
     
     var onDelete : ((String?) -> Void)?
@@ -48,8 +44,8 @@ class CustomTableViewCell: UITableViewCell {
             DispatchQueue.main.async { [self] in
                 symbol.text = resultCell?.symbol
                 companyName.text = resultCell?.companyName
-                quote = apiCalling.load(apiRequest: apiRequest.requestQuote(symbol: symbol.text ?? ""))
-                quote.subscribe(onNext: { quote in
+                resultCell?.requestService.requestQuote(symbol: symbol.text ?? "")
+                    .subscribe(onNext: { quote in
                     DispatchQueue.main.async {
                         self.currentPrice.text = String(format: "%.2f", quote.c ?? 0.0)
                     }

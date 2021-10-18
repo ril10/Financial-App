@@ -10,4 +10,5 @@ import Foundation
 struct ResultSearchModel {
     var symbol : String
     var companyName : String
+    var requestService : RequestService
 }

@@ -46,88 +46,50 @@ class TickDetail: UIViewController, Storyboarded {
                 self?.view.setNeedsDisplay()
             }
         }
-        
-        viewModel.gc = { [self] graphC in
+        //GraphData
+        viewModel.graphData = { [self] graphC, graphO, graphT in
             DispatchQueue.main.async {
                 graph.c.append(contentsOf: graphC)
                 if graph.c.count > 0 {
                     graph.setNeedsDisplay()
                 }
-            }
-        }
-        viewModel.go = { [self] graphO in
-            DispatchQueue.main.async {
                 graph.o.append(contentsOf: graphO)
-            }
-        }
-        viewModel.gt = { [self] graphT in
-            DispatchQueue.main.async {
                 graph.t.append(contentsOf: graphT)
             }
         }
-        viewModel.gHP = { [self] gHighPrice in
+        viewModel.graphLabel = { [self] gHighPrice,gMiddlePrice,gLowPrice in
             DispatchQueue.main.async {
                 graphHighPrice.text = String(format: "%.2f", gHighPrice)
-            }
-        }
-        viewModel.mDP = { [self] gMiddlePrice in
-            DispatchQueue.main.async {
                 graphMiddlePrice.text = String(format: "%.2f", gMiddlePrice)
-            }
-        }
-        viewModel.lP = { [self] gLowPrice in
-            DispatchQueue.main.async {
                 graphLowPrice.text = String(format: "%.2f", gLowPrice)
             }
         }
-        viewModel.startT = { [self] startTime in
+        viewModel.graphTime = { [self] startTime,middleTime,endTime in
             DispatchQueue.main.async {
                 startDate.text = startTime
-            }
-        }
-        viewModel.middleT = { [self] middleTime in
-            DispatchQueue.main.async {
                 secondDate.text = middleTime
-            }
-        }
-        viewModel.endT = { [self] endTime in
-            DispatchQueue.main.async {
                 endDate.text = endTime
             }
         }
+
         //Company
-        viewModel.companyName = { [self] company in
+        viewModel.companyData = { [self] company, capital in
             DispatchQueue.main.async {
                 name.text = company
-            }
-        }
-        viewModel.market = { [self] capital in
-            DispatchQueue.main.async {
                 marketCap.text = capital
             }
         }
+        //Logo
         viewModel.image = { [self] logotype in
             logo.image = UIImage(data: logotype)
         }
         //Label price
-        viewModel.c = { [self] current in
+        viewModel.quot = { [self] c,o,l,h in
             DispatchQueue.main.async {
-                currentPrice.text = current
-            }
-        }
-        viewModel.o = { [self] open in
-            DispatchQueue.main.async {
-                openPrice.text = open
-            }
-        }
-        viewModel.h = { [self] high in
-            DispatchQueue.main.async {
-                highPrice.text = high
-            }
-        }
-        viewModel.l = { [self] low in
-            DispatchQueue.main.async {
-                lowPrice.text = low
+                currentPrice.text = c
+                openPrice.text = o
+                highPrice.text = h
+                lowPrice.text = l
             }
         }
     }
@@ -156,7 +118,7 @@ class TickDetail: UIViewController, Storyboarded {
         var countTextField = UITextField()
         var priceLoat = UITextField()
         
-        let alert = UIAlertController(title: "Save lot", message: "Here you can save lots that you bought", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Save lot", message: "Here you can add lots that you bought", preferredStyle: .alert)
         
         let uuid = UUID().uuidString
         

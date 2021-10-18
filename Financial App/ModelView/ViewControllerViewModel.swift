@@ -14,11 +14,9 @@ class ViewControllerViewModel {
     
     var list : [List]!
     var favoriteList : [Favorite]!
-    var apiCalling : APICalling!
     var disposeBag : DisposeBag!
-    var request : APIRequest!
-    var quote : Observable<Quote>!
     var context : NSManagedObjectContext!
+    var requestService : RequestService!
     
     var reloadTableView : (() -> Void)?
     
@@ -68,8 +66,8 @@ class ViewControllerViewModel {
         let symbol = fav.symbol!
         let companyName = fav.companyName!
         
-        quote = self.apiCalling.load(apiRequest: request.requestQuote(symbol: symbol))
-        quote.subscribe(onNext: { quote in
+        requestService.requestQuote(symbol: symbol)
+            .subscribe(onNext: { quote in
             fav.currentPrice = String(format: "%.2f", quote.c ?? 0.0)
         }).disposed(by: self.disposeBag)
         

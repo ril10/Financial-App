@@ -33,4 +33,16 @@ extension Int {
     
 }
 
+extension UIApplication {
+    static var token : String? {
+        return Bundle.main.object(forInfoDictionaryKey: "APIKEY_FINANCE") as? String
+    }
+    static var baseUrl : String? {
+        return Bundle.main.object(forInfoDictionaryKey: "BaseURL") as? String
+    }
+    static var basePath : String? {
+        return Bundle.main.object(forInfoDictionaryKey: "basePath") as? String
+    }
+}
+
 

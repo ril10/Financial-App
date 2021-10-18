@@ -25,6 +25,9 @@
 		C367B9A826FC72F60005CDD8 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = C367B9A726FC72F60005CDD8 /* Graph.swift */; };
 		C36A7D4326FA05C400AF91C5 /* TickDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4226FA05C400AF91C5 /* TickDetail.swift */; };
 		C36A7D4926FA24F000AF91C5 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A7D4826FA24F000AF91C5 /* UserAccount.swift */; };
+		C3733FE7271D6698002CBEA0 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3733FE6271D6698002CBEA0 /* RequestService.swift */; };
+		C3733FE9271D7AB1002CBEA0 /* EnumNoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3733FE8271D7AB1002CBEA0 /* EnumNoImage.swift */; };
+		C3733FEB271DA5F1002CBEA0 /* EnumQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3733FEA271DA5F1002CBEA0 /* EnumQuery.swift */; };
 		C39A40CC26F8CE40007BD630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CB26F8CE40007BD630 /* AppDelegate.swift */; };
 		C39A40CE26F8CE40007BD630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CD26F8CE40007BD630 /* SceneDelegate.swift */; };
 		C39A40D026F8CE40007BD630 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CF26F8CE40007BD630 /* ViewController.swift */; };
@@ -92,6 +95,9 @@
 		C367B9A726FC72F60005CDD8 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		C36A7D4226FA05C400AF91C5 /* TickDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TickDetail.swift; sourceTree = "<group>"; };
 		C36A7D4826FA24F000AF91C5 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		C3733FE6271D6698002CBEA0 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
+		C3733FE8271D7AB1002CBEA0 /* EnumNoImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumNoImage.swift; sourceTree = "<group>"; };
+		C3733FEA271DA5F1002CBEA0 /* EnumQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumQuery.swift; sourceTree = "<group>"; };
 		C39A40C826F8CE40007BD630 /* Financial App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Financial App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39A40CB26F8CE40007BD630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C39A40CD26F8CE40007BD630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -325,6 +331,9 @@
 			children = (
 				C361628C270C495900D375A7 /* EnumApi.swift */,
 				C3579ADB27102D9D00B70F33 /* FinhubRxRequests.swift */,
+				C3733FE6271D6698002CBEA0 /* RequestService.swift */,
+				C3733FE8271D7AB1002CBEA0 /* EnumNoImage.swift */,
+				C3733FEA271DA5F1002CBEA0 /* EnumQuery.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -604,6 +613,7 @@
 				CD4BEAA3270E5D2500C99791 /* StockHandleData.swift in Sources */,
 				C3F5E6DE2717111200349979 /* ListCellModel.swift in Sources */,
 				C3F5E6E02717115200349979 /* SectionViewModel.swift in Sources */,
+				C3733FEB271DA5F1002CBEA0 /* EnumQuery.swift in Sources */,
 				C362AC672716E26300DF6180 /* LotsCellModel.swift in Sources */,
 				C3B119A4270477E500CE3873 /* ListCell.swift in Sources */,
 				C39A410126F8D370007BD630 /* Coordinator.swift in Sources */,
@@ -626,11 +636,13 @@
 				C363ED35271847F400C5782B /* SearchControllerViewModel.swift in Sources */,
 				C363ED3B27196EAC00C5782B /* SectionCellModel.swift in Sources */,
 				C363ED3727184CCD00C5782B /* ResultSearchModel.swift in Sources */,
+				C3733FE7271D6698002CBEA0 /* RequestService.swift in Sources */,
 				C39A410326F8D3D1007BD630 /* MainCoordinator.swift in Sources */,
 				C3B119A0270475FC00CE3873 /* ListOfSection.swift in Sources */,
 				C367B9A826FC72F60005CDD8 /* Graph.swift in Sources */,
 				C362AC652716E24000DF6180 /* UserAccountViewModel.swift in Sources */,
 				C36A7D4926FA24F000AF91C5 /* UserAccount.swift in Sources */,
+				C3733FE9271D7AB1002CBEA0 /* EnumNoImage.swift in Sources */,
 				C39A40CE26F8CE40007BD630 /* SceneDelegate.swift in Sources */,
 				C39A410526F8DAFB007BD630 /* Storyboarded.swift in Sources */,
 			);
