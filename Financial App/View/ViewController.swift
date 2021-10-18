@@ -18,7 +18,7 @@ class ViewController: UITableViewController,Storyboarded{
     var viewModel : ViewControllerViewModel!
     
     var time : Int? {
-        Int(Date().timeIntervalSince1970) - 86400
+        Int(Date().timeIntervalSince1970) - 86400 * 3
     }
 
  
@@ -85,8 +85,6 @@ class ViewController: UITableViewController,Storyboarded{
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableViewCell", for: indexPath) as! CustomTableViewCell
 
-
-        
         if viewModel.favoriteViewModel.count > 0 {
             
            let cellVM = viewModel.favoriteViewModel.filter { fav in
@@ -100,8 +98,6 @@ class ViewController: UITableViewController,Storyboarded{
             }
         }
         
-        cell.addShadow(view: cell.customView, backgroundColor: .white, cornerRadius: 13, shadowRadius: 5, shadowOpacity: 0.1, shadowPathInset: (dx: 16, dy: 6), shadowPathOffset: (dx: 0, dy: 2))
-        cell.clipsToBounds = true
         return cell
         
     }

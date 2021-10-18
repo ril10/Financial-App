@@ -33,26 +33,4 @@ extension Int {
     
 }
 
-extension UITableViewCell {
-    func addShadow(view: UIView, backgroundColor: UIColor = .white, cornerRadius: CGFloat = 12, shadowRadius: CGFloat = 5, shadowOpacity: Float = 0.1, shadowPathInset: (dx: CGFloat, dy: CGFloat), shadowPathOffset: (dx: CGFloat, dy: CGFloat)) {
-        view.layer.cornerRadius = cornerRadius
-        view.layer.masksToBounds = true
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-        view.layer.shadowRadius = shadowRadius
-        view.layer.shadowOpacity = shadowOpacity
-        view.layer.shadowPath = UIBezierPath(roundedRect: bounds.insetBy(dx: shadowPathInset.dx, dy: shadowPathInset.dy).offsetBy(dx: shadowPathOffset.dx, dy: shadowPathOffset.dy), byRoundingCorners: .allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
-        view.layer.shouldRasterize = true
-        view.layer.rasterizationScale = UIScreen.main.scale
-        
-        let whiteBackgroundView = UIView()
-        whiteBackgroundView.backgroundColor = backgroundColor
-        whiteBackgroundView.layer.cornerRadius = cornerRadius
-        whiteBackgroundView.layer.masksToBounds = true
-        whiteBackgroundView.clipsToBounds = false
-        
-        whiteBackgroundView.frame = bounds.insetBy(dx: shadowPathInset.dx, dy: shadowPathInset.dy)
-        insertSubview(whiteBackgroundView, at: 0)
-    }
-}
 
