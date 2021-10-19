@@ -10,37 +10,34 @@ import XCTest
 
 class Financial_AppTests: XCTestCase {
 
-    var sut : Date!
+    
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = Date()
+        
     }
 
     override func tearDownWithError() throws {
-        sut = nil
+        
         try super.tearDownWithError()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testGraphLabelDate() throws {
+        //given
+        let str = 1634569414
+        //when
+        let test = str.graphLabelDate()
+        //then
+        XCTAssertEqual("10-18 18:03", test)
     }
     
     func testDateFormatter() throws {
         //given
-        let receivedDateTimeInterval = Date().timeIntervalSince1970
-
+        let dateTime = Date().dateFormatter()
         //when
-        
+        let test = Date().dateFormatter()
         //then
-        
+        XCTAssertEqual(dateTime, test )
     }
+    
 
 }

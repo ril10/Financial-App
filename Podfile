@@ -13,6 +13,8 @@ target 'Financial App' do
 
   target 'Financial AppTests' do
     inherit! :search_paths
+	pod 'RxBlocking'
+    	pod 'RxTest'
     # Pods for testing
   end
 
