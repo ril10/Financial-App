@@ -31,6 +31,10 @@ class ViewControllerTestUI: XCTestCase {
         
     }
     
+    func testCoordinateView() throws {
+        
+    }
+    
     func testUserAccount() throws {
         
         let tablesQuery = XCUIApplication().tables

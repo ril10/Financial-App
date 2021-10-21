@@ -11,16 +11,16 @@ import CoreData
 class TestCoreData: XCTestCase {
 
 
-    var sut : ViewControllerViewModel!
+    
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = ViewControllerViewModel()
+
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDownWithError() throws {
         try super.tearDownWithError()
-        sut = nil
+
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
