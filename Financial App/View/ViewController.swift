@@ -18,7 +18,7 @@ class ViewController: UITableViewController,Storyboarded{
     var viewModel : ViewControllerViewModel!
     
     var time : Int? {
-        Int(Date().timeIntervalSince1970) - 86400 * 3
+        Int(Date().timeIntervalSince1970) - 86400
     }
 
  

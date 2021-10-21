@@ -30,6 +30,7 @@
 		C3734019271EBA6B002CBEA0 /* TestViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3734018271EBA6B002CBEA0 /* TestViewControllerViewModel.swift */; };
 		C373401B271ED2EB002CBEA0 /* TestApiCalling.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373401A271ED2EB002CBEA0 /* TestApiCalling.swift */; };
 		C373401D271EFE01002CBEA0 /* ViewControllerTestUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C373401C271EFE01002CBEA0 /* ViewControllerTestUI.swift */; };
+		C37552D52721588F00C415CB /* TestViewControllerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37552D42721588F00C415CB /* TestViewControllerTableView.swift */; };
 		C39A40CC26F8CE40007BD630 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CB26F8CE40007BD630 /* AppDelegate.swift */; };
 		C39A40CE26F8CE40007BD630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CD26F8CE40007BD630 /* SceneDelegate.swift */; };
 		C39A40D026F8CE40007BD630 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A40CF26F8CE40007BD630 /* ViewController.swift */; };
@@ -103,6 +104,7 @@
 		C3734018271EBA6B002CBEA0 /* TestViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerViewModel.swift; sourceTree = "<group>"; };
 		C373401A271ED2EB002CBEA0 /* TestApiCalling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestApiCalling.swift; sourceTree = "<group>"; };
 		C373401C271EFE01002CBEA0 /* ViewControllerTestUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerTestUI.swift; sourceTree = "<group>"; };
+		C37552D42721588F00C415CB /* TestViewControllerTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewControllerTableView.swift; sourceTree = "<group>"; };
 		C39A40C826F8CE40007BD630 /* Financial App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Financial App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39A40CB26F8CE40007BD630 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C39A40CD26F8CE40007BD630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 		C39A40E126F8CE42007BD630 /* Financial AppTests */ = {
 			isa = PBXGroup;
 			children = (
+				C37552D42721588F00C415CB /* TestViewControllerTableView.swift */,
 				C373401A271ED2EB002CBEA0 /* TestApiCalling.swift */,
 				C3734018271EBA6B002CBEA0 /* TestViewControllerViewModel.swift */,
 				C39A40E226F8CE42007BD630 /* Financial_AppTests.swift */,
@@ -681,6 +684,7 @@
 			files = (
 				C373401B271ED2EB002CBEA0 /* TestApiCalling.swift in Sources */,
 				C39A40E326F8CE42007BD630 /* Financial_AppTests.swift in Sources */,
+				C37552D52721588F00C415CB /* TestViewControllerTableView.swift in Sources */,
 				C3734019271EBA6B002CBEA0 /* TestViewControllerViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
