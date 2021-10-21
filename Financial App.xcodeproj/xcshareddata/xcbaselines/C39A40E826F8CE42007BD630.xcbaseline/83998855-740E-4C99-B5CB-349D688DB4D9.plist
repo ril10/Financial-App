@@ -11,9 +11,11 @@
 				<key>com.apple.dt.XCTMetric_ApplicationLaunch-AppLaunch.duration</key>
 				<dict>
 					<key>baselineAverage</key>
-					<real>3.5743</real>
+					<real>3.57</real>
 					<key>baselineIntegrationDisplayName</key>
 					<string>Local Baseline</string>
+					<key>maxPercentRelativeStandardDeviation</key>
+					<real>13</real>
 				</dict>
 			</dict>
 		</dict>

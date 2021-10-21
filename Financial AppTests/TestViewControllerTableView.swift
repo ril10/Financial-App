@@ -14,7 +14,8 @@ class TestViewControllerTableView: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         sut = ViewController()
-        self.sut.loadView()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.sut = storyboard.instantiateViewController(withIdentifier: "ViewController") as? ViewController
         self.sut.viewDidLoad()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -44,27 +45,17 @@ class TestViewControllerTableView: XCTestCase {
     func testTableViewConformsToTableViewDataSourceProtocol() throws {
         XCTAssertTrue(sut.conforms(to: UITableViewDataSource.self))
         XCTAssertTrue(sut.responds(to: #selector(sut.numberOfSections(in:))))
-        XCTAssertTrue(sut.responds(to: #selector(sut.tableView.numberOfRows(inSection:))))
+        XCTAssertTrue(sut.responds(to: #selector(sut.tableView(_:numberOfRowsInSection:))))
         XCTAssertTrue(sut.responds(to: #selector(sut.tableView(_:cellForRowAt:))))
     }
     
-    func testTableViewCellHasReuseIdentifier() {
+    func testTableViewCellHasReuseIdentifier() throws {
         let cell = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 0, section: 0)) as? CustomTableViewCell
         let actualReuseId = cell?.reuseIdentifier
         let exceptedReuseId = "CustomTableViewCell"
         XCTAssertEqual(actualReuseId, exceptedReuseId)
     }
-    
-    func testTableViewCellHasCorrectLabelText() {
-        let cell0 = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 0, section: 0 )) as? CustomTableViewCell
-        XCTAssertEqual(cell0?.textLabel?.text, "one")
-        
-        let cell1 = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 1, section: 0 )) as? CustomTableViewCell
-        XCTAssertEqual(cell1?.textLabel?.text, "two")
-        
-        let cell2 = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 2, section: 1 )) as? CustomTableViewCell
-        XCTAssertEqual(cell2?.textLabel?.text, "three")
-    }
+
     
     
     
