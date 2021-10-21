@@ -32,5 +32,7 @@ class TestViewControllerViewModel: XCTestCase {
         XCTAssertEqual(favorite, [Favorite]())
     }
     
+    
+    
 
 }

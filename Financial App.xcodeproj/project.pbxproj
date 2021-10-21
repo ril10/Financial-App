@@ -43,6 +43,8 @@
 		C39A410326F8D3D1007BD630 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A410226F8D3D1007BD630 /* MainCoordinator.swift */; };
 		C39A410526F8DAFB007BD630 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A410426F8DAFB007BD630 /* Storyboarded.swift */; };
 		C39A410726F8DE96007BD630 /* FinhubData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39A410626F8DE96007BD630 /* FinhubData.swift */; };
+		C3AA0C0D2721855D0026AFE7 /* TestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AA0C0C2721855D0026AFE7 /* TestCoreData.swift */; };
+		C3AA0C11272194330026AFE7 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3AA0C10272194330026AFE7 /* TestCoreDataStack.swift */; };
 		C3B119A0270475FC00CE3873 /* ListOfSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B1199F270475FC00CE3873 /* ListOfSection.swift */; };
 		C3B119A22704766100CE3873 /* ListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3B119A12704766100CE3873 /* ListCell.xib */; };
 		C3B119A4270477E500CE3873 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B119A3270477E500CE3873 /* ListCell.swift */; };
@@ -123,6 +125,8 @@
 		C39A410226F8D3D1007BD630 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		C39A410426F8DAFB007BD630 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		C39A410626F8DE96007BD630 /* FinhubData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinhubData.swift; sourceTree = "<group>"; };
+		C3AA0C0C2721855D0026AFE7 /* TestCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreData.swift; sourceTree = "<group>"; };
+		C3AA0C10272194330026AFE7 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		C3B1199F270475FC00CE3873 /* ListOfSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfSection.swift; sourceTree = "<group>"; };
 		C3B119A12704766100CE3873 /* ListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCell.xib; sourceTree = "<group>"; };
 		C3B119A3270477E500CE3873 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -240,11 +244,13 @@
 		C39A40E126F8CE42007BD630 /* Financial AppTests */ = {
 			isa = PBXGroup;
 			children = (
+				C3AA0C0C2721855D0026AFE7 /* TestCoreData.swift */,
 				C37552D42721588F00C415CB /* TestViewControllerTableView.swift */,
 				C373401A271ED2EB002CBEA0 /* TestApiCalling.swift */,
 				C3734018271EBA6B002CBEA0 /* TestViewControllerViewModel.swift */,
 				C39A40E226F8CE42007BD630 /* Financial_AppTests.swift */,
 				C39A40E426F8CE42007BD630 /* Info.plist */,
+				C3AA0C10272194330026AFE7 /* TestCoreDataStack.swift */,
 			);
 			path = "Financial AppTests";
 			sourceTree = "<group>";
@@ -683,9 +689,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C373401B271ED2EB002CBEA0 /* TestApiCalling.swift in Sources */,
+				C3AA0C0D2721855D0026AFE7 /* TestCoreData.swift in Sources */,
 				C39A40E326F8CE42007BD630 /* Financial_AppTests.swift in Sources */,
 				C37552D52721588F00C415CB /* TestViewControllerTableView.swift in Sources */,
 				C3734019271EBA6B002CBEA0 /* TestViewControllerViewModel.swift in Sources */,
+				C3AA0C11272194330026AFE7 /* TestCoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

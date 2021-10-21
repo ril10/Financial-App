@@ -131,7 +131,7 @@ class ViewController: UITableViewController,Storyboarded{
         nav?.tintColor = .darkGray
         
         self.navigationItem.setLeftBarButton(UIBarButtonItem(image: UIImage(systemName: "person.fill"), style: .plain, target: self, action: #selector(ViewController.userAccount(_:))), animated: true)
-        self.navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createList(_:))), animated: true)
+        self.navigationItem.setRightBarButton(UIBarButtonItem(image: UIImage(systemName: "plus.square.on.square"), style: .plain, target: self, action: #selector(createList(_:))), animated: true)
 
     }
     
